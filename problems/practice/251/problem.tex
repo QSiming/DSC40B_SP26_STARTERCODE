@@ -1,0 +1,34 @@
+%% tags: [breadth first search]
+%% source: problems
+\begin{prob}
+    The code below is a modified version of BFS shown in class. This
+    modification has a single addition: a \mintinline{python}{print} statement. A comment
+    in the code indicates where the \mintinline{python}{print} statement is located.
+
+    \begin{minted}[autogobble]{python}
+        def bfs(graph, source):
+            """Start a BFS at `source`."""
+            status = {node: 'undiscovered' for node in graph.nodes}
+            status[source] = 'pending'
+            pending = deque([source])
+
+            while pending: 
+                u = pending.popleft()
+                for v in graph.neighbors(u):
+                    print("here!") # <--- this is the print statement
+                    if status[v] == 'undiscovered':
+                        status[v] = 'pending'
+                        pending.append(v)
+                status[u] = 'visited'
+    \end{minted}
+
+    Suppose this modified BFS is run on the following graph, starting at node
+    $a$.
+
+    \includegraphics[width=.2\textwidth]{graph.png}
+
+    How many times will \mintinline{python}{"here!"} be printed? Your answer should be an exact number.
+
+    \inlineresponsebox[.75in]{10}
+
+\end{prob}

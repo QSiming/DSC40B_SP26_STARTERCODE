@@ -1,0 +1,60 @@
+\begin{progprob}
+    Suppose you are trying to remove outliers from a data set consisting of
+    points in $\mathbb R^d$. One of the simplest approaches is to remove points
+    that are in ``sparse'' regions -- that is, points that don't have many
+    other points close by. To do this, we might calculate the distance from a
+    point to it's $k$th closest neighbor. If this distance is above some
+    threshold, we consider the point an outlier.
+
+    More generally, the task of finding the distance from a query point to its
+    $k$th closest ``neighbor'' is a common one in data science and machine
+    learning.
+    Here, we'll consider the 1-dimensional version of the problem of
+    finding $k$th neighbor distance. In a file named \python{knn_distance.py},
+    write a function named \python{knn_distance(arr, q, k)} that returns a
+    pair of two things:
+
+    \begin{itemize}
+        \item the distance between \python{q} and the $k$th closest point to \python{q}
+            in \python{arr};
+        \item the $k$th closest point to \python{q} in \python{arr} itself
+    \end{itemize}
+
+    The query point \python{q} does not need to be in
+    \python{arr}. For simplicity, \python{arr} will be a Python list of numbers,
+    and \python{q} will be a number. \python{k} should start counting at one,
+    so that \python{knn_distance(arr, q, 1)} returns the distance between
+    \python{q} and the point in \python{arr} closest to \python{q}. Your
+    approach should have an expected time of $\Theta(n)$, where $n$ is the
+    size of the input list. Your function may modify \python{arr}. In cases
+    of a tie, the point you return is arbitrary (though the distance is not).
+    Your code can assume that $k$ will be $\leq \python{len(arr)}$.
+
+    Example:
+    \begin{minted}[autogobble]{python}
+        >>> knn_distance([3, 10, 52, 15], 19, 1)
+        (4, 15)
+        >>> knn_distance([3, 10, 52, 15,], 19, 2)
+        (9, 10)
+        >>> knn_distance([3, 10, 52, 15], 19, 3)
+        (16, 3)
+    \end{minted}
+
+    As this is a programming problem, submit your code to the Gradescope
+    autograder.
+
+    \begin{soln}
+        The idea is to compute the distance from \python{q} to all of the points
+        in \python{arr} in $\Theta(n)$ time, then use quickselect to find the
+        $k$th order statistic in $\Theta(n)$ expected time. The tricky part is
+        recovering the $k$th point from the $k$th distance. You could loop back
+        through the distances searching for the index at which the $k$th
+        distance occurs, then use this to index into \python{arr}; essentially,
+        a linear search. This would still be linear time, but there's an
+        approach that you might consider a little cleaner: instead of doing
+        quickselect on the distances alone, run quickselect on tuples of
+        distance/point pairs. This solution is shown below:
+
+        \inputminted{python}{\thisdir/include-solution/knn_distance.py}
+    \end{soln}
+\end{progprob}

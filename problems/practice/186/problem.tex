@@ -1,0 +1,28 @@
+%% tags: [time complexity]
+%% source: 2023-fa-midterm_01
+\begin{prob}
+    Suppose \mintinline{python}{bar} and \mintinline{python}{baz} are two functions.
+    Suppose \mintinline{python}{bar}'s time complexity is $\Theta(n^3)$, while \mintinline{python}{baz}'s
+    time complexity is $\Theta(n^2)$.
+
+    Suppose \mintinline{python}{boo} is defined as below:
+
+    \begin{minted}[autogobble]{python}
+        def boo(n):
+            if n < 1000:
+                bar(n)
+            else:
+                baz(n)
+    \end{minted}
+
+    What is the asymptotic time complexity of \mintinline{python}{boo}?
+
+    \inlineresponsebox{$\Theta(n^2)$}
+
+    \begin{soln}
+        Asymptotic time complexity concerns the time taken when $n$ is large.
+        Therefore, it doesn't matter what happens when $n < 1000$.
+        When $n \geq 1000$, the time taken is $\Theta(n^2)$, since that is the
+        time taken by \mintinline{python}{baz}.
+    \end{soln}
+\end{prob}

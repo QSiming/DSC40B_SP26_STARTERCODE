@@ -1,0 +1,35 @@
+\begin{progprob}
+    Commercial flights must balance the weight of passengers between the two
+    sides of the plane in order to ensure a safe takeoff. Suppose you are piloting a
+    full flight and must choose a passenger from the left and a passenger from
+    the right to switch places so that the total weight of the passengers on
+    the left side is as close as possible to the total weight of the passengers
+    on the right.
+
+    In a file named \python{balance.py}, design an algorithm named \python{balance(left, right)}
+    which takes in two \emph{sorted} arrays, \python{left} and \python{right}, containing the weights
+    of the passengers on the left side of the plane and the right side of the plane, respectively.
+    Your function should return a pair \python{(left_ix, right_ix)} containing
+    the index of the person on  the left and the index of the person on the
+    right who should be swapped to bring the weights to as close as balanced as
+    possible. If the left and right sides are already balanced, return
+    \python{None}. If there are multiple optimal solutions (that is, multiple
+    ways of swapping passengers that result in the same optimal balance),
+    return just one of them.
+
+    For example, suppose \python{left = [4, 8, 12]} and \python{right = [6, 15]}.
+    When \python{balance(left, right)} is called, your function should return
+    \python{(1, 0)} because the passenger with weight 8 on the left should swap
+    with the passenger with weight 6 on the right. This would result in the
+    left side having a total weight of 4 + 6 + 12 = 24 and the right side
+    having a total weight of 8 + 15 = 23, which is as close as possible.
+
+    To receive full credit, your algorithm must be optimal in the sense that its worst
+    case time complexity is as good as theoretically possible.
+
+    \begin{soln}
+
+        \inputminted{python}{\thisdir/include-solution/balance.py}
+
+    \end{soln}
+\end{progprob}

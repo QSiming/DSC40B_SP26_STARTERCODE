@@ -1,0 +1,133 @@
+\begin{prob}
+    If you don't like \python{for}-loops, you're in luck: any iterative algorithm
+    can be converted to a recursive algorithm.
+    For instance, consider the following recursive version of a function which
+    finds the minimum of an array:
+    \inputminted[firstline=1, lastline=16]{python}{\thisdir/include/recursive_selection_sort.py}
+
+    \begin{subprobset}
+        \begin{subprob}
+            In the above algorithm, let $n = \python{len(arr)} -
+            \python{start_ix}$; that is, $n$ is the size of the sub-array which is
+            searched.  Let $S(n)$ be the time taken by \python{find_minimum} when run on
+            an input of size $n$.  Write a recurrence for relation
+            for $S(n)$. The right hand side should contain $S$ along with something
+            else (express the ``something else'' in $\Theta$-notation).
+
+            \begin{soln}
+                The base case of the algorithm is when \python{start_ix == len(arr) - 1};
+                that is, when $n = 1$. It takes constant time on the base case.
+                When $n \geq 2$,
+                the recursive call operates on an array of size $n - 1$, and
+                hence takes time $S(n-1)$. Everything else takes constant time.
+                Therefore: 
+                \[
+                    S(n) = 
+                    \begin{cases}
+                        \Theta(1),& n = 1\\
+                        S(n-1) + \Theta(1),& n \geq 2
+                    \end{cases}
+                \]
+            \end{soln}
+            
+        \end{subprob}
+
+        \begin{subprob}
+            When solving a recurrence relation we can typically get away
+            with replacing $\Theta(f(n))$ by $f(n)$ as long as we express our
+            final answer asymptotically. In part a), you should have a $\Theta(1)$ in your recurrence. Replace
+            this $\Theta(1)$ with $1$ and solve the resulting recurrence relation.
+            Your final answer should be in $\Theta$-notation.
+
+            \begin{soln}
+                We wish to solve the recurrence:
+                \[
+                    S(n) = 
+                    \begin{cases}
+                        1,& n = 1\\
+                        S(n-1) + 1,& n \geq 2
+                    \end{cases}
+                \]
+                Unrolling once, we will find $S(n) = S(n-2) + 2$. Unrolling
+                another time, we will find $S(n) = S(n-3) + 3$. In general,
+                we have $S(n) = S(n-k) + k$. We unroll until we reach the base
+                case, which happens when $n - k = 1$; i.e., when $k = n - 1$.
+                Substituting this into the general recurrence formula:
+                \[
+                    S(n) = S(n-(n - 1)) + (n-1) = S(1) + n - 1 = n
+                \]
+                Hence $S(n) = \Theta(n)$.
+
+                Note that this recursive algorithm has the same time complexity
+                as the iterative algorithm.
+            \end{soln}
+        \end{subprob}
+    \end{subprobset}
+
+    Now consider the recursive version of selection sort shown below; it
+    uses the \python{find_minimum} function defined above:
+    \inputminted[firstline=19, lastline=25]{python}{\thisdir/include/recursive_selection_sort.py}
+
+    \begin{subprobset}
+        \begin{subprob}
+            Let $n$ be the time $T(n)$ it takes for \python{selection_sort} to run
+            on an input of size $n$, where $n = \python{len(arr)} - \python{start_ix}$.
+            Write a recurrence relation for $T(n)$,
+            using $S(\ldots)$ to denote the time taken by the call to \python{find_minimum},
+            where ``$\ldots$'' is replaced by the size of the array searched.
+
+            \begin{soln}
+                The base case is again when $n = 1$. Here, the algorithm takes
+                $\Theta(1)$ time. When $n \geq 2$, the algorithm makes a call to
+                \python{find_minimum} on an input of size $n$, taking time $S(n)$.
+                The algorithm then spends $\Theta(1)$ time performing the swap,
+                and then makes a recursive call on an array of size $n - 1$.
+                This recursive call takes time $T(n-1)$. Hence:
+                \[
+                    T(n)
+                    =
+                    \begin{cases}
+                        \Theta(1),& n = 1\\
+                        T(n-1) + S(n) + \Theta(1),& n \geq 2
+                    \end{cases}
+                \]
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            Now replace $S(\ldots)$ in the above recurrence with the asymptotic
+            bound you found in part b). Simplify such that your recurrence relation
+            involves only $T$ and one term in $\Theta$-notation. Replace
+            the $\Theta(g(n))$ with $g(n)$ and solve the recurrence. How
+            does this compare to the time complexity of the iterative selection
+            sort?
+
+            \begin{soln}
+                Replacing $S(n)$ with $\Theta(n)$ as found above, 
+                we get:
+                \[
+                    T(n)
+                    =
+                    \begin{cases}
+                        1,& n = 1\\
+                        T(n-1) + \Theta(n) + \Theta(1),& n \geq 2
+                    \end{cases}
+                \]
+                Since $\Theta(n) + \Theta(1) = \Theta(n)$, and since we can
+                replace $\Theta(n)$ with just $n$, we find:
+                \[
+                    T(n)
+                    =
+                    \begin{cases}
+                        1,& n = 1\\
+                        T(n-1)  + n,& n \geq 2
+                    \end{cases}
+                \]
+                This is the same recurrence
+                as above, whose solution was $\Theta(n^2)$.
+
+                Therefore, $T(n) = \Theta(n^2)$.
+            \end{soln}
+        \end{subprob}
+    \end{subprobset}
+\end{prob}

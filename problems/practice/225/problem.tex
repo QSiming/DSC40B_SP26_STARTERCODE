@@ -1,0 +1,21 @@
+%% tags: [graph theory]
+%% source: 2023-fa-midterm_02
+\begin{prob}
+
+    Let $G = (V, E)$ be a directed graph with the property that there is a node $u$ in $G$
+    such that every other node in $G$ is reachable from $u$.
+
+    Let $H $ be the directed graph obtained from $G$ by reversing the direction
+    of every edge. True or False: there must be a node $v$ in $H$ such that
+    every other node in $H$ is reachable from $v$.
+
+    \tF{}
+
+
+    \begin{soln}
+        False. Consider the graph $a \leftarrow b \rightarrow c$. Every node is reachable from $b$.
+        Now flip the edges to get the graph: $a \rightarrow b \leftarrow c$. There's no
+        node from which every other node is reachable.
+    \end{soln}
+
+\end{prob}

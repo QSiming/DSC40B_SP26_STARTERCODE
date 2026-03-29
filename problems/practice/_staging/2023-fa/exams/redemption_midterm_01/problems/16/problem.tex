@@ -1,0 +1,24 @@
+\Needspace{4.5in}
+\begin{prob}
+    Consider this code which partitions a list in a special way:
+
+    \inputminted[lastline=15]{python}{\thisdir/code.py}
+
+    Which of the following loop invariants are true for this code? Select all
+    that apply.
+
+    Note: any statement about an empty set or list is considered to be automatically true.
+
+    \begin{choices}[rectangle]
+        \correctchoice After each iteration of the \python{for} loop, all numbers in
+            \python{numbers[:barrier_ix]} are even.
+        \choice After each iteration of the \python{for} loop, all numbers in
+            \python{numbers[barrier_ix:]} are odd.
+        \correctchoice After each iteration of the \python{for} loop,
+            \python{numbers[0]} is greater than or equal to all numbers in
+            \python{numbers[:barrier_ix]}.
+        \choice After each iteration of the \python{for} loop,
+            \python{numbers[0]} is the maximum of \python{numbers[:i+1]}.
+    \end{choices}
+
+\end{prob}

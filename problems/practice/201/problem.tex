@@ -1,0 +1,36 @@
+%% tags: [recurrence relations]
+%% source: 2023-fa-redemption_midterm_01
+\begin{prob}
+    Solve the below recurrence, stating the solution in asymptotic notation. You do not
+    need to show your work (and your work won't be graded for partial credit, so be
+    careful!).
+    \[
+        T(n) =
+        \begin{cases}
+            T(n/3) + \Theta(n) & n > 1 \\
+            \Theta(1) & n = 1
+        \end{cases}
+    \]
+
+    \inlineresponsebox[.75in]{$\Theta(n)$}
+
+    \begin{soln}
+        $\Theta(n)$.
+
+        Unrolling several times, we find:
+
+        \includegraphics[width=.1\textwidth]{plot1.png}
+
+        On the $k$th unroll, we'll get:
+        \[
+            T(n) = T(n/3^k) + \left[
+                n + \frac{n}{3} + \frac{n}{9} + \ldots + \frac{n}{3^{k-1}}
+            \right]
+        \]
+
+        It will take $\log_3 n$ unrolls to each the base case. Substituting this for
+        $k$, we get:
+        \includegraphics[width=.1\textwidth]{plot2.png}
+
+    \end{soln}
+\end{prob}

@@ -1,0 +1,35 @@
+\Needspace{5in}
+\begin{prob}
+    Below is the \python{merge} function from the \python{mergesort} algorithm,
+    with an added \python{print} statement:
+
+    \begin{minted}[autogobble]{python}
+        def merge(left, right, out):
+            """Merge sorted arrays, store in out."""
+            print(len(left))
+            print(len(right))
+            left.append(float('inf'))
+            right.append(float('inf'))
+            left_ix = 0
+            right_ix = 0
+
+            for ix in range(len(out)):
+                if left[left_ix] < right[right_ix]:
+                    out[ix] = left[left_ix]
+                    left_ix += 1
+                else:
+                    out[ix] = right[right_ix]
+                    right_ix += 1
+    \end{minted}
+
+    Suppose this version of \python{merge} is used in \python{mergesort}, and 
+    \python{mergesort} is called on the following list:
+
+    \begin{center} 
+        \python{[6, 2, 7, 1, 9, 3, 8, 5]}
+    \end{center}
+
+    If all of the numbers that are printed are added up, what will the sum be?
+
+    \inlineresponsebox[.75in]{24}
+\end{prob}

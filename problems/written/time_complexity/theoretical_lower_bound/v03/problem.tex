@@ -1,0 +1,77 @@
+\begin{prob}
+    Provide a tight theoretical lower bound for the problems given below. Provide justification for your answer.
+
+    \begin{subprobset}
+
+        \begin{subprob}
+            Given a list of size $n$ containing \python{True}s and \python{False}s, determine whether \python{True} or
+            \python{False} is more common (or if there is a tie).
+
+            \begin{soln}
+                $\Omega(n)$.
+
+                In the worst case, we need to read the whole list, as the ``winner'' will be determined by the very last entry.
+
+                Theoretical lower bound concerns the worst case, but note that even the best case will require us to read at least
+                half of the entries here. For example, if $n = 100$ and the first 51 entries are \python{True}, we can conclude that
+                \python{True} is the winner after reading those 51. But if even one of them is \python{False}, it may be that
+                \python{False} is the winner if it makes up all of the remaining entries.
+            \end{soln}
+
+        \end{subprob}
+
+        \begin{subprob}
+            Given a list of $n$ numbers, all assumed to be integers between 1 and 100, sort them.
+
+            \begin{soln}
+                $\Omega(n)$.
+
+                At the minimum, we have to read all of the numbers, which takes $\Theta(n)$ time.
+
+                You may have heard that ``sorting takes $\Theta(n \log n)$ time'', but we have to be careful. First,
+                this applies only to \emph{comparison sorts}, where we sort by comparing elements of the input to one another.
+                If we don't have any assumptions on the numbers, we have to do a comparison sort. But since we've assumed that
+                they are between 0 and 100, we can actually sort them without ever comparing any two numbers. Here's the algorithm:
+
+                \begin{enumerate}
+                    \item Initialize a list, \python{counts}, with 100 entries, all zero to start.
+                    \item Loop through the input list. For each number, $x$, increment $\python{counts[x]}$ by one. For example, if we see
+                        7, increment \python{counts[7]} by one. In short, this loop counts how many times we see each number.
+                    \item Finally, loop through the range $0, 1, \ldots, 100$, and print the number $x$ a number of times equal to \python{counts[x]}.
+                        That is, if \python{counts[7]} is 3, print 3 sevens.
+                \end{enumerate}
+
+                Because we're looping through the input list once, and it has $n$ elements, we've sorted the list in $\Theta(n)$ time.
+             \end{soln}
+
+        \end{subprob}
+
+        \begin{subprob}
+            Given an $\sqrt{n} \times n$ array whose rows are sorted (but whose columns may not be), find the largest overall entry in the array.
+
+            For example, the array could look like:
+
+            \[
+            \begin{pmatrix}
+                -2 & 4 & 7 & 8 & 10 & 12 & 20 & 21 & 50\\
+                -30 & -20 & -10 & 0 & 1 & 2 & 3 & 21 & 23\\
+                -10 & -2 & 0 & 2 & 4 & 6 & 30 & 31 & 35
+            \end{pmatrix}
+            \]
+
+            This is an $\sqrt n \times n$ array, with $n = 9$ (there are 3 rows and 9 columns). Each row is sorted, but the columns aren't.
+
+            \begin{soln}
+                $\Omega(\sqrt n)$
+
+                The largest element of the array has to be in the last column, so we simply look through all of the entries in that column.
+                There are $\sqrt n$ such entries, so we take $\Theta(\sqrt n)$ time.
+
+                Note that we don't have to read all of the entries of the array -- we can actually ignore almost all of them.
+            \end{soln}
+
+        \end{subprob}
+
+    \end{subprobset}
+
+\end{prob}

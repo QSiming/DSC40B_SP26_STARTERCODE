@@ -1,0 +1,37 @@
+\begin{prob}
+
+    The table below shows the number of nodes in a graph $G$ which are distance 0
+    from node $s$, distance 1 from node $s$, distance 2, etc.:
+
+    \begin{center} 
+        \begin{tabular}{c|cccccc}\toprule
+            Distance from $s$ & 0 & 1 & 2 & 3 & 4 & 5 \\ \midrule
+            Number of nodes   & 1 & 7 & 3 & 6 & 3 & 1 \\ \bottomrule
+        \end{tabular}
+    \end{center}
+
+    Suppose a BFS is performed on this graph with node $s$ as the starting node.
+    What is the largest number of nodes that could possibly be in the queue at any one time?
+
+    \inlineresponsebox[.75in]{9}
+
+    \begin{soln}
+        Remember that the queue can only simultaneously contain nodes at two different
+        distances (it can't contain nodes at distance 1, distance 2, and distance 3
+        at the same time, but it can contain nodes at distance 1 and distance 2 at the
+        same time).
+
+        The largest number of nodes that could possibly be in the queue at any one time
+        is when we have (almost) all of the nodes from the first distance, and all
+        of the nodes from the second distance.
+
+        In this graph, let $u$ be a neighbor of the source, and suppose it has
+        an edge with all nodes that are distance 2 from the source. If $u$ is
+        the first node popped from the queue (after the source), then once its
+        neighbors are added to the queue, the queue will contain all of the
+        nodes at distance 1 except for $u$ (for 6 nodes in total), and all of
+        the nodes at distance 2 (for 3 nodes in total). This gives us a total
+        of 9 nodes in the queue.
+    \end{soln}
+
+\end{prob}

@@ -1,0 +1,39 @@
+%% tags: [binary search]
+%% source: 2023-fa-midterm_01
+\begin{prob}
+    Consider the version of binary search shown below. This is the same as
+    the code given in lecture, except that a single \mintinline{python}{print} statement
+    has been added. This \mintinline{python}{print} statement prints the value of
+    \mintinline{python}{stop} at the beginning of each call to \mintinline{python}{binary_search}.
+
+    \begin{minted}[autogobble]{python}
+        import math
+        def binary_search(arr, t, start, stop):
+            """
+            Searches arr[start:stop] for t.
+            Assumes arr is sorted.
+            """
+            print(stop) # <-- added print statement
+            if stop - start <= 0:
+                return None
+            middle = math.floor((start + stop)/2)
+            if arr[middle] == t:
+                return middle
+            elif arr[middle] > t:
+                return binary_search(arr, t, start, middle)
+            else:
+                return binary_search(arr, t, middle+1, stop)
+    \end{minted}
+
+    Suppose \mintinline{python}{binary_search} is called on a \textbf{sorted} list with
+    \mintinline{python}{start = 0} and \mintinline{python}{stop = len(n)}. True or False: the numbers
+    printed must be a non-increasing sequence. That is, if $x$ is printed
+    before $y$, then it must be the case that $x \geq y$.
+
+    \Tf{}
+    
+    \begin{soln}
+        True
+    \end{soln}
+
+\end{prob}

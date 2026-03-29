@@ -1,0 +1,28 @@
+\begin{prob}
+    Suppose a binary search tree has been augmented so that each node contains an
+    additional attribute called \python{size} which contains the number of nodes
+    in the subtree rooted at that node. Complete the following code
+    so that it computes the value of the $k$th smallest key in the subtree
+    rooted at \python{node}, where $k = 1$ is the minimum.
+
+    \inputminted{python}{\thisdir/include/order_statistic.py}
+
+    \begin{soln}
+        If \python{order > k}, we should check the subtree of the left child. We
+        are looking for the $k$th smallest thing among the nodes in the left subtree,
+        so our recursive call is \python{order_statistic(node.left, k)}.
+
+        On the other hand,
+        if \python{order < k}, we should check the subtree of the right child, but we
+        have to ``update'' the value of $k$. We do not want the $k$th smallest thing
+        in the right subtree; rather, we want the \python{k - order} smallest thing (or,
+        equivalently, \python{k - left_size - 1}).
+
+        To see this, consider a simple example. Suppose we want the $k = 7$ smallest
+        key in the tree and that \python{node.left.size} is 4. This makes the key
+        of the current node the fifth smallest in the tree. All keys in the right subtree
+        are larger, so we want the second smallest among them.
+
+        The recursive call in this case is therefore \python{order_statistic(node.right, k - order)}.
+    \end{soln}
+\end{prob}

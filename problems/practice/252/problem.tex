@@ -1,0 +1,17 @@
+%% tags: [start and finish times]
+%% source: problems
+\begin{prob}
+
+    Let $G$ be an undirected graph, and let $u$ and $v$ be two nodes in the graph, with $v$ reachable from
+    $u$.
+
+    Suppose that at the moment \mintinline{python}{dfs(u)} is called, $v$ is still
+    undiscovered. True or False: the eventual start time of $v$ must be less
+    than the finish time of $u$.
+
+    \tF{}
+
+    \begin{soln}
+        False
+    \end{soln}
+\end{prob}

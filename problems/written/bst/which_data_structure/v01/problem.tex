@@ -1,0 +1,25 @@
+\begin{prob}[\eligible]
+    Suppose you need to keep track of a large dynamic collection of numbers.
+    The three most common operations you will be performing are insertions, deletions,
+    and queries for the maximum element in the collection. You may assume that the number
+    of maximum queries you will be making is close to the number of insertions/deletions.
+    You will also be performing membership queries.
+
+    Which data structure would you use:
+    a (balanced) binary search tree, or a hash table?  Justify your answer by
+    comparing the time complexity of max queries, membership queries, and
+    insertions/deletions between the two options.  You may assume that the expected
+    time complexity is most important for your application. Your solution should use 
+    a reasonable amount of memory and that it should work for negative numbers and decimals.
+
+    \begin{soln}
+        We should use a balanced binary search tree.
+
+        While the balanced binary search tree is marginally slower for insertions,
+        deletions, and membership queries ($\Theta(\log n)$ vs. $\Theta(1)$ expected time), it is
+        \emph{much} faster for maximum queries ($\Theta(\log n)$ vs $\Theta(n)$). 
+        Since the number of maximum queries is comparable to the number of insertions/deletions,
+        the binary search tree will be faster in aggregate.
+    \end{soln}
+
+\end{prob}

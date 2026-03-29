@@ -1,0 +1,64 @@
+\begin{prob}
+    In each of the problems below state the best case and worst case time
+    complexities of the given piece of code using asymptotic notation. Note that
+    some algorithms may have the same best case and worst case time complexities. If
+    the best and worst case complexities \emph{are} different, identify which
+    inputs result in the best case and worst case. You do not otherwise need to show your work for
+    this problem.
+
+    \emph{Example Algorithm:} \python{linear_search} as given in lecture. 
+
+    \emph{Example Solution:}
+    Best case: $\Theta(1)$, when the target is the first element of the array.
+    Worst case: $\Theta(n)$, when the target is not in the array.
+
+    \begin{subprobset}
+
+        \begin{subprob}
+            \begin{minted}[autogobble]{python}
+                def kth_largest(numbers, k):
+                    """Finds the k-th largest element in the array.
+                    `numbers` is an array of n numbers."""
+                    n = len(numbers)
+                    for i in range(n):
+                        count = 0 # Count how many numbers are larger than numbers[i]
+                        for j in range(n):
+                            if numbers[j] > numbers[i]:
+                                count += 1
+                        if count == k - 1:
+                            return numbers[i]
+            \end{minted}
+            
+            \begin{soln}
+                Best case: $\Theta(n)$, when the first element of the array is the $k$th largest.
+
+                Worst case: $\Theta(n^2)$, we need to count the number of elements larger than each element. If the last element is $k$th largest, then we need to run entire nested loops.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \begin{minted}[autogobble]{python}
+                def index_of_kth_largest(numbers, k):
+                    """`numbers` is an array of size n"""
+                    # the kth_largest() from above
+                    element = kth_largest(numbers, k)
+                    # the linear_search() from lecture 6 slide 11
+                    return linear_search(numbers, element)
+            \end{minted}
+            
+
+            \begin{soln}
+                Best case: $\Theta(n)$. This occurs when the $k$th largest element is the first element of the array,
+                as then \python{kth_largest} takes $\Theta(n)$ and \python{linear_search} takes $\Theta(1)$,
+                for a total of $\Theta(n)$.
+
+                Worst case: $\Theta(n^2)$. This occurs when the $k$th largest element is the last element of the
+                array. In this situation, \python{kth_largest} takes $\Theta(n^2)$ time and \python{linear_search}
+                takes $\Theta(n)$ time, for a total of $\Theta(n^2)$ time.
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+
+
+\end{prob}

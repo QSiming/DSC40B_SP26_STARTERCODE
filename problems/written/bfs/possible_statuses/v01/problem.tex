@@ -1,0 +1,56 @@
+\begin{prob}
+
+        Consider line 6 in Algorithm~1 shown on the next page.
+        Whenever this line is executed, is it possible...
+
+    \begin{subprobset}
+
+             \begin{subprob}
+                ...that node is 'pending'?
+            \end{subprob}
+
+            \begin{soln}
+                No\\
+                All 'pending' nodes marked in \python{bfs} are dequeued and marked as visited in the same call. Thus, only 'visited' and 'undiscovered' after a call to \python{bfs}.
+            \end{soln}
+            
+            \vspace{1em}
+
+            \begin{subprob}
+                ...that node is 'visited'? % consider some other way to present these question, the answer should be clear from the first question/solution
+            \end{subprob}
+
+            \begin{soln}
+                Yes
+            \end{soln}
+
+            \vspace{1em}
+
+            \begin{subprob}
+                ...that some other node is 'pending'?
+            \end{subprob}
+
+            \begin{soln}
+                No
+            \end{soln}
+
+            \vspace{1em}
+
+            \begin{subprob}
+                ...that some other node is 'visited'?
+            \end{subprob}
+
+            \begin{soln}
+                Yes
+            \end{soln}
+
+            \vspace{1em}
+
+    \end{subprobset}
+
+    \begin{figure}[h!]
+        \caption{Algorithm 1}
+        \inputminted{python}{\thisdir/include/algorithm.py}
+    \end{figure}
+
+\end{prob}

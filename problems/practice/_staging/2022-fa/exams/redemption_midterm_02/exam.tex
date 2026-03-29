@@ -1,0 +1,127 @@
+\documentclass[twoside,12pt]{article}
+
+\usepackage{dscproblemset}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{nicefrac}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[outputdir=build]{minted}
+\usetikzlibrary{quotes,angles,positioning,arrows.meta}
+\usetikzlibrary{calc}
+
+% configuration
+% ------------------------------------------------------------------------------
+
+% page headers only on odd pages
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[RO]{PID or Name: \rule{3in}{.5pt}}
+\renewcommand{\headrulewidth}{0pt}
+
+% commands
+% ------------------------------------------------------------------------------
+
+\newcommand{\python}[1]{\mintinline{python}{#1}}
+
+% ------------------------------------------------------------------------------
+
+
+\begin{document}
+
+\examfrontpage{
+    % course
+    DSC 40B
+}{
+    % exam name
+    Redemption Midterm 02
+}{
+    % exam date
+    December 3, 2022
+}{
+    % instructions
+    \textbf{Instructions:}
+    \begin{itemize}
+        \item Write your solutions to the following problems in the spaces provided.
+        \item No calculators are permitted, but a few pages of notes are.
+        \item Write your name or PID at the top of each sheet in the space provided.
+    \end{itemize}
+    \vspace{1em}
+}
+
+\begin{probset}
+
+
+    \inputproblem{01}
+
+    \inputproblem{02}
+
+    \inputproblem{03}
+
+    \inputproblem{04}
+
+    \inputproblem{05}
+
+    \inputproblem{06}
+
+
+    \inputproblem{07}
+
+    \inputproblem{08}
+
+    \inputproblem{09}
+
+    \inputproblem{11}
+
+    \inputproblem{10}
+
+    \inputproblem{12}
+
+    \inputproblem{13}
+
+    \inputproblem{14}
+
+    \inputproblem{15}
+
+    \inputproblem{16}
+
+    \inputproblem{17}
+
+    \inputproblem{18}
+
+    \inputproblem{19}
+
+    \inputproblem{20}
+
+\end{probset}
+
+\vfill
+\begin{center}
+    \textbf{Before turning in your exam, please check that your name is on every page.}
+\end{center}
+
+
+\newcommand{\scratchpage}{
+    \pagestyle{plain}
+    \begin{center}
+        You may use this area for scratch work.
+    \end{center}
+}
+
+\newcommand{\scratchpagedetach}{
+    \pagestyle{plain}
+    \begin{center}
+        You may detach and use this page for scratch work. You do not need to turn it in.
+    \end{center}
+}
+
+\ifshowsoln
+\else
+    \scratchpage{}
+    \scratchpagedetach{}
+    \scratchpagedetach{}
+\fi
+
+\end{document}

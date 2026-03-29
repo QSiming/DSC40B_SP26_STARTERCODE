@@ -1,0 +1,13 @@
+\begin{prob}[\eligible]
+    Suppose $G = (V, E, \omega)$ is a directed, weighted graph, and let $s$, $u$,
+    and $v$ be three nodes in the graph. Suppose we know that the shortest path distance
+    from $s$ to $u$ is 100. If the weight of the edge $(u, v)$ is -5, is it possible that the
+    shortest path distance from $s$ to $v$ is 96? Why or why not?
+
+    \begin{soln}
+        It is not possible. Consider the path from $s$ to $v$ which is constructed by taking
+        a shortest path from $s$ to $u$ and appending the edge $(u, v)$. The total weight
+        of this path is $100 + (-5) = 95$. Therefore, the shortest path distance from $s$
+        to $v$ is at most 95; it cannot be 96.
+    \end{soln}
+\end{prob}

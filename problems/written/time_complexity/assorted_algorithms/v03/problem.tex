@@ -1,0 +1,68 @@
+\begin{prob}
+    For each of the following pieces of code, state the time complexity using
+    $\Theta$ notation in as simple of terms as possible. You do not need to
+    show your work (but be careful, because without work we can't give you
+    partial credit!).
+
+    \begin{subprobset}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_a.py}
+
+            \begin{soln}
+                $\Theta(n^2)$.
+
+                This is very similar to the dependent loops we saw in the
+                tallest doctor problem where we considered unordered pairs.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_b.py}
+
+            \begin{soln}
+                $\Theta(n^6)$.
+
+                Although we have a \python{while}-loop, it essentially
+                behaves like a nested \python{for}-loop over \python{range(n)}.
+                So we have independent loops, and the total number of executions
+                of the innermost loop body is $\Theta(n^6)$.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_c.py}
+
+            \begin{soln}
+                $\Theta(n^2)$.
+
+                When analyzing the time complexity of a piece of code where
+                each line takes constant time to execute once, we just need to find the line
+                that executes the most number of times. In this case, it's the
+                inner body of the nested \python{for}-loop. It executes $n^2$ times, for
+                a time complexity of $\Theta(n^2)$.
+
+                We don't know if the last $\python{for}$ loop will run or not
+                -- that depends on whether $n$ is even or odd. But even if it's
+                even (no pun intended) and it \emph{does} run, it won't change
+                the overall time complexity because $n^2 + n$ is still
+                $\Theta(n^2)$.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_d.py}
+
+            \begin{soln}
+                $\Theta(n^2)$.
+
+                This is an example of a piece of code where not every line
+                takes constant time to execute! In particular, the \python{sum{arr}} line
+                takes $\Theta(n)$ time to execute once, and it is executed $n$ times, for
+                a total time of $\Theta(n^2)$.
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+    
+\end{prob}

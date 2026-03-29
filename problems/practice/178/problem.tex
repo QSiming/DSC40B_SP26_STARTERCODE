@@ -1,0 +1,24 @@
+%% tags: [recurrence relations]
+%% source: 2023-fa-midterm_01
+\begin{prob}
+    State (but do not solve) the recurrence describing the runtime of the following function.
+
+    \inputminted{python}{code.py}
+
+    $
+        T(n) = \begin{cases}
+            \Theta(1), & n = 1\\
+             & n > 1
+        \end{cases}
+    $
+    
+
+    \begin{soln}
+        Even though the recursive calls are made in a \mintinline{python}{for}-loop, the
+        basic idea is the same: there will be three recursive calls, each on
+        arrays of size $n/4$, and thus the recurrence will involve $3 T(n/4)$.
+        There is $\Theta(n)$ work done outside the recursive calls, for a full
+        recurrence of $T(n) = 3 T(n/4) + \Theta(n)$.
+    \end{soln}
+
+\end{prob}

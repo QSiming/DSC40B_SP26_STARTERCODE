@@ -1,0 +1,81 @@
+\begin{prob}
+    % Write the problem here.
+    As a data scientist, it is important to have a sense for which algorithms
+    are feasible for a given problem size. For instance: How big of a data set can a quadratic algorithm
+    crunch in one minute? That's what this problem aims to find out.
+
+    \newcommand{\algA}{Algorithm \textsf{A}}
+    \newcommand{\algB}{Algorithm \textsf{B}}
+    \newcommand{\algC}{Algorithm \textsf{C}}
+
+    Suppose \algA{} performs $n$ basic operations when given an input of size $n$,
+    while \algB{} performs $n^2$ basic operations and \algC{} performs $n^3$ basic
+    operations. Suppose that your computer takes 1 nanosecond to perform a basic operation.
+    What is the largest problem size each can solve in 1 second,
+    10 minutes, and 1 hour? That is, fill in the following table:
+
+    \begin{center}
+    \begin{tabular}{rccc}
+        \toprule
+        & 1 sec. & 10 min. & 1 hr\\ \midrule
+        \algA & ? & ? & ?\\
+        \algB & ? & ? & ?\\
+        \algC & ? & ? & ?\\\bottomrule
+    \end{tabular}
+    \end{center}
+
+    Show your work for at least one cell in each row.
+
+    Note: 1 nanosecond is a very \emph{optimistic} estimate of the time it takes for a computer
+    to perform a basic operation.\footnote{See Peter Norvig's essay ``Teach Yourself Computer
+    Programming in 10 Years'' for a table of timings for various operations. \url{http://norvig.com/21-days.html}}
+
+    Hint: it's a small thing, but your answers should never be decimals. It isn't possible
+    to perform 3.7 operations, after all. Should you round up or round down?
+
+    \begin{soln}
+        First, we convert the times into nanoseconds. One second is $10^9$ nanoseconds;
+        ten minutes is $6 \cdot 10^{11}$ nanoseconds; and one hour is $3.6 \cdot
+        10^{12}$ nanoseconds.
+
+        \algA{} can solve a problem of size $n$ in $n$ nanoseconds. Hence
+        it can solve a problem of size $10^9$ in one seconds;
+        a problem of size $6 \cdot 10^{11}$ in ten minutes; and a problem
+        of size $3.6 \cdot 10^{12}$ in one hour.
+
+        It takes \algB{} $n^2$ nanoseconds to solve a problem of size $n$.
+        So if we have $x$ nanoseconds of computing time available, the largest problem
+        size we can solve is $\sqrt{x}$. To be more precise, $\sqrt{x}$ might not be an
+        integer, so we should round \emph{down} to get a valid problem size. Rounding down
+        to the nearest integer is also called \emph{taking the floor}, and is
+        written $\lfloor \cdot \rfloor$.  So we find that \algB{} can solve a
+        problem of size 
+        $\lfloor{\sqrt{10^9}}\rfloor = 31{,}622$ 
+        in one second; a problem of size
+        $\lfloor{\sqrt{6\cdot 10^{11}}}\rfloor = 774{,}596$ 
+        in ten minutes; and a problem of size
+        $\lfloor{\sqrt{3.6 \cdot 10^{12}}}\rfloor = 1{,}897{,}366$ in one hour.
+
+        \algC{} can solve a problem of size $n$ in $n^3$ nanoseconds. That is, given
+        $x$ nanoseconds, it can solve a problem of size $\lfloor (x)^{1/3} \rfloor$.
+        Therefore, it can solve a problem of size 
+        $\lfloor{({10^9})^{1/3}}\rfloor = 1{,}000$
+        in one second; a problem of size
+        $\lfloor{({6\cdot 10^{11}})^{1/3}}\rfloor = 8{,}434$.
+        in ten minutes; and a problem of size
+        $\lfloor{({3.6 \cdot 10^{12}})^{1/3}}\rfloor = 15{,}326$ in one hour.
+
+        Therefore the filled-in table is:
+
+        \begin{center}
+        \begin{tabular}{rccc}
+            \toprule
+            & 1 sec. & 10 min. & 1 hr.\\ \midrule
+            \algA & $10^9$ & $6\cdot 10^{11}$ & $3.6\cdot 10^{12}$\\
+            \algB & 31,622 & 774,596 & 1,897,366\\
+            \algC & 1,000 & 8,434 & 15,326\\\bottomrule
+        \end{tabular}
+        \end{center}
+
+    \end{soln}
+\end{prob}

@@ -1,0 +1,113 @@
+\begin{prob}
+    % Write the problem below. Precede any paths with \parentdir. For example:
+    %   \includegraphics{\parentdir/public/fig/picture.png}
+    % Any files used in the solution should be placed in the `private` 
+    % subdirectory. Any other files can go in the `public` subdirectory.
+
+    Determine whether each piece of code is correct or
+    incorrect by thinking inductively. If it is correct, say so (you do not
+    need to show work). But if it is incorrect, say what will go wrong (e.g.,
+    infinite recursion, incorrect answer), give an example of an input that
+    will demonstrate the error, and briefly explain \emph{why} the code does not
+    work correctly.
+
+    Hint: use the tips for analyzing recursive arguments from lecture.
+
+
+    \begin{subprobset}
+        \begin{subprob}
+            In this part, adopt the convention that the sum of the numbers in an empty
+            list is zero.
+
+            \begin{minted}[autogobble]{python}
+                import math
+                def summation(numbers):
+                    """Given a list, returns the sum of the numbers in the list."""
+                    n = len(numbers)
+                    if n == 0:
+                        return 0
+                    middle = math.floor(n / 2)
+                    return summation(numbers[:middle]) + summation(numbers[middle:])
+            \end{minted}
+
+            \begin{soln}
+                This is missing a base case for when the array is of size 1. If
+                an input of size one is given to this function, it will make a
+                recursive call on an empty array and an array of size one. This
+                recursive call will make the same recursive calls, \emph{ad
+                infinitum}. In other words, this will recurse infinitely.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            In this part, you may assume that the input list is not empty.
+
+            \begin{minted}[autogobble]{python}
+                def product(numbers):
+                    """Returns the product of all elements in numbers."""
+                    if len(numbers) == 1:
+                        return numbers[0]
+                    return numbers[0] * product(numbers[1:])
+            \end{minted}
+
+            \begin{soln}
+                This is correct.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            You may assume that \python{start} and \python{stop} are valid indices.
+            \begin{minted}[autogobble]{python}
+                def inplace_reverse(l, start, stop):
+                    """Reverses l[start:stop], in place."""
+                    if stop - start <= 1:
+                        return
+                    l[start], l[stop-1] = l[stop-1], l[start] # swap first and last
+                    inplace_reverse(l, start, stop-1)
+            \end{minted}
+
+            \begin{soln}
+                The arguments to the recursive call are wrong: they should sort the middle part
+                of the list (excluding the first and last element), but they include the first
+                element. This causes incorrect output. For instance, \python{inplace_reverse([4,5,2,3], 0, 4)} results in
+                \python{[3,5,2,4]}.
+            \end{soln}
+        \end{subprob}
+
+
+        \begin{subprob}
+            You may assume that \python{arr} is non-empty.
+
+                \begin{minted}[autogobble]{python}
+                    def find_mode(arr):
+                    """Returns the mode of arr along with its frequency."""
+                        if len(arr) == 1:
+                            return arr[0], 1
+                        middle = math.floor(len(arr) / 2)
+                        left_mode, left_freq = find_mode(arr[:middle])
+                        right_mode, right_freq = find_mode(arr[:middle])
+                        if left_freq > right_freq:
+                            return left_mode, left_freq
+                        else:
+                            return right_mode, right_freq
+                \end{minted}
+
+                \begin{soln}
+                    This will return the incorrect answer. Assuming that recursive calls
+                    work correctly, the algorithm may still not produce the right result.
+                    For instance, suppose our input is:
+                    \python{[1, 1, 1, 2, 2, 3, 3, 3, 2, 2]}.
+                    The mode is clearly \python{2}, but the recursive calls will find
+                    \python{1} and \python{3} for the mode in each half.
+
+                    In short, the overall mode is not necessarily the mode of the left
+                    half or the right half.
+                \end{soln}
+
+        \end{subprob}
+
+
+
+    \end{subprobset}
+
+\end{prob}

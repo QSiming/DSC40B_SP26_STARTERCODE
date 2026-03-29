@@ -1,0 +1,19 @@
+\begin{prob}
+    The python code for quickselect is given below.
+
+    \inputminted{python}{\thisdir/include/part_a.py}
+
+    \begin{subprobset}
+
+            \begin{subprob}
+                Suppose we use quickselect to select the minimum element of the array $A = [3, 2, 9, 0, 7, 5, 4, 8, 6, 1]$. Describe a sequence of partitions that results in a worst-case performance of quickselect.
+
+                \begin{soln}
+                    For the worst case performance, the minimum element should be chosen as the pivot element at the very end. Moreover, we also want the array to be partitioned such that if arr has n elements, then partition on which the recursive call is made has n-1 elements. This can be done by choosing the maximum element in the array as the pivot. Hence, the pivot elements should be chosen in the order 9,8,7,6,5,4,3,2,1,0.
+                \end{soln}
+
+            \end{subprob}
+
+    \end{subprobset}
+
+\end{prob}

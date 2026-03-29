@@ -1,0 +1,149 @@
+\begin{prob}
+    For each of the following pieces of code, state the time complexity using
+    $\Theta$ notation in as simple of terms as possible. You do not need to
+    show your work (but doing so might help you earn partial credit in case your
+    overall answer is not correct).
+
+    \begin{subprobset}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_a.py}
+
+            \begin{soln}
+                $\Theta(n^2)$.
+
+                This is very similar to the dependent loops we saw in the
+                tallest doctor problem where we considered unordered pairs.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_b.py}
+
+            \begin{soln}
+                $\Theta(n^15)$.
+
+                Although we have a \python{while}-loop, it essentially
+                behaves like a nested \python{for}-loop over \python{range(n)}.
+                So we have independent loops, and the total number of executions
+                of the innermost loop body is $\Theta(n^15)$.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_c.py}
+
+            \begin{soln}
+                $\Theta(n^2)$.
+
+                When analyzing the time complexity of a piece of code where
+                each line takes constant time to execute once, we just need to find the line
+                that executes the most number of times. In this case, it's the
+                inner body of the nested \python{for}-loop. It executes $n^2$ times, for
+                a time complexity of $\Theta(n^2)$.
+
+                We don't know if the last $\python{for}$ loop will run or not
+                -- that depends on whether $n$ is even or odd. But even if it's
+                even (no pun intended) and it \emph{does} run, it won't change
+                the overall time complexity because $n^2 + n$ is still
+                $\Theta(n^2)$.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_d.py}
+
+            \begin{soln}
+                $\Theta(n^2)$.
+
+                This is an example of a piece of code where not every line
+                takes constant time to execute! In particular, the \python{sum(arr)} line
+                takes $\Theta(n)$ time to execute once, and it is executed $n$ times, for
+                a total time of $\Theta(n^2)$.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_e.py}
+
+            \begin{soln}
+                This outer \python{for}-loop makes 4 iterations -- one for each
+                element of \python{ranges}.
+
+                On the first iteration of the outer loop, the inner loop makes
+                10 iterations, taking a total of 10 units of time. That is, the
+                first iteration takes constant time.
+
+                On the second iteration of the outer loop, the inner loop makes
+                roughly $n/2$ iterations, taking a total of $\Theta(n/2) =
+                \Theta(n)$ time.
+
+                On the third iteration of the outer loop, the inner loop makes
+                $n$ iterations, taking $\Theta(n)$ time.
+
+                On the fourth iteration of the outer loop, the inner loop makes
+                $n^2$ iterations, taking $\Theta(n^2)$ time.
+
+                In total, the time taken is $\Theta(1) + \Theta(n) + \Theta(n) + \Theta(n^2) = \Theta(n^2)$.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_f.py}
+
+            \begin{soln}
+                $\Theta(n^2)$.
+
+                The innermost loop, \python{for i in range(rng_a + rng_b)}, is executed 
+                16 times (once for each ordered pair of ranges from \python{ranges}), making
+                a different number of executions each time.
+
+                For example, one execution of the innermost loop will be when \python{rng_a = n} and \python{rng_b = n**2}.
+                In this case, the innermost loop will make $n + n^2$ iterations, taking $\Theta(n^2)$ time.
+
+                From there, you might see that the overall time complexity will
+                be $\Theta(n^2)$, because of the 16 executions of the innermost
+                loop, the most costly will be the one where both \python{rng_a}
+                and \python{rng_b} are $n^2$. In this situation, the innermost
+                loop will make $n^2 + n^2 = 2n^2$ iterations, taking
+                $\Theta(n^2)$ time. All of the other executions are
+                $\Theta(n^2)$ or smaller, so the total time taken will be
+                $\Theta(n^2)$.
+
+                Alternatively, you could write out the time taken by each of the 16 executions of the innermost loop.
+                Those 16 executions are:
+
+                % ranges = [10, n/2, n, n**2]
+
+                \begin{center}
+                    \begin{tabular}{c|c|c|c}\toprule
+                        \python{rng_a} & \python{rng_b} & \# iterations & time taken \\ \midrule
+                        10 & 10 & 20 & $\Theta(1)$ \\
+                        10 & $n/2$ & $10 + n/2$ & $\Theta(n)$ \\
+                        10 & $n$ & $10 + n$ & $\Theta(n)$ \\
+                        10 & $n^2$ & $10 + n^2$ & $\Theta(n^2)$ \\
+                        $n/2$ & 10 & $n/2 + 10$ & $\Theta(n)$ \\
+                        $n/2$ & $n/2$ & $n/2 + n/2$ & $\Theta(n)$ \\
+                        $n/2$ & $n$ & $n/2 + n$ & $\Theta(n)$ \\
+                        $n/2$ & $n^2$ & $n/2 + n^2$ & $\Theta(n^2)$ \\
+                        $n$ & 10 & $n + 10$ & $\Theta(n)$ \\
+                        $n$ & $n/2$ & $n + n/2$ & $\Theta(n)$ \\
+                        $n$ & $n$ & $n + n$ & $\Theta(n)$ \\
+                        $n$ & $n^2$ & $n + n^2$ & $\Theta(n^2)$ \\
+                        $n^2$ & 10 & $n^2 + 10$ & $\Theta(n^2)$ \\
+                        $n^2$ & $n/2$ & $n^2 + n/2$ & $\Theta(n^2)$ \\
+                        $n^2$ & $n$ & $n^2 + n$ & $\Theta(n^2)$ \\
+                        $n^2$ & $n^2$ & $n^2 + n^2$ & $\Theta(n^2)$ \\ \bottomrule
+                    \end{tabular}
+                \end{center}
+
+                Adding up the 16 elements in the rightmost column, we get $\Theta(n^2)$.
+
+
+
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+    
+\end{prob}

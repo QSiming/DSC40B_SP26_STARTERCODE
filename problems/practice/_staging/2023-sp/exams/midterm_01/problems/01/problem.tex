@@ -1,0 +1,16 @@
+%% source: 2023-sp-midterm_01
+\begin{prob}
+    \timecomplexityinstructions
+
+    \begin{minted}[autogobble]{python}
+        def foo(n):
+            for i in range(n**3):
+                for j in range(n):
+                    print(i + j)
+                for j in range(n**2):
+                    print(i + j)
+    \end{minted}
+
+    \inlineresponsebox{$\Theta(n^5)$}
+
+\end{prob}

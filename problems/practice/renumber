@@ -1,0 +1,24 @@
+#! /usr/bin/env python
+
+"""Renumbers the directories so that they are consecutive integers.
+
+This only touches the directories whose names are already numbers. It uses 4 digit
+integers, and keeps problems in their existing order.
+
+"""
+
+import pathlib
+
+
+def numbered_directories():
+    root = pathlib.Path(__file__).parent.absolute()
+    for path in sorted(root.iterdir()):
+        if path.is_dir() and path.name.isnumeric():
+            yield path
+
+for i, directory in enumerate(numbered_directories()):
+    new_name = f"{i + 1:04}"
+    if directory.name == new_name:
+        continue
+    print(f"Renaming {directory.name} to {new_name}")
+    directory.rename(directory.parent / new_name)

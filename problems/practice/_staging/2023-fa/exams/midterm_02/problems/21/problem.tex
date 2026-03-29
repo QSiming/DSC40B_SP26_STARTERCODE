@@ -1,0 +1,28 @@
+\Needspace{3in}
+\begin{prob}
+
+    Find a topological sort of the graph shown below:
+
+    \begin{center}
+        \begin{tikzpicture}
+            \tikzset{every node/.style = {shape=circle, draw, minimum size=17pt}}
+
+            \node (a) at (0, 0) {$a$};
+            \node (b) at (2, 0) {$b$};
+            \node (c) at (4, 0) {$c$};
+
+            \node[above=of b] (d) {$d$};
+            \node[below=of b] (e) {$e$};
+
+            \draw (a) edge[->] (b);
+            \draw (b) edge[->] (c);
+            \draw (d) edge[->, bend right] (a);
+            \draw (a) edge[->, bend right] (e);
+            \draw (c) edge[->, bend left] (e);
+
+        \end{tikzpicture}
+    \end{center}
+
+    \inlineresponsebox[2in]{d a b c e}
+
+\end{prob}

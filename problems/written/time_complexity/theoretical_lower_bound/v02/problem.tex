@@ -1,0 +1,30 @@
+\begin{prob}
+    Provide a tight theoretical lower bound for the problems given below. Provide justification for your answer.
+
+    \begin{subprobset}
+
+        \begin{subprob}
+            Given an array of n numbers, find the sum of the numbers in the array.
+
+            \vspace{5em}
+
+            \begin{soln}
+                Adding all the elements in the array requires you to visit all the elements at least once. Therefore, the lower bound is $\Omega(n)$.
+             \end{soln}
+
+        \end{subprob}
+
+        \begin{subprob}
+            Given a sorted array of $n \geq 2$ numbers, find the second largest number in the array.
+
+            \vspace{5em}
+
+            \begin{soln}
+                As the array is sorted, we just need to check the second last element in the array to get the second largest number in the array. This takes constant time. Therefore, the lower bound is $\Omega(1)$.
+            \end{soln}
+
+        \end{subprob}
+
+    \end{subprobset}
+
+\end{prob}

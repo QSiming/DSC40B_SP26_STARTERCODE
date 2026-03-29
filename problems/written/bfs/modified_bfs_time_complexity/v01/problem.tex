@@ -1,0 +1,45 @@
+\begin{prob}
+
+    Consider the following modified BFS which has two new lines of code: lines
+    21 and 22. What is the asymptotic time complexity of \python{foo} in
+    terms of $|V|$ and $|E|$?
+
+    \begin{minted}[autogobble,linenos]{python}
+        from collections import deque
+
+        def foo(graph):
+            status = {'undiscovered' for node in graph.nodes}
+            for u in graph.nodes:
+                if status[u] == 'undiscovered':
+                    bar(graph, u, status)
+
+        def bar(graph, source, status):
+            status[source] = 'pending'
+            pending = deque([source])
+
+            # while there are still pending nodes
+            while pending: 
+                u = pending.popleft()
+                for v in graph.neighbors(u):
+                    # explore edge (u,v)
+                    if status[v] == 'undiscovered':
+                        status[v] = 'pending'
+                        pending.append(v)
+                    for v in graph.nodes:
+                        print(v)
+                status[u] = 'visited'
+
+            return predecessor, distance
+    \end{minted}
+
+    \begin{soln}
+        The new lines of code take $\Theta(V)$ time every time that an edge
+        is visited. This means that the total time complexity has an extra $\Theta(VE)$.
+        So the time is $\Theta(V + E + VE)$. This simplifies to $\Theta(V + VE)$, since $|E| \leq |V|\cdot|E|$.
+
+        Note that it isn't quite right to say that $|V|\cdot |E|$ is larger than $|V|$ and thus the 
+        time complexity is $\Theta(VE)$. For instance, suppose $|E| = 0$. Then $|V|\cdot|E|$ is zero,
+        and therefore not larger than $|V|$!.
+    \end{soln}
+
+\end{prob}

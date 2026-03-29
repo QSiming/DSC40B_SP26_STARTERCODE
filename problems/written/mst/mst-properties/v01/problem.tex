@@ -1,0 +1,33 @@
+\begin{prob}
+    Suppose we are given a undirected weighted graph $G = (V, E; w)$, where $w: E\to \mathbb{R}$ is the map to assign a weight $w(e)$ to each edge$e\in E$.
+    Let $T^*$ be a minimum spanning tree of $G$.
+
+
+    \begin{subprobset}
+        \begin{subprob}
+    Now let $G_1 = (V, E; w_1)$ be a modified version of $G$: In particular, $G_1$ shares the same vertex set and edge set as $G$. The only difference lies in the edge weights, where for any edge $e\in E$, the new weight doubles the previous weight $w(e)$; that is, $w_1(e) = 2 w(e)$.
+
+    (True or False): The tree $T^*$ is still a minimum spanning tree for $G_1$ as well. You do not need to provide a justification.
+    \begin{soln}
+        \Tf{}
+    \end{soln}
+    \end{subprob}
+    \begin{subprob}
+    Now let $G_2 = (V, E; w_2)$ be another modified version of $G$: In particular, $G_2$ shares the same vertex set and edge set as $G$. The only difference lies in the edge weights, where for any edge $e\in E$, the new weight equals the previous weight $w(e)$ + 2; that is, $w_2(e) = w(e)+2$.
+
+    (True or False): The tree $T^*$ is still a minimum spanning tree for $G_2$ as well. You do not need to provide a justification.
+    \begin{soln}
+        \Tf{}
+    \end{soln}
+    \end{subprob}
+     \begin{subprob}
+     Let $s\in V$ be a source node. Let $\widehat{T}$ be a shortest path tree of $G$ from the source $s$.
+     Consider the modified graph $G_2$ defined above.
+
+     (True or False): The tree $\widehat{T}$ is a shortest path tree for $G_2$  from the source $s$ as well.
+     \begin{soln}
+        \tF{}
+     \end{soln}
+    \end{subprob}
+    \end{subprobset}
+\end{prob}

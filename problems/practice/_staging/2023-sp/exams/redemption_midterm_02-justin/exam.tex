@@ -1,0 +1,127 @@
+\documentclass[twoside,12pt]{dscproblemset}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{nicefrac}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[outputdir=build]{minted}
+\usetikzlibrary{quotes,angles,positioning,arrows.meta}
+\usetikzlibrary{calc}
+
+% configuration
+% ------------------------------------------------------------------------------
+
+% page headers only on odd pages
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[RO]{PID or Name: \rule{3in}{.5pt}}
+\renewcommand{\headrulewidth}{0pt}
+
+% commands
+% ------------------------------------------------------------------------------
+
+\newcommand{\python}[1]{\mintinline{python}{#1}}
+
+% ------------------------------------------------------------------------------
+
+
+\begin{document}
+
+\examfrontpage{
+    % course
+    DSC 40B
+}{
+    % exam name
+    Redemption Midterm 02
+}{
+    % exam date
+    March 21, 2023
+}{
+    % instructions
+    \textbf{Instructions:}
+    \begin{itemize}
+        \item Write your solutions to the following problems in the spaces provided.
+        \item No calculators are permitted, but a few pages of notes are.
+        \item Write your name or PID at the top of each sheet in the space provided.
+        \item If it is unstated whether a graph is weighted or unweighted, assume it is unweighted.
+        \item If asked to state a time complexity, do so using asymptotic notation in as simplest terms possible.
+    \end{itemize}
+
+    \begin{center} 
+        {
+        \fontsize{20pt}{30pt}\selectfont
+        Redemption Midterm\\[1em]
+        \fontsize{80pt}{30pt}\selectfont
+        02
+        }
+    \end{center}
+    \vspace{2em}
+}
+
+\begin{probset}
+
+
+    \inputproblem{01}
+
+    \inputproblem{02}
+
+    \inputproblem{03}
+
+    \inputproblem{04}
+
+    \inputproblem{05}
+
+    \enlargethispage{2em}
+
+    \inputproblem{06}
+
+    \inputproblem{20}
+
+    \inputproblem{07}
+
+    \inputproblem{08}
+
+    \newpage
+
+    \inputproblem{09}
+
+    \inputproblem{11}
+
+    \inputproblem{10}
+
+    \inputproblem{12}
+
+    \newpage
+
+    \inputproblem{13}
+
+    \inputproblem{18}
+
+    \inputproblem{14}
+
+    \inputproblem{15}
+
+    \inputproblem{16}
+
+    \inputproblem{17}
+
+    \inputproblem{19}
+
+\end{probset}
+
+\vfill
+\begin{center}
+    \textbf{Before turning in your exam, please check that your name is on every page.}
+\end{center}
+
+
+\ifshowsoln
+\else
+    \scratchpagedetach{}
+    \scratchpagedetach{}
+\fi
+
+\end{document}

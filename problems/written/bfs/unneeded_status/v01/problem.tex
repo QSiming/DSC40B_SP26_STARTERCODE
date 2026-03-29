@@ -1,0 +1,21 @@
+\begin{prob}
+
+        It turns out that BFS does not need to use three distinct statuses
+        (undiscovered, pending, visited) in order to
+        function -- we just use three to help us understand the algorithm.  In
+        fact, we can delete code from bfs, and the
+        function will still work. List below the line number(s) which can all
+        be deleted without affecting the behavior of the algorithm.
+
+        \begin{soln}
+            Line 26\\
+            Note that we need \textbf{some} intermediate step (i.e, the 'pending' state) so that the check on
+            line 22 evaluates to False for the nodes that we've discovered but have not visited yet. 
+            Otherwise, we would always add the neighbors of \texttt{u} to the \texttt{pending} queue, even if they
+            have already been discovered. As a result, the outer while loop will undergo unnecessary iterations on each call to BFS.\\
+
+            However, we never explictly check for a node being marked as 'visited', and the code would execute 
+            the same way if we left all discovered nodes as 'pending'.
+        \end{soln}
+
+\end{prob}

@@ -1,0 +1,96 @@
+\begin{prob}
+    Determine the time complexity of the following piece of code, showing your reasoning
+    and your work.
+
+    \inputminted{python}{\thisdir/include/code.py}
+
+    \textbf{Hint}: you might need to think back to calculus to remember the formula for
+    the sum of a geometric progression... or you can check wikipedia.%
+    \footnote{\url{https://en.wikipedia.org/wiki/Geometric_progression}}
+
+    \begin{soln}
+        $\Theta(n)$.
+
+        How many times does the \python{print} statement execute? That will tell us the time complexity.
+        On the first iteration
+        of the outer loop, \python{i = 3} and this line runs three times. On the second iteration
+        of the outer loop, \python{i = 9} and this line runs nine times. On the third
+        iteration, it runs 27 times. In general, on the $k$th iteration of the outer loop,
+        the line runs $3^k$ times.
+
+        The outer loop will run \emph{roughly} $\log_3 n$ times, since $i$ is tripled on
+        each iteration. We'll see in a moment why it's OK to have a rough
+        estimate instead of being exact here.
+
+        The total number of executions of the \python{print} is therefore:
+        \[
+            \underbrace{3}_{\text{\footnotesize 1st outer iter.}}
+            +
+            \underbrace{9}_{\text{\footnotesize 2nd outer iter.}}
+            +
+            \underbrace{27}_{\text{\footnotesize 3rd outer iter.}}
+            +
+            \ldots
+            +
+            \underbrace{3^k}_{\text{\footnotesize $k$th outer iter.}}
+            +
+            \ldots
+            +
+            \underbrace{3^{\log_3 n}}_{\text{\footnotesize $\log_3 n$th outer iter.}}
+        \]
+
+        Or, written using summation notation:
+        \[
+            \sum_{k=1}^{\log_3 n} 3^k
+        \]
+
+        This is the sum of a \emph{geometric progression}. Wikipedia tells us that the formula
+        for the sum of $1 + 3 + 9 + 27 + \ldots + 3^K$ is:
+        \[
+            \sum_{k=0}^{K} 3^k = \frac{1 - 3^{K+1}}{1 - 3} = \frac{3^{K+1} - 1}{2} = \frac{3^{K+1}}{2} - \frac12
+        \]
+        Notice that this sum starts from $k = 0$, while ours starts with $k = 1$. 
+        In other words, our sum is the same except it is missing the first term corresponding
+        to $k = 0$.
+        So to 
+        ``correct'' this, we subtract the $k = 0$ term (which is $3^0 = 1$)
+        from the larger sum :
+        \[
+            \sum_{k=1}^{K} 3^k = 
+            \left(\sum_{k=0}^{K} 3^k\right) - 3^0 = 
+            \left(\frac{3^{K+1}}{2} - \frac12\right) - 1=
+            \frac{3^{K+1}}{2} - \frac32
+        \]
+        Plugging in $K = \log_3 n$:
+        \begin{align*}
+            \sum_{k=1}^{\log_3 n} 3^k 
+            &= \frac{3^{\log_3 n +1}}{2} - \frac32\\
+            \intertext{Using the fact that $a^{b+c} = a^b \cdot a^c$:}
+            &=
+                3^{\log_3 n} \cdot \frac32 - \frac32\\
+            &=
+                \frac32n - \frac32\\
+            &=
+                \Theta(n)
+        \end{align*}
+
+        Now, remember that we said that we could afford to be a little imprecise when calculating
+        the number of times that the outer loop runs. Let's see why. If $n$ isn't a power
+        of $3$, $\log_3 n$ will not be an integer. For instance, if $n = 17$, $\log_3 n = 2.58$.
+        Of course, the loop can't iterate 2.58 times -- you can check that it will actually iterate
+        3 times. In general, the loop will run exactly $\lceil \log_3 n \rceil$ times, where
+        $\lceil \cdot \rceil$ is the \emph{ceiling} operation; it rounds a real number up
+        to the next integer.
+
+        In other words, $\log_3 n$ could actually be as much as one less than the actual number
+        of iterations. Perhaps to be careful we should overestimate the number of iterations
+        to be $\log_3 n + 1$. What if we were to use $\log_3 n + 1$ instead? We'd end up with:
+        \[
+            \sum_{k=1}^{\log_3 n + 1} 3^k = \frac{3^{\log_3 n + 2}}{2} - \frac32 = \frac92 n - \frac32 = \Theta(n)
+        \]
+        So the time complexity doesn't change. This is why using $\Theta$ notation allows us
+        to be ``sloppy'' at times without being incorrect. It saves us work, as long as
+        we know how to use it correctly!
+    \end{soln}
+
+\end{prob}

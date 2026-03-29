@@ -1,0 +1,45 @@
+\begin{prob}
+    Suppose $A$ is the adjacency matrix of an undirected graph. Let $A^2$
+    be the \emph{squared} matrix, obtained by matrix multiplying $A$ by
+    itself.  Show that the $(i,j)$ entry of $A^2$ is the number of ways to
+    get from $i$ to $j$ in exactly two hops (i.e., the number of paths of
+    length two between node $i$ and node $j$).  \emph{Hint:} Consult your
+    linear algebra notes/textbook to remember a formula for the $(i,j)$
+    entry of the product of two matrices.
+
+    \begin{soln}
+        Recall that the $(i,j)$ entry of the product of two $n \times n$
+        matrices $X$ and $Y$ is given by:
+        \[
+            (XY)_{ij} = \sum_{k=1}^n x_{ik} y_{kj}.
+        \]
+        In other words, $(XY)_{ij}$ is the dot product of the $i$th row of $X$
+        and the $j$th column of $Y$.
+
+        Hence the $(i,j)$ entry of $A^2$ is given by:
+        \[
+            (A^2)_{ij} = \sum_{k=1}^n a_{ik} a_{kj}.
+        \]
+
+        Now, any path from node $i$ to node $j$ is of the form $(i,k,j)$, where
+        $k$ is any node in the graph. This will be a valid path if and only if
+        edges $(i,k)$ and $(k,j)$ are in the graph. If both of these edges are
+        in the graph, then both $a_{ik}$ and $a_{kj}$ are one, and so their product
+        is too. On the other hand, if either of these edges is missing, then at 
+        least one of $a_{ik}$ and $a_{kj}$ are zero, and so their product is zero.
+        Therefore:
+        \[
+            a_{ik} a_{kj} = \begin{cases}
+                1,& \text{if there is a path of length 2 between $i$ and $j$ through $k$.}\\
+                0,&\text{otherwise}.
+            \end{cases}
+        \]
+
+        As a result, the total number of paths of length two between $i$ and $j$ is
+        found by summing over all possible intermediate nodes, $k$:
+        \[
+            \sum_{k=1}^n a_{ik} a_{kj}.
+        \]
+        This is exactly $(A_{ij})^2$.
+    \end{soln}
+\end{prob}

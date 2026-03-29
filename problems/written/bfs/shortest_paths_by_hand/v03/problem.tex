@@ -1,0 +1,58 @@
+    
+
+\begin{prob}
+    In lecture, we saw that breadth-first search (BFS) can be used to find the
+    shortest paths from a source node to all other nodes in an unweighted
+    graph. Our implementation of BFS returned two dictionaries:
+    \python{distance}, containing the shortest path distance from the source
+    node to each node in the graph, and \python{predecessor}, containing the
+    BFS predecessor of each node.
+
+    Consider a breadth-first search on the graph shown below, starting with
+    node $a$.
+
+    \begin{center}
+        \begin{tikzpicture}
+            \tikzset{
+                vertex/.style={draw, circle, text width=8, align=center},
+                % make arrow heads larger
+                arc/.style={->, -{Stealth[length=2mm]}},
+            }
+
+            % Define nodes
+            \draw node[vertex] (a) at (0,0) {$a$};
+            \draw node[vertex] (b) at (2,0) {$b$};
+            \draw node[vertex] (c) at (4,0) {$c$};
+            \draw node[vertex] (d) at (6,0) {$d$};
+            \draw node[vertex] (e) at (0,2) {$e$};
+            \draw node[vertex] (f) at (2,2) {$f$};
+            \draw node[vertex] (g) at (4,2) {$g$};
+            \draw node[vertex] (h) at (6,2) {$h$};
+            \draw node[vertex] (i) at (3,4) {$i$};
+
+            % Define edges
+            \foreach \x/\y in {%
+                a/b, b/c, c/d, a/e, b/f, c/g, d/h, e/f, f/g, g/h, e/i, f/i, g/i, h/i%
+            }{
+                \draw (\x) edge[arc] (\y);
+            }
+
+            % Add bidirectional edges
+            \draw (b) edge[arc, bend left] (e);
+            \draw (e) edge[arc, bend left] (b);
+            \draw (c) edge[arc, bend left] (f);
+            \draw (f) edge[arc, bend left] (c);
+
+        \end{tikzpicture}
+    \end{center}
+
+    Write down the \python{distance} and \python{predecessor} dictionaries
+    returned by BFS on this graph.
+
+    \textbf{Note:} you should adopt the convention that \python{.neighbors()}
+    returns the neighbors of a node in \textbf{ascending alphabetical order}.
+
+    \begin{soln}
+        \inputminted{python}{\thisdir/include-solution/bfs_spd_answer.py}
+    \end{soln}
+\end{prob}

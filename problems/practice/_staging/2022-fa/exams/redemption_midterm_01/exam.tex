@@ -1,0 +1,167 @@
+\documentclass[twoside,12pt]{article}
+
+\usepackage{dscproblemset}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{nicefrac}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[outputdir=build]{minted}
+\usetikzlibrary{quotes,angles,positioning,arrows.meta}
+\usetikzlibrary{calc}
+
+% configuration
+% ------------------------------------------------------------------------------
+
+% page headers only on odd pages
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[RO]{PID or Name: \rule{3in}{.5pt}}
+\renewcommand{\headrulewidth}{0pt}
+
+% commands
+% ------------------------------------------------------------------------------
+
+\newcommand{\python}[1]{\mintinline{python}{#1}}
+
+% ------------------------------------------------------------------------------
+
+
+\begin{document}
+
+\examfrontpage{
+    % course
+    DSC 40B
+}{
+    % exam name
+    Redemption Midterm 01
+}{
+    % exam date
+    December 3, 2022
+}{
+    % instructions
+    \textbf{Instructions:}
+    \begin{itemize}
+        \item Write your solutions to the following problems in the spaces provided.
+        \item No calculators are permitted, but a few pages of notes are.
+        \item Write your name or PID at the top of each sheet in the space provided.
+    \end{itemize}
+    \vspace{1em}
+}
+
+\begin{probset}
+
+    % Time Complexity of Loops
+    % ======================================================================================
+
+    % independent loops
+    \inputproblem{01}
+
+    % dependent while-loops, arithmetic
+    \inputproblem{02}
+
+    \newpage
+
+    % ugly bounds
+    \inputproblem{03}
+
+    % built-in functions
+    \inputproblem{04}
+
+    \newpage
+
+    % best case
+    \inputproblem{05}
+
+    % worst case
+    \inputproblem{06}
+
+
+    % count number of elements that are within 10 of the maximum, unsorted
+    % what is a theoretical lower bound for this problem?
+    \inputproblem{07}
+
+    % same problem, sorted
+    % what is a tight theoretical lower bound for this problem?
+    % describe an optimal algorithm for this problem
+    \inputproblem{08}
+
+
+    % expected time
+    \inputproblem{09}
+
+    % expected time
+    \inputproblem{10}
+
+    \newpage
+
+    % state recurrence
+    \inputproblem{11}
+
+    % solve recurrence
+    \inputproblem{12}
+
+    % asymptotic notation
+    \inputproblem{13}
+
+    \newpage
+
+    % asymptotic notation
+    \inputproblem{14}
+
+    % asymptotic notation
+    \inputproblem{15}
+
+    \newpage
+
+    % modified binary search I
+    \inputproblem{16}
+
+    \newpage
+
+    % modified binary search II
+    \inputproblem{17}
+
+    \inputproblem{18}
+
+    \newpage
+
+    \inputproblem{19}
+
+    \inputproblem{20}
+
+\end{probset}
+
+\vfill
+\begin{center}
+    \textbf{Before turning in your exam, please check that your name is on every page.}
+\end{center}
+
+
+\newcommand{\scratchpage}{
+    \pagestyle{plain}
+    \begin{center}
+        You may use this area for scratch work.
+    \end{center}
+}
+
+\newcommand{\scratchpagedetach}{
+    \pagestyle{plain}
+    \begin{center}
+        You may detach and use this page for scratch work. You do not need to turn it in.
+    \end{center}
+}
+
+\ifshowsoln
+\else
+    \newpage
+    \scratchpage{}
+    \newpage
+    \scratchpagedetach{}
+    \newpage
+    \scratchpagedetach{}
+\fi
+
+\end{document}

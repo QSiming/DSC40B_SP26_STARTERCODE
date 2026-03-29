@@ -1,0 +1,42 @@
+\Needspace{3in}
+\begin{prob}
+
+    Suppose Bellman-Ford with early stopping is run on the weighted graph below whose edge
+    weights are unknown to us (but known to the algorithm). The algorithm uses node $a$ as the
+    source node.
+
+    \begin{center} 
+    \begin{tikzpicture}
+        \tikzset{every node/.style = {shape=circle, draw, minimum size=17pt}}
+
+        \node (a) at (0, 0) {$a$};
+
+        \node[above right=of a] (b) {$b$};
+        \node[below right=of a] (c) {$c$};
+
+        \node[right=of b] (d) {$d$};
+        \node[right=of c] (e) {$e$};
+
+        \node[below right=of d] (f) {$f$};
+
+        \draw (a) edge[->] (b);
+        \draw (a) edge[->] (c);
+        \draw (b) edge[->] (d);
+        \draw (c) edge[->] (e);
+        \draw (d) edge[->] (f);
+        \draw (e) edge[->] (f);
+
+        \node (g) at ($(a)!.5!(f)$) {$g$};
+
+        \draw (a) edge[->] (g);
+        \draw (g) edge[->] (f);
+
+    \end{tikzpicture}
+    \end{center}
+
+    How many iterations of the outer loop will be run in the worst case? Your answer should be a number.
+
+    \inlineresponsebox[.75in]{4}
+
+
+\end{prob}

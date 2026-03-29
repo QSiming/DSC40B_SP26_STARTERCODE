@@ -1,0 +1,29 @@
+%% tags: [bellman-ford]
+%% source: 2023-fa-midterm_02
+\begin{prob}
+
+    Suppose the Bellman-Ford algorithm is run on the following graph using node $a$ as the source node:
+
+    \includegraphics[width=.1\textwidth]{graph.png}
+
+    Suppose when \mintinline{python}{graph.edges} is called, the edges are returned in the order:
+
+
+    $
+    (a, b),
+    (c, e),
+    (d, f),
+    (c, d),
+    (b, d),
+    (b, e),
+    (a, c),
+    (e, f)
+    $.
+
+    After one iteration of the outer loop of Bellman-Ford, what is the
+    estimated distance to node $d$?
+
+    \inlineresponsebox[.75in]{9}
+
+
+\end{prob}

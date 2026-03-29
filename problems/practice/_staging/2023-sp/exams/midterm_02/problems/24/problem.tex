@@ -1,0 +1,31 @@
+%% source: 2023-sp-midterm_02
+\begin{prob}
+    Recall that the Bellman-Ford algorithm keeps track of the estimated
+    shortest path distance from the source to each node in the graph. These
+    estimates are updated, and eventually become correct, provided that the
+    graph has no negative cycles.
+
+    Suppose the Bellman-Ford algorithm is run on the graph below using node $s$
+    as the source.
+
+    \begin{center} 
+        \includegraphics[width=.6\textwidth]{\thisdir/graph.png}
+    \end{center}
+
+    After 2 iterations of the outer loop, which of the nodes listed below are
+    guaranteed to have correct estimated shortest path distances (no matter the
+    order in which \python{graph.nodes} produces the graph's nodes)? Select all
+    that apply.
+
+    \begin{choices}[rectangle]
+        \correctchoice $s$
+        \choice $u_1$
+        \choice $u_2$
+        \correctchoice $u_3$
+        \correctchoice $u_4$
+        \correctchoice $u_5$
+        \choice $u_6$
+    \end{choices}
+
+
+\end{prob}

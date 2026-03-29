@@ -1,0 +1,11 @@
+\begin{prob}
+    A \emph{maximum} spanning tree of a weighted graph $G$ is a spanning tree
+    of $G$ with greatest total edge weight.
+    Describe a simple algorithm for computing a maximum spanning tree.
+
+    \begin{soln}
+        Run Kruskal's algorithm ``in reverse'' by sorting the edges in
+        decreasing order by weight and at each step adding the longest
+        remaining edge as long as it does not create a cycle.
+    \end{soln}
+\end{prob}

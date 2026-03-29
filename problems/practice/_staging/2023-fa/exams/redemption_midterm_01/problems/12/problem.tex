@@ -1,0 +1,22 @@
+\Needspace{3in}
+\begin{prob}
+    Suppose \python{bar_1}, \python{bar_2} and \python{bar_3} are three functions.
+    Suppose \python{bar_1}'s time complexity is $\Theta(n)$, \python{bar_2}'s
+    time complexity is $\Theta(n^2)$, and \python{bar_3}'s
+    time complexity is $\Theta(n^3)$.
+
+    Suppose \python{foo} is defined as below:
+
+    \inputminted{python}{\thisdir/code.py}
+
+    What is the asymptotic time complexity of \python{foo}?
+
+    \inlineresponsebox{$\Theta(n^2)$}
+
+    \begin{soln}
+        Asymptotic time complexity concerns the time taken when $n$ is large.
+        Therefore, it doesn't matter what happens when $n < 1000$.
+        When $n \geq 1000$, the time taken is $\Theta(n^2)$, since that is the
+        time taken by \python{bar_2}.
+    \end{soln}
+\end{prob}

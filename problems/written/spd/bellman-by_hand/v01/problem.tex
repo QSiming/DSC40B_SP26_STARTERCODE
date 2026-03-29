@@ -1,0 +1,35 @@
+\begin{prob}
+    Run Bellman-Ford on the following graph using node $s$ as the source.
+    Below each node $u$, write the shortest path length from $s$ to $u$.
+    Mark the predecessor of $u$ by highlighting it or making a bold arrow.
+    You can assume that \python{graph.edges} produces the graph's edges in the following
+    order:
+    \begin{align*}
+        &(u_2, u_4),
+        (u_7, u_8),
+        (u_6, u_3),
+        (s, u_1),
+        (u_1, u_2),
+        (u_4, u_5),
+        (u_1, u_3),\\
+        &(u_3, u_4),
+        (u_6, u_7),
+        (u_4, u_6),
+        (u_5, u_7),
+        (u_7, u_4),
+        (u_4, u_2),
+        (u_6, u_8)
+    \end{align*}
+    \vspace{1em}
+
+    \begin{center}
+        \includegraphics[scale=.6]{\thisdir/include/bellman-graph.pdf}
+    \end{center}
+
+    \begin{soln}
+        \begin{center}
+            \includegraphics[scale=.6]{\thisdir/include-solution/bellman-soln.pdf}
+        \end{center}
+    \end{soln}
+\end{prob}
+

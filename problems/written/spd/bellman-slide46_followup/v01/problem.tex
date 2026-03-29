@@ -1,0 +1,64 @@
+\begin{prob}
+    \textbf{Follow-up: Bellman-Ford example from Lecture 14 slide 46.}
+
+    Consider the directed weighted graph from Lecture 14 (slide 46) with source node $v_1$.
+    The weighted edges are:
+    \[
+        (v_1,v_2):2,\;
+        (v_2,v_3):-1,\;
+        (v_3,v_4):1,\;
+        (v_4,v_5):3,\;
+        (v_5,v_6):2,\;
+        (v_1,v_7):7,\;
+        (v_7,v_6):0,\;
+        (v_7,v_5):3,\;
+        (v_5,v_7):-1.
+    \]
+
+    \textbf{Edge ordering convention.}
+    In each iteration (pass), perform \texttt{update(u, v)} exactly as listed below.
+    Iteration pass uses this exact edge order:
+    \[
+        (v_3,v_4),\; (v_1,v_2),\; (v_2,v_3),\; (v_7,v_6),\; (v_5,v_7),\;
+        (v_7,v_5),\; (v_4,v_5),\; (v_5,v_6),\; (v_1,v_7).
+    \]
+
+    Answer the following:
+    \begin{subprobset}
+        \begin{subprob}
+            How many full passes are needed until distances no longer change?
+        \end{subprob}
+        \begin{subprob}
+            What are the final \texttt{est} and \texttt{predecessor} dictionaries?
+        \end{subprob}
+        \begin{subprob}
+            Briefly explain why this ordering is slower.
+        \end{subprob}
+    \end{subprobset}
+
+    \begin{responsebox}{4.2in}
+    \end{responsebox}
+
+    \begin{soln}
+        Pass-by-pass updates under the required order:
+        \begin{itemize}
+            \item Pass 1: $v_2 \leftarrow 2$, $v_3 \leftarrow 1$, $v_7 \leftarrow 7$.
+            \item Pass 2: $v_4 \leftarrow 2$, $v_6 \leftarrow 7$, $v_5 \leftarrow 5$.
+            \item Pass 3: $v_7 \leftarrow 4$ (via $v_5 \to v_7$).
+            \item Pass 4: $v_6 \leftarrow 4$ (via updated $v_7 \to v_6$).
+            \item Pass 5: no values change (converged).
+        \end{itemize}
+
+        So the first no-change pass is pass 5 (equivalently, all final values are already fixed by the end of pass 4).
+
+        Final values:
+        \begin{itemize}
+            \item est: $v_1\!:\!0,\; v_2\!:\!2,\; v_3\!:\!1,\; v_4\!:\!2,\; v_5\!:\!5,\; v_6\!:\!4,\; v_7\!:\!4$
+            \item predecessor: $v_1\!:\!\texttt{None},\; v_2\!:\!v_1,\; v_3\!:\!v_2,\; v_4\!:\!v_3,\; v_5\!:\!v_4,\; v_6\!:\!v_7,\; v_7\!:\!v_5$
+        \end{itemize}
+
+        Why slower: this edge ordering is not aligned with the long shortest-path chain from $v_1$ to $v_6$.
+        Improvements found later in a pass often cannot propagate until the next pass, so information moves more slowly.
+        If we used an order that follows the chain direction (topologically along that path), the same information could propagate in far fewer passes (often around 1--2 passes for this type of example).
+    \end{soln}
+\end{prob}

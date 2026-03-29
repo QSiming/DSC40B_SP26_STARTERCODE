@@ -1,0 +1,14 @@
+%% source: 2022-fa-redemption_midterm_01
+%% tags: [expected time]
+\begin{prob}
+    What is the \textbf{expected} time complexity of the function below?
+
+    \inputminted{python}{./code.py}
+
+    \begin{soln}
+        $\Theta(n)$. Note that in this question, the range of $x$ is between 0 and 99. Therefore the outer loop will run a constant number of times no matter what 
+        $x$ is. Then we can focus on the inner loop, which runs for $n$ times the print() operation, which is $\Theta(n)$ time. Therefore, the expected time complexity 
+        for this piece of code is $\Theta(n)$.
+    \end{soln}
+
+\end{prob}

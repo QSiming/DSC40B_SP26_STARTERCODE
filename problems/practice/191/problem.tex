@@ -1,0 +1,22 @@
+%% tags: [best and worst case]
+%% source: 2023-fa-redemption_midterm_01
+
+\begin{prob}
+
+    The code below takes in two lists, each containing $n$ integers.
+
+    \inputminted{python}{code.py}
+
+    What is the best case time complexity of \mintinline{python}{foo} as a function of $n$?
+    State your answer using asymptotic notation.
+
+    \inlineresponsebox[.75in]{$\Theta(n)$}
+
+    \begin{soln}
+        The best case is where the lists are equal. In this case the time
+        complexity is $\Theta(n)$. The worst case is when the lists are not
+        equal in which case the time complexity is $\Theta(n^3)$.
+    \end{soln}
+
+
+\end{prob}

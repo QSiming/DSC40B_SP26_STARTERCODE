@@ -1,0 +1,57 @@
+\begin{prob}
+    % Write the problem here.
+
+    Suppose $A(n), B(n), C(n)$ are functions
+    describing the runtime of three algorithms. Furthermore, suppose we
+    have the following bounds on each function:
+    \begin{align*}
+        A(n) &= \Theta(n^{3})\\
+        B(n) &= O(n^{2}\log n)\\
+        C(n) &= O(n^{5}) \text{ and } C(n) = \Omega(n^{2})
+    \end{align*}
+
+    What are the best bounds that can be placed on the following functions?
+
+    For this problem, you do not need to show work.
+
+    \textbf{Example 1}: $A(n) + B(n)$.
+
+    \textbf{Solution}: $A(n) + B(n)$ is $\Theta(n^{3})$.
+
+    \textbf{Example 2}: $f(n) = 2 \cdot C(n)$.
+
+    \textbf{Solution}: $f(n) = 2 \cdot C(n)$ is $O(n^5)$ and $\Omega(n^2)$.
+
+    % the below function looks for a file in the "solution" directory named "solution"
+    % and includes it (if the solution document is being compiled)
+    % \inputsolution{solution}
+
+    \begin{subprobset}
+
+        \begin{subprob}
+            $A(n) + B(n)$
+
+            \begin{soln}
+                $\Theta(n^{3})$
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            $B(n) + C(n)$
+
+            \begin{soln}
+                $O(n^{5})$ and $\Omega(n^{2})$
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            $A(n) + C(n)$
+
+            \begin{soln}
+                $O(n^{5})$ and $\Omega(n^{3})$
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+
+\end{prob}

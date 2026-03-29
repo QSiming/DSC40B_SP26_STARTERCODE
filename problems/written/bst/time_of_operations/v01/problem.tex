@@ -1,0 +1,40 @@
+\begin{prob}
+    Determine the worst case time complexities of the following functions under
+    the assumption that the binary search tree being operated is balanced tree
+    of $n$ nodes.
+
+    For this problem, assume that we represent a binary search tree node as an
+    object with \python{left}, \python{right}, \python{key}, and
+    \python{parent} attributes. If \python{left}, \python{right}, or
+    \python{parent} are \python{None}, it means that the node does not have a
+    left/right child or a parent, respectively.
+
+    \begin{subprobset}
+        \begin{subprob}
+            Assume that the input, \python{root}, is the root of the binary search tree (and
+            is not \python{None}).
+
+            \inputminted{python}{\thisdir/include/foo.py}
+
+            \begin{soln}
+                This will take $\Theta(\log n)$ in the worst case, which is
+                when it must traverse the entire height of the tree.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            Assume that the input, \python{root}, is the root of the binary search
+            tree (and is not \python{None}).
+
+            \inputminted{python}{\thisdir/include/bar.py}
+
+            \begin{soln}
+                This will take $\Theta(n)$ in the worst case (and in the best case),
+                as it visits each node in the tree exactly once.
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+
+
+\end{prob}

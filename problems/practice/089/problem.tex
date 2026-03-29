@@ -1,0 +1,14 @@
+%% source: 2023-sp-redemption_midterm_01
+%% tags: [expected time]
+\begin{prob}
+    What is the \textbf{expected} time complexity of the function below?
+
+    \inputminted{python}{./code.py}
+
+    \begin{soln}
+        $\Theta(n^2)$. The inner loop is not random, and the time complexity of it is always $\Theta(n)$. Therefore the expected time complexity 
+        of this function will be (using the arithmetic sequence sum formula)
+        \[ \frac{1}{n} \sum_{i = 0}^{n - 1} i \times \Theta(n) = \Theta(n^2). \]
+    \end{soln}
+
+\end{prob}

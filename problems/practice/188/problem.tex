@@ -1,0 +1,21 @@
+%% tags: [binary search trees, time complexity]
+%% source: 2023-fa-midterm_01
+\begin{prob}
+    Suppose a collection of unique numbers is stored in a \textbf{balanced}
+    binary search tree, and that each node in the tree has been given a
+    \mintinline{python}{.size} attribute which contains the number of nodes in the subtree
+    rooted at that node. What is the time complexity required of an efficient
+    algorithm for computing the number of elements in the collection which are
+    larger than some threshold, $t$?
+
+    \begin{soln}
+        $\Theta(\log{n})$. We can consider the following algorithm: Query for $t$ in the BST, 
+        and define a new variable total for tracking the result.
+        For each step of the recursion, if we go to the left, add the size of the right branch 
+        + 1 to the running total. We repeat the above until the query() function finishes running, 
+        which will give us exactly the number of elements in the collection which are larger than 
+        $t$. Since we are querying (and adding some constant time updating steps) in a balanced 
+        BST, the time complexity for this question will be $\Theta(\log{n})$.
+    \end{soln}
+
+\end{prob}

@@ -1,0 +1,6 @@
+taught:
+  - summation-geometric
+
+tested:
+  - summation-geometric
+  - time_complexity-nested_dependent_loops-geometric

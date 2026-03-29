@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+
+import pathlib
+import subprocess
+import shutil
+
+PAST_EXAMS = pathlib.Path("../past/exams")
+
+EXAM_NAMES = [
+    "midterm_01",
+    "midterm_02",
+    "redemption_midterm_01",
+    "redemption_midterm_02",
+]
+
+# try building everything
+for exam_name in EXAM_NAMES:
+    directory = pathlib.Path(__file__).parent / exam_name
+    print(f"Building {exam_name}")
+    # send stdout to /dev/null but print stderr
+    subprocess.run(["make", "all"], cwd=directory, stdout=subprocess.DEVNULL)
+
+# ask for the current quarter in "2024-wi" format
+quarter = input("Enter the quarter in '2024-wi' format: ")
+
+# create the directory for the quarter in PAST_EXAMS
+quarter_dir = PAST_EXAMS / quarter
+quarter_dir.mkdir(exist_ok=True)
+
+# for each exam, copy the pdf to the quarter directory
+for exam_name in EXAM_NAMES:
+    directory = pathlib.Path(__file__).parent / exam_name
+    pdfs = (directory / "build").glob("*.pdf")
+    print()
+    print("Archiving", exam_name)
+    for pdf in pdfs:
+        pdf = pdf.relative_to(directory)
+        dest = quarter_dir / exam_name
+        dest.mkdir(exist_ok=True)
+        print(f"Copied {pdf} to {dest}")
+        shutil.copy(directory / pdf, dest)

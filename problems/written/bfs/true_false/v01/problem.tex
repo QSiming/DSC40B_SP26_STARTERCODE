@@ -1,0 +1,42 @@
+\begin{prob}
+    State whether the following statements are true or false.
+
+    \begin{subprobset}
+        \begin{subprob}
+            Full breadth first search on a directed graph always produces same number of BFS trees irrespective of order in which vertices are given and the neighbouring nodes are visited.
+	        \begin{responsebox}{1in}
+    		    False\\
+                For a directed graph, the number of BFS trees can vary depending on the order in which vertices are given.
+    		\end{responsebox}
+        \end{subprob}
+
+        \begin{subprob}
+            Full breadth first search on an undirected graph always produces same number of BFS trees irrespective of order in which vertices are given and the neighbouring nodes are visited.
+	        \begin{responsebox}{1in}
+    		    True.
+    		\end{responsebox}
+        \end{subprob}
+
+        \begin{subprob}
+            Both Full BFS and Full DFS require atleast $\Omega(V)$ memory.
+	        \begin{responsebox}{1in}
+    		    True \\
+                Both Full BFS and Full DFS require $\Omega(V)$ memory to store the status of the nodes.
+    		\end{responsebox}
+        \end{subprob}
+
+        \begin{subprob}
+            Consider a graph G on which BFS is run with node s as the source, and $d(a, b)$ is the distance from node $a$ to $b$. Assume that BFS visits a node u in the graph before node v. Then $d(s,u) < d(s,v)$.
+	        \begin{responsebox}{1in}
+    		    False. $d(s,u) \leq d(s,v)$
+    		\end{responsebox}
+        \end{subprob}
+
+        \begin{subprob}
+            Every directed acyclic graph has exactly one topological ordering.
+	        \begin{responsebox}{1in}
+    		    False. There can be multiple topological orderings depending on the order of nodes chosen during DFS.
+    		\end{responsebox}
+        \end{subprob}
+    \end{subprobset}
+\end{prob}

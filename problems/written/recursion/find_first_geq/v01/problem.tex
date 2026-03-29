@@ -1,0 +1,36 @@
+\begin{prob}
+    We'll consider an array of
+    \python{True}s and \python{False}s to be sorted if all of the
+    \python{False}s come before any of the \python{True}s, like in
+    \python{[False, False, True, True, True]}.
+
+    The function \python{find_first_true(arr, start, stop)} below is a generalization of the binary
+    search we saw in lecture. It accepts a
+    sorted array of \python{True}s and \python{False}s and returns the index of
+    the first \python{True} (if there is one) within \python{arr[start:stop]};
+    if the array contains all \python{False}s, it returns \python{stop}.
+
+    \begin{minted}[autogobble]{python}
+        def find_first_true(arr, start, stop):
+            if stop - start == 1:
+                if arr[start]:
+                    return start
+                else:
+                    return stop
+
+            middle = math.floor((start + stop) / 2)
+            if arr[middle]:
+                return find_first_true(arr, start, middle)
+            else:
+                return find_first_true(arr, middle, stop)
+    \end{minted}
+
+    Modify this function so that it takes in a sorted array of
+    floats and a number $a$ and returns the index of the first element that is
+    $\geq a$.
+
+    \begin{soln}
+        \inputminted{python}{\thisdir/include-solution/find_first_geq.py}
+    \end{soln}
+
+\end{prob}

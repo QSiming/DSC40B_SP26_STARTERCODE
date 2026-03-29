@@ -1,0 +1,142 @@
+\begin{prob}
+    Determine the asymptotic time complexity of the following piece of code, showing your reasoning
+    and your work.
+
+    \inputminted{python}{\thisdir/include/code.py}
+
+    \textbf{Hint}: you might need to think back to calculus to remember the formula for
+    the sum of a geometric progression... or you can check wikipedia.%
+    \footnote{\url{https://en.wikipedia.org/wiki/Geometric_series}}
+
+    \begin{soln}
+        $\Theta(n^2)$.
+
+        How many times does the \python{print} statement execute? That will
+        tell us the time complexity, because each line of code takes constant
+        time to run once, and the \python{print} statement is the line that is
+        run most.
+
+        On the first iteration
+        of the outer loop, \python{i = 2} and this line runs $i^2 = 2^2 = 4$ times. On the second iteration
+        of the outer loop, \python{i = 4} and this line runs $4^2 = 16$ times. On the third
+        iteration, it runs 64 times. The pattern is captured by the table below:
+
+        % a table with columns:
+        %   - iteration #
+        %   - $i$
+        %   - $i^2$
+        \begin{center}
+            \begin{tabular}{ccc}
+                \toprule
+                Iteration \# & $i$      & \# of \python{print}s \\
+                \midrule
+                1            & 2        & 4                     \\
+                2            & 4        & 16                    \\
+                3            & 8        & 64                    \\
+                4            & 16       & 256                   \\
+                $\vdots$     & $\vdots$ & $\vdots$              \\
+                $k$          & $2^k$    & $2^{2k} = 4^k$        \\
+                $\vdots$     & $\vdots$ & $\vdots$              \\
+                \bottomrule
+            \end{tabular}
+        \end{center}
+
+        The third column tells us the number of times \python{print} is
+        executed \emph{during} that iteration of the \python{while} loop. In
+        general, on the $k$th iteration of the outer loop, the \python{print}
+        runs $2^{2k}$ times, which happens to equal $4^k$. The total number of
+        \python{print}s will be the sum of the third column.
+
+        We need to sum up the third column, but we don't yet know the last term
+        in that sum. To figure it out, recognize that the outer loop will run
+        \emph{roughly} $\log_2 n$ times since $i$ is doubling on each
+        iteration. We'll see in a moment why it's OK to have a rough estimate
+        instead of being exact here.
+
+        The total number of executions of the \python{print} is therefore:
+        \[
+            \underbrace{4}_{\text{\footnotesize 1st outer iter.}}
+            +
+            \underbrace{16}_{\text{\footnotesize 2nd outer iter.}}
+            +
+            \underbrace{64}_{\text{\footnotesize 3rd outer iter.}}
+            +
+            \ldots
+            +
+            \underbrace{4^{k}}_{\text{\footnotesize $k$th outer iter.}}
+            +
+            \ldots
+            +
+            \underbrace{4^{\log_2 n}}_{\text{\footnotesize $\log_2 n$th outer iter.}}
+        \]
+
+        Or, written using summation notation:
+        \[
+            \sum_{k=1}^{\log_2 n} 4^k
+        \]
+
+        This is the sum of a \emph{geometric progression}. Wikipedia tells us that the formula
+        for the sum of $1 + 4 + 8 + 16 + \ldots + 4^K$ is:
+        \[
+            \sum_{k=0}^{K} 4^k = \frac{1 - 4^{K+1}}{1 - 4} = \frac{4^{K+1} -1}{3}
+        \]
+        Notice that this sum starts from $k = 0$, while ours starts with $k = 1$.
+        In other words, our sum is the same except it is missing the first term corresponding
+        to $k = 0$.
+        So to
+        ``correct'' this, we subtract the $k = 0$ term (which is $4^0 = 1$)
+        from the larger sum :
+        \[
+            \sum_{k=1}^{K} 4^k =
+            \left(\sum_{k=0}^{K} 4^k\right) - 4^0 =
+            \frac{4^{K+1} -1}{3} - 1 =
+            \frac{4^{K+1} - 4}{3}
+        \]
+        Plugging in $K = \log_2 n$:
+        \begin{align*}
+            \sum_{k=1}^{\log_2 n} 4^k
+             & = \frac{4^{\log_2 n + 1} - 4}{3}
+            \intertext{Using the fact that $a^{b+c} = a^b \cdot a^c$:}
+             & =
+            \frac{4 \cdot 4^{\log_2 n} - 4}{3}           \\
+             & =
+            \frac{4 \cdot 4^{\log_2 n}}{3} - \frac{4}{3} \\
+             & =
+            \Theta(4^{\log_2 n})                         \\
+            \intertext{Simplifying using the fact that $ (a^b)^c = a^{b \cdot c}$:}
+             & =
+            \Theta((2^2)^{\log_2 n})                     \\
+             & =
+            \Theta((2^{\log_2 n})^2)                     \\
+             & =
+            \Theta(n^2)
+        \end{align*}
+
+        Now, remember that we said that we could afford to be a little imprecise when calculating
+        the number of times that the outer loop runs. Let's see why. If $n$ isn't a power
+        of $2$, $\log_2 n$ will not be an integer. For instance, if $n = 17$, $\log_2 n = 4.08$.
+        Of course, the loop can't iterate 4.08 times -- you can check that it will actually iterate
+        5 times. In general, the loop will run exactly $\lceil \log_2 n \rceil$ times, where
+        $\lceil \cdot \rceil$ is the \emph{ceiling} operation; it rounds a real number up
+        to the next integer.
+
+        In other words, $\log_2 n$ could actually be as much as one less than the actual number
+        of iterations. Perhaps to be careful we should overestimate the number of iterations
+        to be $\log_2 n + 1$. What if we were to use $\log_2 n + 1$ instead? We'd end up with:
+        an extra term in the sum, which we can split off:
+        \[
+            \sum_{k=1}^{\log_2 n + 1} 4^k = \left(
+            \sum_{k=1}^{\log_2 n} 4^k
+            \right)
+            +
+            4^{\log_2 n + 1}
+        \]
+        The part in parentheses is the sum we calculated above, which we know is $\Theta(n^2)$.
+        The ``extra'' term, $4^{\log_2 n + 1}$, is equal to $4 \cdot 4^{\log_2 n}$, which is
+        $4 n^2$. So the total is still $$\Theta(n^2) + 4 n^2 = \Theta(n^2)$$
+        and the time complexity doesn't change. This is why using $\Theta$ notation allows us
+        to be ``sloppy'' at times without being incorrect. It saves us work, as long as
+        we know how to use it correctly!
+    \end{soln}
+
+\end{prob}

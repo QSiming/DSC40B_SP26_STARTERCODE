@@ -1,0 +1,100 @@
+\begin{prob}
+    Solve the following recurrence relations.
+    
+    \begin{subprobset}
+    
+            \begin{subprob}
+		        T(n) = T(n-1) + n
+		        \\
+		        T(0)=0
+                \begin{soln}
+                    \begin{align*}
+                        T(n) &= T(n-1) + n
+                        \\
+                        &= [T(n-2) + n-1] + n
+                        \\
+                        &= T(n-2) + 2n - 1
+                        \\	
+                        &= [T(n-3) + n-2] + 2n - 1
+                        \\
+                        &= T(n-3) + 3n - (1 + 2)
+                        \\
+                        &= [T(n-4) + n -3] + 3n - (1+2)
+                        \\
+                        &= T(n-4) + 4n - (1+2+3)
+                    \end{align*}
+                    We can infer that $T(n) = T(n - k) + kn - \sum_{i=1}^{k-1}i$ in the k-th step. 
+                    \\
+                    T(0) is the base case. $n-k =0 $ when $n=k$.
+                    \\
+                    \begin{align*}
+                        \sum_{i=1}^{n-1}i = \frac{(n-1)n}{2} = \frac{n^2 - n}{2}
+                    \end{align*}
+                    \begin{align*}
+                        T(n) &= T(n-n) + n\cdot n - \sum_{i=1}^{n-1}i 
+                        \\
+                        &= T(0) + n^2 -  \frac{n^2 - n}{2}
+                        \\
+                        &= 0 + n^2 -  \frac{n^2 - n}{2}
+                        \\  
+                        &= \theta(n^2)
+                    \end{align*} 
+                \end{soln}
+            \end{subprob}
+            
+            \vspace{25em}
+            \begin{subprob}
+                T(n)=4T(n/4) + n
+                \\
+                T(1)=1
+                \begin{soln}
+                    \begin{align*}
+                        T(n) &= 4 \cdot T(n/4) + n
+                        \\
+                        &=
+                        4 \left[
+                        4 \cdot T(n/16) + n/4
+                        \right] + n
+                        \\
+                        &=
+                        16 \cdot T(n/16) + 2n
+                        \\
+                        &=
+                        16 \left[
+                        4 \cdot T(n/64) + n/16
+                        \right] + 2n
+                        \\
+                        &=
+                        64 \cdot T(n/64) + 3n
+                        \intertext{We can infer that in the k-th step, we have:}
+                        &=
+                        4^k \cdot T(n/4^k) + k\cdot n
+                    \end{align*}
+                    The base case will be reached when $n/4^k = 1$, that is, when $k = \log_4 n$.
+                    Substituting this value of $k$ into the general expression:
+                    \begin{align*}
+                        T(n)
+                        &=
+                        4^{\log_4 n} \cdot T(n/4^{\log_4 n}) + n \cdot \log_4 n
+                        \\
+                        &=
+                        n \cdot T(n/n) + n \cdot \log_4 n
+                        \\
+                        &=
+                        n \cdot T(1) + n \cdot \log_4 n
+                        \intertext{Since $T(1) = 1$, we have:}
+                        &=
+                        n + n \cdot \log_4 n\\
+                        &=
+                        \Theta(n \log_4 n)\\
+                        \intertext{Since logarithms of different bases differ only by a constant
+                        factor, we typically omit the base when using asymptotic notation:}
+                        &=
+                        \Theta(n \log n)
+                    \end{align*}
+                \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+
+\end{prob}

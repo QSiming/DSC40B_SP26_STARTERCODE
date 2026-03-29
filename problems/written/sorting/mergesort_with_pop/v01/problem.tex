@@ -1,0 +1,171 @@
+\begin{prob}
+    An understanding of data structures and the time complexity of the various
+    operations involving them is crucial when designing algorithms. Using
+    the wrong data structure, or using the right data structure in the wrong
+    way, can lead to an algorithm which is still correct, but significantly
+    slower. We will see one example in this problem.
+
+    Another way of implementing the \python{merge} function used in
+    \python{mergesort} is shown below:
+
+    \begin{minted}[autogobble]{python}
+        def merge(left, right, arr):
+            left.append(float('inf'))
+            right.append(float('inf'))
+            for ix in range(len(arr)):
+                if left[0] < right[0]:
+                    arr[ix] = left.pop(0)
+                else:
+                    arr[ix] = right.pop(0)
+    \end{minted}
+
+    This code does essentially the same thing as the \python{merge} we saw in class:
+    it merges two sorted lists \python{left} and \python{right} into a list
+    \python{arr} such that the result is in sorted order. However, instead of
+    using index variables to keep track of the front of \python{left} and \python{right},
+    this code uses \python{list.pop(0)} to remove the first element from
+    the appropriate list.
+
+    \begin{subprobset}
+        \begin{subprob}
+            Popping an element from the end of a Python list is quick and
+            efficient, but popping the first element from a list requires that
+            the remaining elements be shifted over to the left by one place. Shifting
+            requires copying the elements, one by one, to their new location.
+            What is the time complexity of \python{arr.pop(0)}, assuming that
+            \python{arr} is a list of size $n$?
+
+            \begin{soln}
+                $\Theta(n)$. Shifting one element to the left takes constant time.
+                There are $n-1$ elements to shift, though, for a total time
+                of $\Theta(n-1) = \Theta(n)$.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            What is the time complexity of the new version of
+            \python{merge}, assuming that (when they are passed to the
+            function) \python{left} and \python{right} are lists of size
+            $n/2$, and \python{arr} is a list of size $n$?
+
+            \begin{soln}
+                First, we claim that the calls to \python{.pop(0)} will dominate
+                the time complexity. Therefore, we calculate the total amount
+                of time spent in these calls.
+
+                Each iteration of the \python{for}-loop will result in one
+                list element being popped, either from \python{left} or
+                from \python{right}. The time it takes to perform this pop
+                will depend on how many elements are in \python{left} or
+                \python{right} at that moment. But this depends on which
+                list was popped from in earlier iterations, which
+                ultimately depends upon the contents of \python{list} and
+                \python{right}.  In short, there is no general way to say
+                how large \python{left} or \python{right} are on the
+                $\alpha$th iteration.
+
+                But that's OK. Instead, recognize that there will be exactly
+                one call to \python{left.pop(0)} when \python{left} has
+                $n/2 + 1$ elements (remember that we appended $\infty$ to
+                the end). Because popping takes time linear in the number
+                of elements, this will take time $c(n/2 + 1)$, where $c$ is
+                some constant. Some time later -- perhaps on the next
+                iteration, perhaps in five iterations -- we will call
+                \python{left.pop(0)} again. This will now take roughly $c\cdot n/2$
+                time, since there are now $n/2$ elements in the list. On
+                the third call, whenever that will be, the pop will take
+                roughly $c(n/2 - 1)$ time. And so on.
+
+                In total, calls to \python{left.pop(0)} will take time:
+                \[
+                    c \left[\left(n/2 + 1\right) + n/2 + (n/2 - 1) + \ldots +  2 + 1 \right]
+                \]
+                The sum of the first $k$ integers is $k(k+1)/2$. Here we have the sum
+                of the first $k = (n/2 + 1)$ integers. Therefore, the total is:
+                \[
+                    c\cdot \frac{(n/2 + 1)(n/2 + 2)}{2} = \Theta(n^2).
+                \]
+
+                We haven't yet considered the calls to \python{right.pop(0)},
+                but they will just double the total time found above. And
+                since $2 \cdot \Theta(n^2)$ is still $\Theta(n^2)$, we
+                see that the overall time taken is $\Theta(n^2)$.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            What is the time complexity of a \python{mergesort} which uses the
+            above version of \python{merge} instead of the linear time version
+            used in lecture?
+
+            \begin{soln}
+                Recall that the recurrence describing the original version of
+                \python{mergesort} was $T(n) = 2 T(n/2) + \Theta(n)$. There,
+                the $\Theta(n)$ came from the call to \python{merge}. In the
+                new version of \python{mergesort}, the $\Theta(n)$ is replaced
+                by $\Theta(n^2)$. Hence we solve the recurrence relation:
+                \[
+                    T(n) =
+                    \begin{cases}
+                        2 T(n/2) + n^2, & \text{$n > 1$},\\
+                        1,              & \text{otherwise}
+                    \end{cases}
+                \]
+
+                We solve this by unrolling. We have $T(n/2) = 2 T(n/4) +
+                (n/2)^2 = 2 T(n/4) + n^2/4$. Making this substitution:
+                \begin{align*}
+                    T(n) 
+                        &= 2 T(n/2) + n^2\\
+                        &= 2 \left[ 2 T(n/4) + n^2/4 \right] + n^2\\
+                        &= 4 \cdot T(n/4) + n^2/2 + n^2\\
+                        &= 4 \cdot T(n/4) + \frac{3n^2}{2}\\
+                    \intertext{Unrolling again, we have $T(n/4) = 2 T(n/8) + n^2/16$. Hence:}
+                        &= 4 \cdot \left[
+                                2 T(n/8) + n^2 / 16
+                            \right]
+                            + \frac{3n^2}{2}\\
+                        &=
+                            8 T(n/8) + n^2/4 + \frac{3n^2}{2}\\
+                        &=
+                        8 T(n/8) + \frac{7n^2}{4}
+                \end{align*}
+                To summarize, we have:
+
+                \begin{tabular}{cc}
+                    Unroll \# & Formula\\
+                    1   & $T(n) = 2 T(n/2) + n^2$\\
+                    2   & $T(n) = 4 T(n/4) + \frac{3n^2}{2}$\\
+                    3   & $T(n) = 8 T(n/8) + \frac{7n^2}{4}$\\
+                \end{tabular}
+
+                We propose the following general formula. On the $k$th unroll:
+                \[
+                    T(n) = 2^k T(n/2^k) + \frac{2^{k}-1}{2^{k-1}}n^2
+                \]
+
+                This process will continue until we have $n/2^k = 1$, that is,
+                $\log_2 n$ times. Using this value of $k$ in our general formula,
+                we obtain:
+
+                \begin{align*}
+                    T(n) 
+                        &=
+                            2^{\log_2 n} T(n/2^{\log_2 n}) + \frac{2^{\log_2 n} - 1}{2^{(\log_2 n) - 1}} n^2\\
+                        &=
+                            n T(n/n) + \frac{n - 1}{n/2} n^2
+                            \\
+                        &= n \cdot 1 + \Theta(1) \cdot n^2
+                            \\
+                        &=
+                            \Theta(n^2)
+                \end{align*}
+
+                Hence the time complexity of this new algorithm is $\Theta(n^2)$.
+                This is much worse than the time complexity of a well-implemented
+                \python{mergesort}, which is $\Theta(n \log n)$.
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+\end{prob}

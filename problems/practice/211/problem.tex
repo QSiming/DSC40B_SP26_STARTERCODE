@@ -1,0 +1,22 @@
+%% tags: [connected components]
+%% source: 2023-fa-midterm_02
+\begin{prob}
+
+    Let $G = (V,E)$ be an undirected graph with:
+    \includegraphics[width=.1\textwidth]{plot.png}
+
+    True or False: $\{b, d, g\}$ is a connected component of this graph.
+
+    \tF{}
+
+    \begin{soln}
+        False. The connected components of this graph are $\{a, e, f\}$ and $\{b, c, d, g, h\}$.
+
+        Remember: a connected component has to contain \emph{all} nodes reachable
+        from any node in the component.
+        While $b$, $d$, and $g$ are all reachable from one another (and are
+        ``connected''), they do not form a connected component because there
+        are more nodes reachable from this group: namely, $h$ and $c$.
+    \end{soln}
+
+\end{prob}

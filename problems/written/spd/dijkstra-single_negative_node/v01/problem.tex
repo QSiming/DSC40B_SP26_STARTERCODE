@@ -1,0 +1,17 @@
+\begin{prob}
+    True or False. Suppose $G = (V, E, \omega)$ is a weighted graph for which
+    all edges are positive, except for those edges of a node $s$ which may or
+    may not be negative. If Dijkstra's algorithm is run on $G$ with $s$ as
+    the source, the correct shortest paths will be found. Assume that the graph does not have any negative loops. Justify your answer.
+
+    \begin{soln}
+            True.
+            The reason that Dijkstra's algorithm can fail in the presence of
+            negative edges is that it cannot rule out that a negative edge that
+            it has not seen will cause a path which is currently longer to
+            eventually become shorter. But if all of the negative edges are
+            attached to the source, the rest of the edges are still positive;
+            and so there is no way in which adding edges to a path can decrease
+            its length.
+    \end{soln}
+\end{prob}

@@ -1,0 +1,82 @@
+\begin{prob}
+    While on campus, you notice someone standing next to a very tall ladder
+    getting ready to replace a lightbulb. As they are about to get started,
+    though, they are distracted by a raccoon and accidentally drop the bulb to
+    the ground. Surprisingly, though, the bulb doesn't break!
+
+    You wonder to yourself: how high up could the bulb be dropped without it
+    breaking? The person goes away for a moment, leaving their ladder, two
+    bulbs, and an opportunity for you to find out the answer to your question.
+    They'll be back soon, though, so you must hurry. You decide to test the
+    bulbs by dropping them and seeing when they break.
+
+    More formally, the ladder has $n$ rungs (that is, $n$ steps). You want to
+    find out the maximum step, $n_\text{max}$, that you can drop a bulb without
+    it breaking. You'll assume that the two bulbs are both equally-strong, and
+    will break on the same step. Since time is limited, you want to find out the
+    answer to your question in as few bulb-drops as you can. You're allowed to
+    break both bulbs.
+
+    One approach is essentially linear search. Here, you stand on step 1, drop
+    the bulb, and see if it breaks. If it doesn't, move to step 2, and so on. If
+    the bulb breaks on step $k$, then you know the highest you can drop the bulb
+    from is step $k - 1$. While this strategy is guaranteed to find you the
+    answer and breaks only one bulb, it is time consuming: in the worst case,
+    you'll need to drop the bulb $\Theta(n)$ times.
+
+    But you've taken DSC 40B, so you're clever -- what about binary search?
+    In this approach, you'll start on step $n / 2$, and drop the first bulb --
+    if it doesn't break, you'll go higher.
+    This seems more efficient, but there's a big problem with this: what if you
+    break the bulb on the first drop? Then you only have one bulb remaining,
+    and you have to be careful. You'll need to go back to using linear search,
+    dropping the remaining bulb from step 1, step 2, and so forth until it
+    breaks. In the worst case this linear search will do around $n/2 =
+    \Theta(n)$ drops.
+
+    However, there is a strategy (many strategies, actually) for finding out
+    $n_\text{max}$ by breaking at most two bulbs and in the worst case making a
+    number of drops $f(n)$ that is asymptotically much smaller than $n$. That
+    is, if $f(n)$ is the number of drops needed by your method in the worst
+    case, it should be true that $\lim_{n \to \infty} f(n) / n = 0$.
+
+    Give such a strategy and state the number of drops it needs in the worst
+    case, $f(n)$, using asymptotic notation. There are many strategies that
+    satisfy the conditions -- yours does not need to be the most efficient.
+    
+    \begin{soln}
+        Go up to step $\sqrt{n}$ and drop the first bulb. If it doesn't break,
+        go up to step $2\sqrt{n}$ and drop. Repeat until the bulb breaks. Say
+        it breaks at step $k\sqrt{n}$. Then you only need to check steps
+        $(k-1)\sqrt n$ through $k \sqrt n$, which you can do with a linear
+        search in less than $\sqrt{n}$ steps.
+
+        In the worst case, $n_\text{max} = n-1$. In this case, you'll drop
+        at $\sqrt n$, then $2 \sqrt n$, then $3 \sqrt n$ and so on, all the way
+        to the top. It takes $n / \sqrt{n} = \sqrt n$ drops to get to the top.
+        Then the bulb finally breaks, and you have to do a linear search to
+        find $n_\text{max}$ exactly -- it could be anywhere between the top
+        rung, $n$, and the location of the previous drop, $n - \sqrt{n}$.
+        This linear search takes about $\sqrt n$ drops.
+        The total number of drops is $\sqrt n$.
+
+        A concrete example might make this clearer. Say $n = 100$. Then
+        start on step 10 and drop the bulb. Say it doesn't break. Move to step
+        20 and drop the first bulb again. Still doesn't break. Now
+        drop from 30 -- supposed it breaks. $n_\text{max}$ is between 20 and 30,
+        so drop the remaining bulb from 21, 22, 23, etc. until it breaks. In the
+        worst case, you drop the bulb from $10, 20, 30, \ldots, 90, 100$, and it
+        breaks at 100, so you then drop from $91, 92, \ldots, 99$.
+
+        Note that $\sqrt n$ is (close) to the optimal solution, but there are 
+        infinitely many others. For example, you could drop from $\log n$, then $2 \log n$, etc.
+        Here the worst case would be $\Theta(n / \log n)$, which is still better
+        than $\Theta(n)$. Similarly, you could drop at $n^{1/4}$, etc.
+
+        The most efficient solution is determined by the number of bulbs you
+        have. If you have $\Theta(\log n)$ bulbs, the most efficient solution is
+        binary search.
+
+    \end{soln}
+
+\end{prob}

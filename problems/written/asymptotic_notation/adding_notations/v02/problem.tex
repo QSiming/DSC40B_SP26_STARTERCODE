@@ -1,0 +1,94 @@
+\begin{prob}
+    % Write the problem here.
+
+    Suppose $T_1(n), \ldots, T_6(n)$ are functions
+    describing the runtime of six algorithms. Furthermore, suppose we
+    have the following bounds on each function:
+    \begin{align*}
+        T_1(n) &= \Theta(n^{2.5})\\
+        T_2(n) &= O(n \log n)\\
+        T_3(n) &= \Omega(\log n)\\
+        T_4(n) &= O(n^4) \text{ and } T_4 = \Omega(n^2)\\
+        T_5(n) &= \Theta(n)\\
+        T_6(n) &= \Theta(n \log{n})\\
+        T_7(n) &= O(n^{1.5} \log n) \text{ and } T_7 = \Omega(n \log{n})
+    \end{align*}
+
+    What are the best bounds that can be placed on the following functions?
+
+    For this problem, you do not need to show work.
+
+    Hint: watch the supplemental lecture at \url{https://youtu.be/tmR-bIN2qw4}.
+
+    \textbf{Example 1}: $T_1(n) + T_2(n)$.
+
+    \textbf{Solution}: $T_1(n) + T_2(n)$ is $\Theta(n^{2.5})$.
+    
+    \textbf{Example 2}: $f(n) = 2 \cdot T_4(n)$.
+
+    \textbf{Solution}: $f(n) = 2 \cdot T_4(n)$ is $O(n^4)$ and $\Omega(n^2)$.
+
+
+    % the below function looks for a file in the "solution" directory named "solution"
+    % and includes it (if the solution document is being compiled)
+    % \inputsolution{solution}
+
+    \begin{subprobset}
+
+        \begin{subprob}
+            $T_1(n) + T_5(n)$
+
+            \begin{soln}
+                $\Theta(n^{2.5})$
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            $T_2(n) + T_6(n)$
+
+            \begin{soln}
+                $\Theta(n \log n)$
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            $T_2(n) + T_4(n)$
+
+            \begin{soln}
+                $O(n^4)$ and $\Omega(n^2)$
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            $T_7(n) + T_4(n)$
+
+            \begin{soln}
+                $O(n^4)$ and $\Omega(n^2)$
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            $T_3(n) + T_1(n)$
+
+            \begin{soln}
+                $\Omega(n^{2.5})$
+
+                Note that we can't give an upper bound here, because we don't have an upper
+                bound on $T_3(n)$. For example, it could be that $T_3(n) = n^{10}$ or
+                $n^{100}$ or $n^{1000}$; we just do not have enough information to know.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            $T_1(n) \times T_4(n)$
+
+            \begin{soln}
+                $O(n^{6.5})$ and $\Omega(n^{4.5})$
+
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+
+\end{prob}
+

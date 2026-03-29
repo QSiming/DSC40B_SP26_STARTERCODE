@@ -1,0 +1,11 @@
+\begin{soln}
+    Note that we can reduce the search space to a finite set ,
+    since it suffices to only check the $\theta$ which coincide
+    with a data point.  That is, we loop over each of the data
+    points $x$ and compute $L(x)$, returning the minimizer.
+    Since computing $L(x)$ takes linear time, and there are
+    $\Theta(n)$ data points, this approach takes $\Theta(n^2)$
+    time in total.
+
+    \inputminted{python}{\solutiondir/minimize_ell.py}
+\end{soln}

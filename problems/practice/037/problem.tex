@@ -1,0 +1,14 @@
+%% source: 2021-fa-midterm_01
+%% tags: [expected time]
+\begin{prob}
+    What is the \textbf{expected} time complexity of the function below?
+
+    \inputminted{python}{./code.py}
+
+    \begin{soln}
+        $\Theta(\sqrt n)$. Since the for loop only executes when $x$ is less than $\sqrt{n}$, the expected time complexity is 
+        \[ \frac{1}{n} \bigg( \sum_{i = 1}^{\lfloor \sqrt{n} \rfloor} n + \sum_{i = \lceil \sqrt{n} \rceil}^{n - 1} 1 \bigg)  
+        \approx \frac{1}{n} (n \sqrt{n} + (n - \sqrt{n})) = \Theta(\sqrt{n}). \]
+    \end{soln}
+
+\end{prob}

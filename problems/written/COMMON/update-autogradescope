@@ -1,0 +1,9 @@
+#! /usr/bin/env bash
+set -e
+
+cd autograder/setup
+rm -rf autogradescope
+
+git clone git@github.com:eldridgejm/autogradescope.git repo
+mv repo/autogradescope .
+rm -rf repo

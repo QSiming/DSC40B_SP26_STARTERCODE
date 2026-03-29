@@ -1,0 +1,40 @@
+\begin{progprob}
+    % Write the problem here.
+    In a file named \python{swap_sum.py}, write a function named
+    \python{swap_sum(A, B)} which, given two \textbf{sorted} integer arrays
+    $\python{A}$ and $\python{B}$, returns a pair of indices \python{(A_i,
+    B_i)} -- one from $A$ and one from $B$ -- such that after swapping these
+    indices, \python{sum(B) == sum(A) + 10}. If more than one pair is found,
+    return any one of them. If such a pair does not exist, return
+    $\python{None}$. 
+
+    For example, suppose \python{A = [1, 6, 50]} and \python{B = [4, 24, 35]}.
+    Swapping $6$ and $4$ results in arrays $(1, 4, 50)$ and $(6, 24, 35)$; the
+    elements of each list sum to 55 and 65. Thus, you must return $\python{(1,
+    0)}$ as you are expected to return the indices. 
+
+    Your algorithm should run in time $\Theta(n)$, where $n$ is the size of the
+    larger of the two lists. Your code should not modify \python{A} and \python{B}.
+
+    \emph{Hint}: This is similar to the movie problem from lecture, but also to
+    a problem covered in discussion. In the discussion problem,
+    we're given two lists, \python{A} and \python{B} and a target \python{t},
+    and our goal is to find an element $a$ of \python{A} and an element $b$ of
+    \python{B} such that $a + b = t$. This problem is similar, in that we want
+    $(\text{sum of A after swap}) - (\text{sum of B after swap}) = -10$. Note
+    that here we are subtracting, where in discussion we were adding! How does
+    that change things?
+
+    This is a coding problem, and you'll submit your \python{swap_sum.py}
+    file to the Gradescope autograder assignment named ``Homework 03 -
+    Programming Problem 02''. The public autograder will test to make sure your
+    code runs without error on a simple test, so be sure to check its output!
+    After the deadline a more thorough set of tests will be used to grade your
+    submission.
+
+    \begin{soln}
+
+        \inputminted{python}{\thisdir/include-solution/swap_sum.py}
+
+    \end{soln}
+\end{progprob}

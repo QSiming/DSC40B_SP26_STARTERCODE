@@ -1,0 +1,20 @@
+\begin{prob}
+    Determine whether each piece of code is correct or
+    incorrect.
+        \begin{subprobset}
+            \begin{subprob}
+                \inputminted{python}{\thisdir/include/part_a.py}
+                \begin{soln}
+                    The code does not have a base case. Hence, the arr[1:] will result in an error when the size of the array is 1.
+                \end{soln}  
+            \end{subprob}
+            \begin{subprob}
+                \inputminted{python}{\thisdir/include/part_b.py}
+                \begin{soln}
+                    \\
+                    The base case of n==2 is not handled. Therefore, the code will run into an infinite recursion.
+                \end{soln}  
+            \end{subprob}
+        \end{subprobset}
+
+\end{prob}

@@ -1,0 +1,8 @@
+tested:
+  - asymptotic_notation-determine_informally
+  - time_complexity-guess_time_taken_by_library_functions
+  - time_complexity-nested_dependent_loops-arithmetic
+  - time_complexity-nested_dependent_loops-geometric
+  - time_complexity-nested_independent_loops
+  - time_complexity-ugly_for_loop_ranges
+  - time_complexity-while_loops

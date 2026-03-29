@@ -1,0 +1,55 @@
+%% tags: [recursion]
+%% source: 2023-fa-midterm_01
+\begin{prob}
+    Professor Billy claims to have invented a new sorting algorithm:
+    \mintinline{python}{mediansort}. The algorithm supposedly works by finding a median
+    number, swapping it into the middle of the list, and recursing on the left
+    half and the right half. Professor Billy's code is written below:
+
+    \inputminted[lastline=18]{python}{code.py}
+
+    The code is supposed to sort ``in place'' by modifying the input array.
+    You may assume that \mintinline{python}{find_median} correctly returns the index
+    of the median element in \mintinline{python}{arr[start:stop]}.
+
+    Does Professor Billy's \mintinline{python}{mediansort} algorithm work? You may assume that it is called
+    with \mintinline{python}{start = 0} and \mintinline{python}{stop = len(arr)}.
+
+    \begin{choices}
+        \choice Yes: \mintinline{python}{arr} will be in sorted order after the function exits.
+        \choice No: it may recurse infinitely.
+        \choice No: it may try to access the array at an invalid index and then raise an exception.
+        \correctchoice No: it will run without error, but \mintinline{python}{arr} may not be sorted when the function exits.
+    \end{choices}
+
+    \begin{soln}
+
+        \textbf{No: it will run without error, but \mintinline{python}{arr} may not be sorted 
+        when the function exits}.
+
+
+        Remember the three things to check when evaluating recursive code: 1)
+        does it have a base case? 2) do the recursive subproblems get smaller
+        and smaller? and 3) assuming that the recursive subcalls do what they say
+        they will, does the algorithm work overall?
+
+        In this situation, the third thing does not check out. That is: even if
+        \mintinline{python}{mediansort(arr, start, middle_ix)} correctly sorts the numbers
+        in \mintinline{python}{arr[start:middle_ix]} (and the other call does the same for
+        the right half of the list), this does not mean that \mintinline{python}{arr} will
+        be in sorted order over all. We would still need to merge the two
+        sorted halves together into one sorted list.
+
+        It might help to look at this another way. On the root call to
+        \mintinline{python}{mediansort}, the median is put into its correct position in the
+        sorted order. But on the recursive calls, this is not true. Consider
+        the recursive call on the left half -- during this call, the median of
+        the first $n/2$ numbers in the list is placed into position $n/4$
+        (roughly). This isn't quite what we want -- we want to put the median
+        of the \emph{smallest} $n/2$ numbers here. But the first $n/2$ numbers
+        in the list aren't necessarily the \emph{smallest} $n/2$ numbers in the
+        list overall.
+
+    \end{soln}
+
+\end{prob}

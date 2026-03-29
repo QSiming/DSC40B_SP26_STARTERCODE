@@ -1,0 +1,48 @@
+%% tags: [breadth first search]
+%% source: 2023-fa-midterm_02
+\begin{prob}
+
+    Consider the code below, which is a modification of the BFS algorithm
+    presented in lecture: there are two new lines, marked with comments.
+
+    \begin{minted}[autogobble]{python}
+
+        from collections import deque
+
+        def modified_bfs(graph, source):
+            """Start a BFS at `source`."""
+            status = {node: 'undiscovered' for node in graph.nodes}
+            status[source] = 'pending'
+            pending = deque([source])
+
+            while pending:
+                u = pending.popleft()
+                for v in graph.neighbors(u):
+
+                    for node in graph.nodes:  # < -- this is the modification
+                        print(status[node])   # < -- this is the modification
+
+                    if status[v] == 'undiscovered':
+                        status[v] = 'pending'
+                        pending.append(v)
+
+                status[u] = 'visited'
+    \end{minted}
+
+    What is the time complexity of this algorithm, in terms of $|V|$ and $|E|$?
+    You may assume the graph is undirected and connected, so that all nodes are
+    reachable from the source.
+
+    \begin{choices}
+        \choice $\Theta(1)$
+        \choice $\Theta(V)$
+        \choice $\Theta(E)$
+        \choice $\Theta(V + E)$
+        \correctchoice $\Theta(V E + V)$
+    \end{choices}
+
+    \begin{soln}
+        Because the graph is connected, $|E| \geq |V| - 1$, and so $\Theta(VE)$ and $\Theta(VE + V)$ are equivalent. Only $\Theta(VE + V)$ is an option so $\Theta(VE + V)$ is the correct answer.
+    \end{soln}
+
+\end{prob}

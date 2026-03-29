@@ -1,0 +1,34 @@
+\begin{prob}
+
+    Consider the code shown below. It shows DFS as seen in lecture, with one
+    modification: a \python{print} statement in the for-loop.
+
+\begin{center} 
+
+    \begin{minted}[autogobble]{python}
+        def dfs(graph, u, status=None):
+            """Start a DFS at `u`."""
+            # initialize status if it was not passed
+            if status is None:
+                status = {node: 'undiscovered' for node in graph.nodes}
+
+            status[u] = 'pending'
+            for v in graph.neighbors(u):
+                print("Hello!")
+                if status[v] == 'undiscovered':
+                    dfs(graph, v, status)
+            status[u] = 'visited'
+    \end{minted}
+\end{center}
+
+How many times will \python{"Hello!"} be printed if \python{dfs} is
+run on the graph below using node $u$ as the source? Note that \python{dfs} will not be
+restarted if the first call does not explore the whole graph.
+
+\begin{center} 
+    \includegraphics[width=.5\textwidth]{./fig/g4.png}
+\end{center}
+
+\inlineresponsebox[1.5in]{12}
+
+\end{prob}

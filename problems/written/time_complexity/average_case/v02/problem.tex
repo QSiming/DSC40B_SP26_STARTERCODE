@@ -1,0 +1,334 @@
+\begin{prob}
+    In each of the problems below compute the average case time complexity (or
+    expected time) of the given code. State your answer using asymptotic
+    notation. Show your work for this problem by stating what the different
+    cases are, the probability of each case, and how long each case takes. Also
+    show the calculation of the expected time.
+
+    \begin{subprobset}
+        \begin{subprob}
+            \begin{minted}[autogobble]{python}
+                def foo(n):
+                    # randomly choose a number between 0 and n-1 in constant time
+                    k = np.random.randint(n)
+
+                    if k > n/10:
+                        for i in range(n):
+                            print(i)
+                    else:
+                        print('Never mind...')
+
+            \end{minted}
+
+            \begin{soln}
+                $\Theta(n)$.
+
+                We can think of the two cases here as being 1) $k$ is randomly chosen
+                to be greater than $n/10$, and 2) $k$ is randomly chosen to be less than $n/10$.
+                The probability of the first case is $9/10$, and
+                the probability of the second case is $1/10$.
+
+                In the first case, linear time is taken since we must loop over \python{range(n)}.
+                In the second case, constant time is taken since we print \python{"Never mind..."}
+                and exit.
+
+                Therefore, the average time taken is:
+
+                \begin{align*}
+                    \frac{9}{10} \Theta(n) + \frac{1}{10} \Theta(1)
+                    =
+                        \Theta(n) + \Theta(1)
+                    =
+                        \Theta(n)
+                \end{align*}
+
+            \end{soln}
+        \end{subprob}
+
+
+        \begin{subprob}
+            \begin{minted}[autogobble]{python}
+                def bogomax(numbers):
+                    """Find the largest number by random guess and check."""
+                    while True:
+                        # randomly choose an element with uniform probability in constant time
+                        guess = random.choice(numbers)
+
+                        # check whether it is the largest
+                        guess_is_a_maximum = True
+                        for number in numbers:
+                            if number > guess:
+                                guess_is_a_maximum = False
+
+                        if guess_is_a_maximum:
+                            return guess
+            \end{minted}
+
+            In this part, you may assume that the numbers are distinct, and that $n$ is the size
+            of \python{numbers}.
+
+            Hint: if $0 < b < 1$, then $\sum_{p = 1}^\infty p \cdot b^{p-1} = \frac{1}{(1 - b)^2}$.
+
+            \begin{soln}
+                $\Theta(n^2)$.
+
+                (Note in Fall 2022: originally the code in this problem had a typo where \python{guess_is_a_maximum = True}
+                was \emph{inside} of the for-loop. This meant that, after the for-loop, \python{guess_is_a_maximum} did not
+                actually tell us whether \python{guess} is a maximum; it only told us whether it was larger than the last
+                number. This actually makes the analysis more difficult. The
+                analysis below is for the corrected version of the problem.)
+
+                Maybe the best way to divide this into cases is to consider Case 1 to
+                be when we guess the right maximum on the very first try;
+                Case 2 is when we guess the location of the max incorrectly on the
+                first try, but get it right on the second; Case 3 is when we get the
+                first two guesses wrong but get the third guess correct, and so on.
+                In general, Case $\alpha$ is when we made incorrect guesses on the first
+                $\alpha - 1$ iterations, but a correct guess on the $\alpha$th iteration,
+                therefore returning.
+
+                The probability of Case $\alpha$ is the probability of guessing wrong $\alpha - 1$
+                times followed by guessing correctly. Since these guesses are all statistically
+                independent, and since the probability of any one guess being wrong is
+                $(n - 1)/n$ and the probability of it being right is $1/n$, we find that
+                the probability of Case $\alpha$ is:
+                \[
+                    \underbrace{
+                        \left( \frac{n-1}{n} \right)
+                        \left( \frac{n-1}{n} \right)
+                        \cdots
+                        \left( \frac{n-1}{n} \right)
+                    }_{\alpha - 1 \text{ times}}
+                    \cdot \frac{1}{n}
+                    =
+                    \left(
+                        \frac{n-1}{n}
+                    \right)^{\alpha-1} \frac{1}{n}
+                    =
+                    \left(
+                        1 - \frac{1}{n}
+                    \right)^{\alpha-1} \frac{1}{n}
+                \]
+
+                The time taken to ``verify'' a guess (that is, the time taken for one iteration of the while-loop)
+                is $\Theta(n)$, because we loop through all of the numbers and compare them to the guess.
+
+                In case $\alpha$ we make $\alpha$ iterations, and so we take time $\alpha n$ in total.
+
+                There are actually infinitely many cases here, since it is possible that
+                we are consistently unlucky and never guess the right entry. Therefore,
+                our summation will actually be an infinite series.
+
+                Therefore the expected time over all possible cases is:
+                \begin{align*}
+                    \sum_{\alpha = 1}^\infty
+                        P(\text{case } \alpha)
+                        \cdot
+                        T(\text{case } \alpha)
+                        =
+                    \sum_{\alpha = 1}^\infty
+                    \left(
+                        1 - \frac{1}{n}
+                    \right)^{\alpha-1} \frac{1}{n} \cdot \alpha n
+                    &=
+                        \sum_{\alpha = 1}^\infty
+                        \alpha
+                        \left(
+                            1 - \frac{1}{n}
+                        \right)^{\alpha-1}
+                        \\
+                    \intertext{We can now use the hint. Letting $b = 1 - 1/n$, we have:}
+                    &=
+                        \sum_{\alpha = 1}^\infty
+                        \alpha
+                        b^{\alpha - 1}
+                        \\
+                    &=
+                        \frac{1}{(1 - b)^2}
+                    \intertext{Now substituting back in for $b = 1 - 1/n$:}
+                    &=
+                    \frac{1}{\left[1 - (1 - 1/n)\right]^2}
+                        \\
+                    &=
+                        \frac{1}{1/n^2}
+                        \\
+                    &=
+                        n^2
+                \end{align*}
+
+                So the average case time complexity is $\Theta(n^2)$.
+
+            \end{soln}
+
+        \end{subprob}
+
+        \begin{subprob}
+            \textbf{Extra Credit (3 points)}
+
+            \textbf{Note}: this part is extra credit, and is totally optional! We
+            suggest skipping it for now and coming back to it if you have time.
+
+            The above version of \python{bogomax} can be improved by immediately
+            returning when a maximum is found, as shown in the following code:
+
+            \begin{minted}[autogobble]{python}
+                import random
+
+                def bogomax(numbers):
+                    """Find the largest number by random guess and check."""
+                    while True:
+                        # randomly choose an element with uniform probability in constant time
+                        guess = random.choice(numbers)
+
+                        # check whether it is the largest
+                        for number in numbers:
+                            if number > guess:
+                                break
+                        else:
+                            # yes, python has for-else blocks.
+                            # if we get here, the for-loop completed without breaking
+                            return guess
+            \end{minted}
+
+            This makes the code more performant, but harder to analyze.
+
+            Analyze the average case time complexity of this code rigorously.
+            You may assume that the elements of \python{numbers} are unique and
+            that the maximum is equally-likely to be anywhere in the list.
+
+            \begin{soln}
+                $\Theta(n \log n)$.
+
+                The difference between part b) and the part c) is that there is an if statement 
+                which breaks out of the loop early. This means that every case is not always $\Theta(n)$.
+                Remember that $\alpha$ represents the amount of iterations it takes until the max is guessed
+                correctly. On the final iteration, the max goes through the entire loop without breaking so 
+                it's $\Theta(n)$, but on the loops prior where there is a miss, we need to figure out the 
+                expected time complexity. However, this is a bit difficult because we don't know which value 
+                is selected or how the list looks.
+
+                This will be the sub-problem that we need to solve for expected time complexity. We have a 
+                case $\beta$ for each $n-1$ elements to find the expected time complexity. We define each case 
+                $\beta$ as the $\beta$'th largest number selected. For every $\beta$'th case that means there 
+                are $n - \beta$ larger numbers that if you run into will break you out of the loop. Finding the 
+                probability of going through the list until running into a larger number is akin to drawing cards 
+                until meeting an ace. The solution to that problem is described here:
+                \url{https://aksoy.io/math/probability/book/2020/03/10/problem-40-first-ace.html}{here}. 
+
+                That link describes the Principle of Symmetry, which states that $n$ randomly placed points
+                will divide a segment into $n+1$ pieces, each of which has the same distribution. This means that
+                for a selected random number, if we place it's larger numbers in the list, it will on average divide
+                the list into segments of equal pieces. In the context of this problem, our number will on average 
+                traverse the length of one segment before meeting a larger number and breaking out, which is 
+                total length divided by \# of larger numbers $\frac{n}{n-\beta}$. 
+
+                With this in mind, we can write down the expected number of iterations of the for-loop when
+                our guess is the $\beta$th largest number:
+                \begin{align*}
+                    \sum_{\beta = 1}^{n-1}
+                        P(\text{case } \beta)
+                        \cdot
+                        T(\text{case } \beta)
+                    =
+                    \sum_{\beta = 1}^{n-1}
+                        \frac{1}{n-1} 
+                        \cdot
+                        \frac{n}{n-\beta}
+                    =
+                    \sum_{\beta = 1}^{n-1}
+                        \frac{n}{(n-1)(n-\beta)}
+                        \\
+                    =
+                    \sum_{\beta = 1}^{n-1}
+                        \frac{n-1+1}{(n-1)(n-\beta)}
+                    =
+                    \sum_{\beta = 1}^{n-1}
+                        \frac{n-1}{(n-1)(n-\beta)} 
+                        + \frac{1}{(n-1)(n-\beta)} 
+                        \\
+                    = 
+                    \sum_{\beta = 1}^{n-1}
+                        \frac{1}{n-\beta} 
+                        + \frac{1}{(n-1)(n-\beta)} 
+                    \intertext{$\sum_{\beta = 1}^{n-1} \frac{1}{n-\beta}$ is  harmonic progression equivalent to 
+                    $1 + \frac{1}{2} + \frac{1}{3} + ... + \frac{1}{n-1}$. There is no closed form solution, but when 
+                    integrated is roughly $\log n$. The right hand side of the equation is equivalent except divided 
+                    by $n-1$}
+                    \approx
+                    \log n + \frac{\log n}{n-1}
+                    =
+                    \Theta(\log n)
+                \end{align*}
+
+                Now that we know this, we know the time complexity of missing the max number grows at $\log(n)$. 
+                However, this isn't the end. We still need to combine it with our part 2b). Instead of $\alpha n$ for 
+                $T(\text{case } \alpha)$, we get $((\alpha - 1) \log(n) + n)$. This is because while the previous 
+                $\alpha - 1$ cases have a time complexity of $\Theta(\log n)$ the last one will be the maximum 
+                which has a time complexity of $\Theta(n)$
+
+                \begin{align*}
+                    \sum_{\alpha = 1}^\infty
+                        P(\text{case } \alpha)
+                        \cdot
+                        T(\text{case } \alpha)
+                    =
+                        \sum_{\alpha = 1}^\infty
+                        \left(
+                            1 - \frac{1}{n}
+                        \right)^{\alpha-1} \frac{1}{n} \cdot ((\alpha - 1) \log(n) + n)
+                        \\
+                    =
+                        \sum_{\alpha = 1}^\infty
+                        (\alpha - 1) \frac{\log n}{n} 
+                        \left(
+                            1 - \frac{1}{n}
+                        \right)^{\alpha-1} +
+                        \left(
+                            1 - \frac{1}{n}
+                        \right)^{\alpha-1}
+                        \\
+                    =
+                        \frac{\log n}{n}
+                        \sum_{\alpha = 1}^\infty
+                            \alpha  
+                            \left(
+                                1 - \frac{1}{n}
+                            \right)^{\alpha-1} -
+                        \frac{\log n}{n}
+                        \sum_{\alpha = 1}^\infty
+                            \left(
+                                1 - \frac{1}{n}
+                            \right)^{\alpha-1}
+                            +
+                        \sum_{\alpha = 1}^\infty
+                            \left(
+                                1 - \frac{1}{n}
+                            \right)^{\alpha-1}
+                    \intertext{$\sum_{\alpha = 1}^\infty \left(1 - \frac{1}{n} \right)^{\alpha-1}$ will converge 
+                    to some constant $c$, since it is a summation of geometric series with $0 < r < 1$. The left 
+                    hand side can use the the same method already calculated in part $b)$ to evaluate to $n^2$}
+                    =
+                        \frac{\log n}{n} n^2 
+                            -
+                        \frac{\log n}{n} c
+                            +
+                        c
+                    =
+                        n \log n 
+                            -
+                        \frac{\log n}{n} c
+                            +
+                        c
+                    = 
+                        \Theta(n \log n 
+                            -
+                        \frac{\log n}{n} c
+                            +
+                        c)
+                        = \Theta(n \log n)
+                    \end{align*}
+            \end{soln}
+
+        \end{subprob}
+    \end{subprobset}
+\end{prob}

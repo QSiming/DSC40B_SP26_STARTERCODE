@@ -1,0 +1,55 @@
+\begin{prob}
+    What is the time complexity of the following functions? State your answer using
+    $\Theta$ notation.
+
+    \begin{subprobset}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_a.py}
+
+            \begin{soln}
+                $\Theta(n^3)$.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_b.py}
+
+            \begin{soln}
+                $\Theta(\log n)$.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_c.py}
+
+            \begin{soln}
+                $\Theta(n^3)$.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_d.py}
+
+            \begin{soln}
+                $\Theta(n^2)$.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_e.py}
+
+            \begin{soln}
+                $\Theta(n^2)$.
+
+                Note that the result of \python{pairs(numbers)} is computed once.
+                It takes $\Theta(n^2)$ time, and each \python{sum(pair)} is $\Theta(1)$.
+                So this function is equivalent to:
+
+                \inputminted{python}{\thisdir/include/part_e_soln.py}
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+
+\end{prob}

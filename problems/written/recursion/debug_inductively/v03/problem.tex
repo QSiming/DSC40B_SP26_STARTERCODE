@@ -1,0 +1,65 @@
+\begin{prob}
+    Determine whether each piece of code is correct or
+    incorrect. If it is correct, say so (you do not need to show work). But if it
+    is incorrect, do the following:
+    
+    \begin{enumerate}
+        \item Say what will go wrong (e.g., infinite recursion, incorrect
+            answer) and give an example of an input that will demonstrate the
+            error.
+        \item Fix the code so that the function works properly by
+            \textbf{either} 1) adding one or more lines of code; 2) changing
+            one (and only one) line in the code given.  (You won't need to add
+            code \emph{and} change an existing line. You're not allowed to
+            remove a line of code.)
+    \end{enumerate}
+
+    Hint: use the ideas behind inductive proofs to try and argue to yourself that a piece
+    of code is correct.
+
+    \begin{subprobset}
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_a.py}
+            Recall that in Python if \python{s} and \python{t} are strings, then \python{s + t}
+            is the concatenation of \python{s} and \python{t}.
+            \begin{soln}
+                This is missing a base case for when the string is empty. If the string is
+                empty, we will get an index error when we try to access \python{s[0]}.
+
+                The fix is to add a base case for when the input array is of size 0.
+                \inputminted{python}{\thisdir/include-solution/part_a.py}
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            In this part, adopt the convention that the product of the numbers in an empty
+            list is one 
+            (why? since $b^0 = 1$, whatever $b$ is, by convention).
+            \inputminted{python}{\thisdir/include/part_b.py}
+            \begin{soln}
+                This is correct.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            You may assume that \python{start} and \python{stop} are valid indices.
+            \inputminted{python}{\thisdir/include/part_c.py}
+            \begin{soln}
+                The arguments to the recursive call are wrong: they should sort the middle part
+                of the list (excluding the first and last element), but they include the first
+                element. This causes incorrect output. For instance, \python{inplace_reverse([4,5,2,3], 0, 4)} results in
+                \python{[3,5,2,4]}.
+
+                The fix is to change the argument:
+                \inputminted{python}{\thisdir/include-solution/part_c.py}
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_d.py}
+            \begin{soln}
+                This works correctly.
+            \end{soln}
+        \end{subprob}
+    \end{subprobset}
+\end{prob}

@@ -1,0 +1,11 @@
+\begin{prob}
+    Let $f(n) = \sum_{p=0}^{n} 3^p$. What is $f$ in $\Theta$ notation?
+
+    \begin{soln}
+        General form of a geometric sum: $\sum_{p=0}^{n} r^p = \frac{1 - r^{n+1}}{1 - r}$.
+
+        Substituting $r = 3$ yields $\sum_{p=0}^{n} 3^p = \frac{1 - 3^{n+1}}{1 - 3}$.
+
+        Therefore, $f(n) = \Theta(3^n)$ after throwing out the constants.
+    \end{soln}
+\end{prob}

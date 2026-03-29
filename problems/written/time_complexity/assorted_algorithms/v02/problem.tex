@@ -1,0 +1,179 @@
+\begin{prob}
+    For each of the following pieces of code, state the time complexity in terms of $n$
+    using asymptotic notation. You do not need to show your work.
+
+    \begin{subprobset}
+
+        \begin{subprob}
+            % unfortunately, due to a limitation of Overleaf, we cannot write the code
+            % directly using a \begin{minted}\end{minted} environment. Instead, we must
+            % place the code in a separate file and use \inputminted
+            \inputminted{python}{\thisdir/include/part_a.py}
+
+            \begin{soln}
+                    $\Theta(n^5)$
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_b.py}
+
+            \begin{soln}
+                $\Theta(n^3)$
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_c.py}
+
+            \begin{soln}
+                $\Theta(n^2)$
+            \end{soln}
+
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_d.py}
+
+            \begin{soln}
+                $\Theta(n^2)$
+            \end{soln}
+
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_e.py}
+            
+            \begin{soln}
+                $\Theta(n)$
+            \end{soln}
+
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_f.py}
+
+            \begin{soln}
+                $\Theta(n^3)$
+            \end{soln}
+
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_g.py}
+            
+            \begin{soln}
+                $\Theta(\log n)$
+            \end{soln}
+
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_h.py}
+            
+            \begin{soln}
+                $\Theta(n^6)$.
+
+                I'm going to start by solving this in a very informal way by
+                getting rid of constant factors and lower-order terms when I
+                know that they won't affect the result. This requires a certain
+                level of comfort with asymptotic notation, so I'm also going to
+                give a more thorough argument.
+
+                The inner loop runs roughly \python{i}/2 times on any given
+                iteration of the outer loop (since \python{i} is incremented by
+                2 on each iteration). On the $\alpha$th iteration of the outer
+                loop, \python{i} is $\alpha + 10 - 1 = \alpha + 9$, but I know
+                that the $+ 9$ isn't actually going to matter since it will be
+                much smaller than $\alpha$ when $\alpha$ is large, so I'll just
+                forget the $+ 9$ and say that \python{i} is roughly $\alpha$.
+                Similarly, the outer loop iterates roughly $n^3$ times. So in
+                total, the number of times that the inner loop runs is roughly:
+                \[ \sum_{\alpha = 1}^{n^3} \alpha / 2 = \frac{1}{2}\sum_{\alpha
+                = 1}^{n^3} \alpha \] This is an arithmetic sum. It might help
+                to let $K = n^3$, then the sum becomes $\sum_{\alpha=1}^K
+                \alpha$, and we know that this is equal to $K(K+1)/2$.
+                Substituting for $K = n^3$, we get $n^3(n^3 + 1)/2$, or
+                $\Theta(n^6)$.
+
+                \vspace{1em}
+                \hrule
+                \vspace{1em}
+
+                Now let's see how to get the same answer without making
+                approximations. Note that while this approach is more work, it
+                isn't necessarily \emph{better}; knowing when you can be
+                imprecise is the benefit of being comfortable with the
+                notation.
+
+                Let $f(\alpha)$ be the number of times that the inner loop body runs on
+                the $\alpha$th iteration of the outer loop. The inner loop runs either
+                \python{i}/2 or (\python{i} + 1)/2 times, depending on whether \python{i}
+                is odd or even, as you can check by trying different values of \python{i}.
+                Let's get an \emph{upper} bound on the number of iterations by using
+                (\python{i} + 1)/2; it won't actually matter which we use, and we could come
+                back and check that the lower bound of \python{i}/2 gives the same answer.
+
+                On the $\alpha$th iteration of the outer loop, \python{i} is $10 + \alpha - 1 = 9 + \alpha$.
+                To test this, note that on the first iteration, \python{i} is 10. Plugging
+                $\alpha = 1$  into our formula, we get the expected answer.
+
+                How many times does the outer loop iterate? Exactly $n^3 - 10$
+                times.
+                So in total, the inner loop body runs:
+                \[
+                    \sum_{\alpha = 1}^{n^3 - 10} f(\alpha)
+                    =
+                    \sum_{\alpha = 1}^{n^3 - 10} (9 + \alpha)
+                \]
+                This is an arithmetic sum, but we should simplify a little before evaluating.
+                Breaking the sum into two pieces:
+                \begin{align*}
+                    \sum_{\alpha = 1}^{n^3 - 10} (9 + \alpha)
+                    &=
+                    \sum_{\alpha = 1}^{n^3 - 10} 9 
+                    +
+                    \sum_{\alpha = 1}^{n^3 - 10}
+                    \alpha
+                    \\
+                    &=
+                        9(n^3 - 10)
+                        +
+                        \sum_{\alpha = 1}^{n^3 - 10}
+                        \alpha
+                    \intertext{The second summation is the familiar form of an arithmetic
+                        sum, except the upper bound is $n^3 - 10$. We can use the familiar
+                    formula for an arithmetic sum, just replacing each $n$ with $n^3 - 10$:}
+                    &=
+                        9(n^3 - 10)
+                        +
+                        (n^3 - 10)(n^3 - 10 + 1)/2
+                \end{align*}
+                If you expand this, you'll see that it is a polynomial whose highest-order
+                term is $n^6/2$, so the whole thing is $\Theta(n^6)$.
+
+                Note that none of the constants really mattered here. We were careful
+                to say that the total number of iterations of the outer loop is $n^3 - 10$,
+                but we could've errored and said that it was $n^3$ and we would have
+                arrived at the same answer. Likewise, the fact that we're
+                incrementing \python{j} by 2 and not 1 played no role here. This is not
+                to say that constants \emph{never} play a role -- in particular, the base of
+                an exponential does matter, as $2^n$ grows much more slowly than $3^n$.
+                But in this case, we could replace the lines \python{i = 10} and \python{j += 2}
+                with \python{i = 0} and \python{j += 1} and obtain an easier algorithm to
+                analyze without changing the end result.
+
+            \end{soln}
+
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_i.py}
+
+            \begin{soln}
+                $\Theta(n)$
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+\end{prob}

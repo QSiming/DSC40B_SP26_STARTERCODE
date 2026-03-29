@@ -1,0 +1,26 @@
+\begin{prob}
+
+    Determine the recurrence relation describing the time complexity of each of the recursive algorithms below.
+        \begin{subprobset}
+            \begin{subprob}
+                \inputminted{python}{\thisdir/include/part_a.py}
+                \begin{soln}
+                    \\
+                    T(1) = 1
+                    \\
+                    T(n) = T(n-1) + 1
+                \end{soln}  
+            \end{subprob}
+            \begin{subprob}
+                (Note: the input \python{arr} to the function is a python \python{list} object)
+                \inputminted{python}{\thisdir/include/part_b.py}
+                \begin{soln}
+                    \\
+                    T(1)=1
+                    \\
+                    T(n)=2T(n/2)+n
+                \end{soln}  
+            \end{subprob}
+        \end{subprobset}
+
+\end{prob}

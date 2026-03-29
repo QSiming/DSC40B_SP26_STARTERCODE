@@ -1,0 +1,23 @@
+\begin{prob}
+    What is the \emph{best} case time complexity of \python{quickselect}?
+    Describe why and provide the input that yields this best case.
+    For simplicity, you may assume that Quickselect always chooses the last element of the input
+    array as the pivot (that is, the pivot is \emph{not} chosen randomly).
+
+    \begin{soln}
+        The best case time complexity of quickselect is $\Theta(n)$, where $n$ is the
+        size of the input array.
+
+        In the best case, the element chosen as the first pivot is exactly the
+        order statistic being queried so that no recursive calls are made.  However, we still must perform the
+        partition operation to count the number of elements to the left and
+        right of the pivot, and this takes linear time.
+
+        Alternatively, another case which also leads to $\Theta(n)$ run time (and so is
+        also a ``best case'') is when the chosen pivot is not the order statistic we are
+        looking for, but it is the median (or close to it). Then there is still a recursive
+        call on an array of size $n/2$, plus $\Theta(n)$ work for the partition. If the
+        recursive calls also choose the median as their pivot, this gives a recurrence of
+        $T(n) = T(n/2) + n$. Solving this gives a time complexity of $\Theta(n)$.
+    \end{soln}
+\end{prob}

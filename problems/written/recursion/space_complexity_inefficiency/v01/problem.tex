@@ -1,0 +1,88 @@
+\begin{prob}
+    \begin{subprobset}
+        \begin{subprob}
+            Recursive code is not necessarily more efficient than iterative code.
+            In fact, it is easy to write bad recursive code that is very slow
+            if we aren't careful. Here's an example:
+
+            \inputminted{python}{\thisdir/include/part_a.py}
+
+            This code might look fine, but it's actually needlessly slow. The reason
+            is that \python{numbers[1:]} creates a \emph{copy} of the list,
+            and a copy takes time linear in the size of the new list (since that much
+            memory has to be allocated).
+
+            Write down a recurrence relation for \python{summation} and solve it
+            to determine the function's asymptotic time complexity.
+
+            \begin{soln}
+                The copy takes time $\Theta(n)$, and the recursive call is on an array
+                of size $n - 1$. Therefore our recurrence is:
+                \[
+                    T(n)
+                    =
+                    \begin{cases}
+                        T(n-1) + \Theta(n),& n = \geq 1\\
+                        \Theta(1), n = 0 
+                    \end{cases}
+                \]
+                We'll replace the $\Theta$ notation to solve the recurrence: $T(n) = T(n-1) + n$.
+                Unrolling a few times, we find:
+                \begin{align*}
+                    T(n) 
+        &=
+        T(n-1) + n
+        \\
+        &=
+        T(n-2) + (n - 1) + n
+        \\
+        &=
+        T(n-3) + (n-2) + (n - 1) + n
+        \\
+                \end{align*}
+                In general, it looks like $T(n) = T(n - k) + n + (n-1) + \ldots + (n - k + 1)$.
+                The base case is reached when $k = n$, and on that iteration we have:
+                \[
+                    T(n) = T(n - n) + n + (n-1) + \ldots + (n - n + 1) = \Theta(n^2)
+                \]
+
+                So this algorithm takes quadratic time complexity!
+            \end{soln}
+
+        \end{subprob}
+
+        \begin{subprob}
+            Taking a long time to run is not the only way that an algorithm can be inefficient;
+            it can also take a lot of memory. Just as we used time complexity to measure the
+            speed of an algorithm, we can use \emph{space complexity} to measure how much
+            memory a piece of code requires.
+            The space complexity of an algorithm is the amount of
+            \emph{auxiliary} (or \emph{extra}) memory it requires to execute.
+
+            It turns out that \python{summation} is not only slow; it is wasteful
+            of memory, too. When \python{numbers[1:]} is executed in the root call,
+            a copy is made, resulting in the creation of a new list containing $n - 1$
+            elements. This list is kept in memory while all subsequent recursive calls are made.
+
+            At the moment the base case is reached, what is the total size of all lists
+            created by copying in all recursive calls made so far?
+            State your answer exactly (and not in asymptotic notation), simplifying
+            it as much as possible.
+
+            \begin{soln}
+                The root-level call on an array of size $n$ creates a list with $n - 1$ elements. The first recursive call,
+                which is on an array of size $n-1$, creates a list with $n - 2$ elements. So
+                the $k$th call (where $k = 1$ is the root call) is on an array of size $n - k +1$, and creates
+                a list of size $n - k$.
+
+                The base case occurs when the input list is empty; that is, when $n - k + 1 = 0$. Solving for
+                $k$, we find $k = n + 1$. But no copy is made on this call (it returns before a copy is made).
+                So the total size of all created lists is:
+                \[
+                    \sum_{k=1}^{n} (n - k) = n^2 - \frac{n(n+1)}{2} = \frac{n(n-1)}{2}
+                \]
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+\end{prob}

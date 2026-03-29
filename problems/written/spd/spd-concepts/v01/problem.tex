@@ -1,0 +1,29 @@
+\begin{prob}
+    Suppose $G = (V, E, \omega)$ is a weighted graph without negative cycles. 
+        Suppose we have an edge $(u, v) \in E$ whose weight is $w(u, v) = 5$. 
+        Let $s\in V$ be the source node. Let $\delta(s, u)$ and $\delta(s, v)$ denote the shortest path distance from $s$ to $u$ and to $v$, respectively.
+        For each statement below, if it is true, provide an example to illustrate it; otherwise, explain why it is false.
+        
+        
+    \begin{subprobset}
+        \begin{subprob}
+       (True or False):  Now suppose that $G$ is a {\bf directed} graph. 
+        Then, it is possible that $\delta(s, u) = 50$ but $\delta(s, v) = 10$. 
+        %Justify your answer.
+            \begin{soln}
+                True.
+            It is possibe that there is a directed path from $s$ to $v$ of length $10$. For example, it is possible that we have the following directed graph $G = (V, E; w)$, where $w$ is the weight function: $V = \{s, u, v\}$, $E = \{(s, u), (s, v) \}$, and the weights are $w(s, u) = 50$ and $w(s, v) = 10$. It is easy to see that in this case, $\delta(s, u) = 50$ and $\delta(s, v) = 10$.  
+            \end{soln}
+            \end{subprob}
+            \begin{subprob}
+                (True or False): Now suppose that $G$ is a {\bf undirected} graph. 
+                Then, it is possible that  $\delta(s, u) = 50$ but $\delta(s, v) = 10$. 
+            \begin{soln}
+                False. 
+                In this case, note that we have edge $(u, v)  = (v, u)$. So if we have $\delta(s, v) = 10$, and $w(u,v) = w(v,u) = 5$, then we know that the shortest path distance from $s$ to $u$ is at most the length of shortest path from $s$ to $v$ followed by edge $(v, u)$; namely, $\delta(s, u) \le \delta(s, v) + w(v, u) = 15$. So it is not possible that $\delta(s, u) = 50$. 
+            \end{soln}
+        \end{subprob}
+    \end{subprobset}
+    
+\end{prob}
+    

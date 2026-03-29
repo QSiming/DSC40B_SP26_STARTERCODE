@@ -1,0 +1,49 @@
+\begin{progprob}
+    % No submission.
+    % \iffalse
+    In lecture, we saw that Kruskal's algorithm can be used to cluster a weighted graph. The name for this approach is
+    \emph{single linkage clustering}.
+
+    In a file named \python{slc.py}, write a function \python{slc(graph, d, k)}
+    which accepts the following arguments:
+    \begin{itemize}
+        \item \python{graph}: An instance of \python{dsc40graph.UndirectedGraph}.
+        \item \python{d}: A function of one argument: a tuple containing a pair of nodes. It returns
+            the distance (or dissimilarity) between them. See the example below.
+        \item \python{k}: A positive integer describing the number of clusters which should
+            be found.
+    \end{itemize}
+    The function should perform single linkage clustering using Kruskal's algorithm
+    and it should return a \python{frozenset} of $k$ \python{frozenset}s, each
+    representing a cluster of the graph.
+
+    Example:
+
+    \begin{minted}[autogobble]{python}
+        >>> g = dsc40graph.UndirectedGraph()
+        >>> edges = [('a', 'b'), ('a', 'c'), ('c', 'd'), ('b', 'd')]
+        >>> for edge in edges: g.add_edge(*edge)
+        >>> def d(edge):
+        ...     u, v = sorted(edge)
+        ...     return {
+        ...         ('a', 'b'): 1,
+        ...         ('a', 'c'): 4,
+        ...         ('b', 'd'): 3,
+        ...         ('c', 'd'): 2,
+        ...     }[(u, v)]
+        >>> slc(g, d, 2)
+        frozenset({frozenset({'a', 'b'}), frozenset({'c', 'd'})})
+    \end{minted}
+
+    Note: to implement Kruskal's algorithm, you'll need an implementation of a Disjoint
+    Set Forest data structure. We've uploaded a simple one here:
+    \url{https://gist.github.com/eldridgejm/983d6ce03a82bf295599e9880ef02bab}
+
+    You can copy and paste this into \python{slc.py}, or put it in a separate file that
+    is imported; if you do this, make sure to upload that file alongside \python{slc.py}.
+
+    \begin{soln}
+    	\inputminted{python}{\thisdir/include-solution/slc_sol.py}
+    \end{soln}
+    % \fi
+\end{progprob}

@@ -1,0 +1,32 @@
+\begin{soln}
+    We can set $\theta$ to be any number between the biggest blue
+    point and the smallest red point. In fact, we can set $\theta$
+    to be \emph{exactly} the largest blue point, as then all blue
+    points are $\leq \theta$ as desired.
+
+    We can do this in linear time by looping through all of the
+    data points, keeping track of the largest blue point seen
+    so far:
+
+    \inputminted{python}{\solutiondir/pp01a-enum.py}
+
+    A more ``pythonic'' approach is to ditch the \python{range}
+    and use \python{zip}. \python{zip} takes two (or more) lists
+    and returns pairs by ``zipping'' the lists together, elementwise:
+
+    \inputminted{python}{\solutiondir/pp01a.py}
+
+    Of course, we could always use a comprehension. The below
+    filters out the red points and returns the max of the blues:
+
+    \inputminted{python}{\solutiondir/pp01a-max.py}
+
+    You could make the above into a one-liner, but I like the
+    fact that the intermediate result is stored in \python{blue_points};
+    it makes the code more readable, in my opinion. Avoid trying to show
+    off by writing one-liners. A lot of people can cram code into
+    one line, but it takes thought and care to write clean, readable code.
+
+    All of these solutions are essentially the same, and run in
+    linear time.
+\end{soln}

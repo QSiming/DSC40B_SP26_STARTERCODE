@@ -1,0 +1,244 @@
+\begin{prob}
+    % Write the problem below. Precede any paths with \parentdir. For example:
+    %   \includegraphics{\parentdir/public/fig/picture.png}
+    % Any files used in the solution should be placed in the `private` 
+    % subdirectory. Any other files can go in the `public` subdirectory.
+
+    In this problem, we will show that the average case time complexity of
+    binary search is $\Theta(\log n)$.
+
+    \begin{subprobset}
+        \begin{subprob}
+            The number of calls to \python{binary_search} required to find a target depends
+            on the target's position within the array. For instance, if the target is
+            in the exact middle of the array, only one call to binary search is necessary.
+            If the target is elsewhere, more calls are required.
+
+            The graphic below shows 15 blanks, one for each element of a 15-element array.
+            In each blank, write the number of calls needed to \python{binary_search}
+            in order to find the target if the target were located at that position in
+            the array. Several of the blanks have been filled in for you.
+
+
+            \newcommand{\arrslot}[2]{
+                \tikz{
+                    \draw (0,0) -- (.5,0);
+                    \node at (.25,-.4) {\small \texttt{#1}};
+                    \node at (.25,.4) { #2 };
+                }
+            }
+
+            \begin{center}
+                \arrslot{0}{}
+                \arrslot{1}{}
+                \arrslot{2}{}
+                \arrslot{3}{2}
+                \arrslot{4}{}
+                \arrslot{5}{}
+                \arrslot{6}{}
+                \arrslot{7}{1}
+                \arrslot{8}{}
+                \arrslot{9}{}
+                \arrslot{10}{}
+                \arrslot{11}{2}
+                \arrslot{12}{}
+                \arrslot{13}{}
+                \arrslot{14}{}
+            \end{center}
+
+
+        \end{subprob}
+
+        \begin{subprob}
+            Given an array of size $n$, what is the greatest number of calls to
+            \python{binary_search} necessary to find a target in the array? Your
+            answer should be a formula involving $n$.
+            You should assume that the target is in the array, and that $n =
+            2^{k}-1$ for some $k \in \{1, 2, 3, \ldots\}$; that is, $n \in \{1,
+            3, 7, 15, \ldots\}$.
+
+            \begin{soln}
+                If $n = 1$, only one call is necessary.
+
+                If $n = 3$, two calls might be necessary. Note that this is $\log_2 (3 + 1)$.
+
+                If $n = 7$, three calls might be necessary. Note that this is $\log _2 (7 + 1)$.
+
+                Apparently, $\log_2 (n + 1)$ calls are necessary.
+            \end{soln}
+        \end{subprob}
+
+
+        \begin{subprob}
+            Given an array of size $n$, where $n = 2^{k} - 1$ for some $k$, let
+            $f_n(k)$ be the number of elements of the array which require exactly $k$
+            calls to \python{binary_search} before they are found. Derive a
+            formula for $f_n(k)$. 
+
+            \begin{soln}
+                Only one element requires just one call: the middle element. So
+                $f_n(1) = 1$.
+
+                Two elements can be found with exactly two calls, so $f_n(2) = 2$.
+                
+                Four elements can be found with exactly three class, so $f_n(3) = 4$.
+
+                It looks like the number of elements is doubling with each step.
+                Here's a table capturing the pattern.
+
+                \begin{center}
+                \begin{tabular}{cc}\toprule
+                    $k$ & $f_n(k)$\\\midrule
+                    1 & 1\\
+                    2 & 2\\
+                    3 & 4\\
+                    4 & 8\\
+                    5 & 16\\
+                    $\vdots$ & $\vdots$\\\bottomrule
+                \end{tabular}
+                \end{center}
+
+                So it looks like $f_n(k) = 2^{k-1}$.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            Define
+            \[
+                S(n) = \sum_{k=1}^{\log_2 (n + 1)} k \cdot 2^{k-1}.
+            \]
+            Show that $S(n) = O(n \log n)$.
+
+            Hint 1: show that $S(n)$ is smaller than something that is $\Theta(n \log n)$.
+            The following fact might help:
+            \[\sum_{k=1}^{\log (n+1)} k \cdot 2^{k-1} \leq \sum_{k=1}^{\log (n+1)} \log(n+1) \cdot 2^{k-1}\]
+
+            Hint 2: 
+            You may need to remember the formula for the sum of a geometric progression
+            from calculus:
+            \[
+                \sum_{k=0}^K x^k = \frac{1 - x^{K+1}}{1 - x}
+            \]
+
+            \begin{soln}
+                \begin{align*}
+                    S(n) 
+                        &= \sum_{k=1}^{\log_2 (n + 1)} k \cdot 2^{k-1}
+                    \intertext{We'll try to get an upper bound using hint 1:}
+                        \\
+                        &\leq
+                            \sum_{k=1}^{\log_2 (n+1)} \log_2 (n+1) \cdot 2^{k-1}
+                            \\
+                        &=
+                            \log_2(n+1) \sum_{k=1}^{\log_2 (n+1)} 2^{k-1}
+                            \\
+                    \intertext{We recognize the sum of a geometric progression and want to
+                        use the formula in hint 2 above, but this sum starts at $k=1$
+                        instead of $k=0$. We can start the sum at $k=0$ be reindexing:
+                    }
+                        &=
+                            \log_2(n+1) \sum_{k=0}^{\log_2 (n+1) - 1} 2^{k}
+                            \\
+                    \intertext{Using the formula for the sum of a geometric progression:}
+                        &=
+                            \log_2(n+1) \left[ \frac{1-2^{\log_2(n+1)}}{1 - 2} \right]
+                            \\
+                        &=
+                            \log_2(n+1) \left(2^{\log_2(n+1)} - 1\right)
+                            \\
+                    \intertext{You can convince yourself that $\log_2(n+1) = \Theta(\log n)$
+                        and $2^{\log_2(n+1)} = \Theta(2^{\log_2 n}) = \Theta(n)$ using
+                        any of the techniques that we saw when learning about asymptotic
+                        notation, such as limits.}
+                        &=
+                            \Theta(\log n) \cdot \Theta(n)
+                            \\
+                        &=
+                            \Theta(n \log n)
+                \end{align*}
+            \end{soln}
+        \end{subprob}
+
+
+        \begin{subprob}
+            Define
+            \[
+                S(n) = \sum_{k=1}^{\log (n+1)} k \cdot 2^{k-1}.
+            \]
+            Show that $S(n) = \Omega(n \log n)$.
+
+            \begin{soln}
+                If we drop all but the last term from the sum, we make it smaller. This
+                gives us the lower bound we need:
+                \begin{align*}
+                    S(n)
+                    &=
+                        \sum_{k=1}^{\log (n+1)} k \cdot 2^{k-1}.
+                        \\
+                    &\geq
+                        \log(n+1) \cdot 2^{\log_2(n+1)}
+                        \\
+                    &=
+                        \Theta(\log n) \cdot \Theta(n)
+                        \\
+                    &=
+                        \Theta(n \log n)
+                \end{align*}
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            What is the average case time complexity of binary search? Assume that the
+            target is in the array exactly once and that the probability of it being in
+            any given position is simply $1/n$.
+            shuffled randomly before the first call. You may also assume that the size
+            of the array is $2^k - 1$ for some $k \in {1,2,3,\ldots}$.
+
+            Hint: since the time taken during any call to
+            \python{binary_search}, excluding time spent in recursive calls, is constant,
+            the total time taken by binary search is proportional to the number of calls
+            made.
+
+            \begin{soln}
+                The average case time complexity can be found by computing the average
+                number of calls to \python{binary_search} needed, assuming that the target
+                is placed uniformly at random within the array.
+
+                The first case is that only one call is necessary. There is only 
+                $f_n(1) = 1$ place where the target can be for this to happen, and this
+                occurs with probability $1/n$.
+
+                The second case is that exactly two calls are necessary. There are
+                $f_n(2) = 2$ places where the target can be for this to happen,
+                so this occurs with probability $2/n$.
+
+                The third case is that exactly three calls are necessary. There are
+                $f_n(3) = 4$ places where the target can be for this to happen, so
+                this occurs with probability $4/n$.
+
+                In general, case $k$ is when exactly $k$ calls are necessary. There
+                are $f_n(k) = 2^{k-1}$ places where the target can be for this to
+                happen, so this occurs with probability $2^{k-1} / n$.
+
+                In total, there are $\log_2(n + 1)$ cases.
+
+                The average number of calls needed is therefore:
+                \begin{align*}
+                    \sum_{k=1}^{\log_2(n+1)} k \cdot \frac{f_n(k)}{n}
+                    &=
+                        \frac{1}{n}\sum_{k=1}^{\log_2(n+1)} k \cdot 2^{k-1}
+                        \intertext{From the previous parts, we know that the
+                        summation is both $O(n \log n)$ and $\Omega(n \log n)$,
+                        and so it is $\Theta(n \log n)$:}
+                    &=
+                        \frac{1}{n} \cdot \Theta(n \log n)
+                        \\
+                    &=
+                        \Theta(\log n)
+                \end{align*}
+                This shows that the average case time complexity is $\Theta(\log n)$.
+            \end{soln}
+        \end{subprob}
+    \end{subprobset}
+
+\end{prob}

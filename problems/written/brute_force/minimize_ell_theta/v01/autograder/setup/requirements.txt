@@ -1,0 +1,2 @@
+gradescope_utils>=0.3.1
+pandas

@@ -1,0 +1,34 @@
+\begin{prob}
+    The code for \python{quickselect} is shown below. It is the same
+    as the code provided in lecture, except that it contains an added
+    \python{print} statement.
+
+    \begin{minted}[autogobble]{python}
+    import random 
+    def quickselect(arr, k, start, stop):
+        """Finds kth order statistic in numbers[start:stop])"""
+        print("hello world!") # <--- here is the print
+        pivot_ix = random.randrange(start, stop)
+        pivot_ix = partition(arr, start, stop, pivot_ix)
+        pivot_order = pivot_ix + 1
+        if pivot_order == k:
+            return arr[pivot_ix]
+        elif pivot_order < k:
+            return quickselect(arr, k, pivot_ix + 1, stop)
+        else:
+            return quickselect(arr, k, start, pivot_ix)
+    \end{minted}
+
+    Suppose \python{quickselect(arr, 3, 0, 10)} is called with
+    \python{arr = [5, 2, 8, 3, 1, 6, 9, 7, 4, 0]}.
+
+    What is the \textbf{fewest} number of times that ``hello world!'' can possibly be printed?
+    Your answer should be a number, and not in terms of $n$.
+
+    \inlineresponsebox[.75in]{1}
+
+    What is the \textbf{greatest} number of times that ``hello world'' can possibly be printed?
+    Your answer should be a number, and not in terms of $n$.
+
+    \inlineresponsebox[.75in]{10}
+\end{prob}

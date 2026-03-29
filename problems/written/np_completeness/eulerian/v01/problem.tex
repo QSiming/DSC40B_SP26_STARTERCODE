@@ -1,0 +1,28 @@
+\begin{progprob}
+    In a file named \python{has_eulerian.py}, create a function \python{has_eulerian(graph)}
+    which accepts as input an undirected, unweighted graph and returns \python{True} if
+    the graph contains an Eulerian cycle, and \python{False} otherwise. Your code should
+    take polynomial time.
+
+    Note: you may assume that the graph does not contain multiple edges between the same
+    pair of nodes. That is, it is not a multigraph. You may assume that the graph has
+    at least one node, and that there are no \emph{isolated} nodes (that is, nodes with
+    degree of zero).
+
+    \begin{soln}
+        To check for an Eulerian cycle, we 1) check to see if the graph is connected,
+        and 2) check that the degree of every node is even.
+
+        To check if a graph is connected, we run BFS or DFS starting at an arbitrary
+        source node and keep track of the number of nodes discovered. If this number
+        equals the total number of nodes in the graph, it is connected -- otherwise,
+        it is not.
+
+        To check that every node has even degree, we loop through the nodes and find
+        the number of neighbors. In \python{dsc40graph}, this looks like:
+        \inputminted{python}{\thisdir/include-solution/all_even.py}
+
+        The overall function should return \python{True} if and only if the two stated
+        checks both return \python{True}.
+    \end{soln}
+\end{progprob}

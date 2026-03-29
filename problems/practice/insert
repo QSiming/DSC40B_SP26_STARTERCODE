@@ -1,0 +1,79 @@
+#! /usr/bin/env python3
+"""Inserts problems from old exams into the practice bank.
+
+Usage:
+
+    insert <dirname_1> <dirname_2> ... <dirname_n>
+
+This will copy, one by one, the subdirectories of the given directories into the
+practice bank, numbering them sequentially. It will also add to the top of every
+problem.tex file two lines:
+
+    %% tags: []
+    %% source: <dirname>
+
+Where <dirname> is the name of the directory from which the problem was copied.
+
+"""
+
+import pathlib
+import argparse
+import shutil
+
+
+# the number of characters to use for the problem number
+PROBLEM_NUMBER_WIDTH = 3
+
+
+def _get_largest_problem_number() -> int:
+    """Gets the largest problem number in the current directory."""
+    paths = pathlib.Path.cwd().glob("*")
+    problem_directory_paths = [p for p in paths if p.is_dir() and p.name.isnumeric()]
+    problem_numbers = [int(p.name) for p in problem_directory_paths]
+    return max(problem_numbers) if problem_numbers else 0
+
+
+def _format_problem_number(number: int) -> str:
+    """Formats the problem number as a string."""
+    return str(number).zfill(PROBLEM_NUMBER_WIDTH)
+
+
+def _insert_subdirectory(subdirectory_path: pathlib.Path):
+    """Inserts problems from a subdirectory into the practice bank."""
+    next_number = _get_largest_problem_number() + 1
+
+    for problem_path in subdirectory_path.glob("*"):
+        if not problem_path.is_dir():
+            continue
+
+        # copy the problem directory into the practice bank
+        new_problem_path = pathlib.Path.cwd() / _format_problem_number(next_number)
+        shutil.copytree(problem_path, new_problem_path)
+
+        # add the source line to the top of the problem.tex file
+        problem_tex_path = new_problem_path / "problem.tex"
+
+        with problem_tex_path.open("r") as f:
+            lines = f.readlines()
+
+        with problem_tex_path.open("w") as f:
+            f.write("%% tags: []\n")
+            f.write(f"%% source: {subdirectory_path.name}\n")
+            f.writelines(lines)
+
+        next_number += 1
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("directories", nargs="+")
+    args = parser.parse_args()
+
+    for directory in args.directories:
+        print(f"Inserting problems from {directory}...")
+        subdirectory_path = pathlib.Path(directory)
+        _insert_subdirectory(subdirectory_path)
+
+
+if __name__ == "__main__":
+    main()

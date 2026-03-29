@@ -1,0 +1,15 @@
+#! /usr/bin/env bash
+
+dirname="$1"
+
+if [ -z "$dirname" ]; then
+    echo "Usage: $0 <dirname>"
+    exit 1
+fi
+
+cd "$dirname"
+
+unzip "$dirname"
+mv exams ..
+rm -rf *
+mv ../exams .

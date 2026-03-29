@@ -1,0 +1,77 @@
+\begin{prob}
+    % Write the problem here.
+    Suppose a professor makes the following deal with their class: by attending
+    lecture, you can earn ``tokens''. At the end of the quarter, each token can either
+    be used to flip a late homework to on-time, or it can be redeemed for extra credit.
+
+    Suppose the first token that is redeemed is awarded 50 points of extra
+    credit, the second 30 points, the third 20 points, and the fourth 10
+    points. Beyond this, all tokens are worth 10 points -- that is, the fifth,
+    sixth, seventh, etc., tokens are all worth 10 points if redeemed. For
+    example, if a student has three tokens and uses the first to flip a late
+    homework and redeems the remaining two for extra credit, they'll earn 50 +
+    30 = 80 points of extra credit. Also suppose that any late homework (which
+    isn't flipped) is given zero points.
+
+    If the goal is to maximize the number of points earned, it might seem like
+    the most advantageous strategy for the student is to first use the tokens
+    to flip all of their late homeworks and only then redeem their remaining
+    tokens for extra credit, because late homeworks would receive zero points
+    otherwise. But suppose a student's late homework earned only 1 point --
+    clearly, they shouldn't waste a token on this homework, and should instead
+    redeem it for extra credit. That is, the optimal strategy requires a little
+    more thought.
+
+    In a file named \python{allocate_tokens.py}, write a function
+    \python{allocate_tokens(lates, n_tokens)} which takes in a list
+    \python{lates} of the points earned by a student on all of their late
+    homeworks (in arbitrary order), as well as \python{n_tokens}, the number of tokens they have
+    earned. It should return the total number of points earned by using the
+    tokens in the best possible way (that is, the maximum number of points
+    possible).
+
+    For example, suppose a student's two late homeworks earned 75 and 20 points, respectively, and
+    they earned two tokens.
+    Then \python{lates = [20, 75]}, and \python{n_tokens = 2}. The best strategy is for them to use
+    one token to ``flip'' the 75 point homework to on-time, and to redeem the second token
+    for 50 points of extra credit, earning a total of 125 points. Therefore, \python{allocate_tokens([20, 75], 2)}
+    should return \python{125}.
+
+    Your code will still receive partial credit if it is inefficient, but to receive full
+    credit it should have a worst-case time complexity of $\Theta(n \log n)$,
+    where $n$ is the number of late homeworks.\footnote{The time taken will also depend on
+    the number of tokens earned, but you can assume that the number of tokens earned is $O(n)$.}
+
+    \emph{Hint}: the worst-case time complexity of $\Theta(n \log n)$ should point you towards
+    a strategy. What else do we know of that takes $\Theta(n \log n)$ time? Also be sure that your code works when
+    there are fewer late assignments than tokens earned. It is a good idea to write several of your
+    own doctests to thoroughly check your code.
+
+
+    \begin{soln}
+        The fact that our worst-case time complexity should be $\Theta(n \log n)$ suggests that maybe
+        \emph{sorting} the input would be useful. What if we sort \python{lates}; does that help?
+
+        It turns out that it does -- \emph{if} we sort from largest to smallest. The strategy
+        is as follows: After sorting \python{lates} in descending order, we loop through and
+        compare the number of points earned on that assignment to the number of points we'd
+        earn by redeeming a token (if we have any remaining). If the token is not worth
+        more in extra credit than the late assignment, we ``flip'' the late assignment and move
+        on to the next late. However, if the token \emph{is} worth more in extra credit, we redeem the token for
+        extra credit. In this case, we do not move on to the next late assignment -- we might want
+        to use the next token to flip this late.
+
+        Note that this looping approach does not work if we don't sort the lates first. If we
+        looped through the late assignments in arbitrary order, there could be a very valuable
+        late lurking at the end of the list for which we should use a token. Without sorting,
+        we'd need to find the largest remaining late on every iteration, leading to a
+        quadratic overall time complexity. As-is, the code takes $\Theta(n \log n)$ because
+        of the sorting. All of the code after the sort takes linear time.
+
+        Here is what a solution looks like:
+
+        \inputminted{python}{\thisdir/include-solution/allocate_tokens.py}
+
+    \end{soln}
+
+\end{prob}

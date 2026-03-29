@@ -1,0 +1,111 @@
+\begin{prob}
+
+    % This is an alternative version of the problem 
+    % which I presented in discussion section 
+    % (because I misunderstood the original problem)
+    % it does not have an autograder test yet (since i only used it in discussion)
+
+    Consider the problem of finding collinear points.
+    Suppose you are given a set $X$ of $n$ points in $\mathbb R^2$, along with a query 
+    vector $\vec p \in \mathbb R^2$. Your goal is to calculate the maximum
+    number of points in $X$ that fall on the same straight line parallel to $\vec{p}$.
+    That is, considering all of the (infinitely) many lines parallel to $\vec p$,
+    find the one that contains the most points from $X$.
+
+    For example, in the picture below, the black points are those in $X$ and the arrow
+    represents $\vec p$. The maximum number of points in $X$ that falls on a line
+    parallel to $\vec p$ is four (those on the dashed line).
+
+    \begin{center}
+    \resizebox{3in}{!}{
+        \input{\thisdir/include/figure.pgf}
+    }
+    \end{center}
+
+    In a file named \python{max_points_on_line.py}, write a function
+    \python{max_points_on_line(X, p)} which accepts the following arguments:
+    \begin{itemize}
+        \item \python{X}: A list of points, each point being a 2-tuple of numbers.
+        \item \python{p}: A query vector represented as a 2-tuple of numbers.
+    \end{itemize}
+    Your function should return the maximum number of points in \python{X} that fall
+    on the same straight line parallel to $\vec p$. Your answer should be an
+    integer. If \python{X} is empty, return \python{0}. If a point $\vec{x}$ in \python{X}
+    is such that $\vec x = \vec p$, you should consider to be on the same line as $\vec{p}$
+    (even if there are no other points).
+
+    Your algorithm should take expected time that is linear in the number of points in
+    \python{X}.
+
+    Example (using the points in the picture above):
+
+    \begin{minted}[autogobble]{python}
+    >>> X = [
+    ... (1, 1),
+    ... (3, 1),
+    ... (5, 2),
+    ... (3, 6),
+    ... (1, 7),
+    ... (7, 4),
+    ... (9, 3),
+    ... (9, 9)
+    ... ]
+    >>> p = (-2, 1)
+    >>> max_points_on_line(X, p)
+    4
+    \end{minted}
+
+    \emph{Hint}: maybe you can use a hash table (i.e., a Python dictionary)?
+    Remember, to use hashing in solving an algorithmic problem, you often
+    need to turn the problem into a \emph{membership query}. 
+    For any given point $x$, you can calculate the along $\vec p$ 
+    that passes through $x$.
+    How can you turn checking to see if there are other points with the
+    same slope into a membership query?
+
+    \begin{soln}
+        This is an optimization problem that at first might look undoable in a finite
+        amount of time: there are infinitely many lines along the vector $\vec p$,
+        and we don't have time to try all of them.
+
+        The key insight is that all the lines parallel to $\vec p$ are parameterized by a single parameter: the slope is the same for all of them since they are all parallel, 
+        so their y-intercept determines them uniquely.
+
+        Therefore, checking if several points are on the same line, is equivalent to  checking that the y-intercept of the line parallel to p passing through each of these points is the same.
+
+        \paragraph{Note:} One could also use the x-intercept instead of the y-intercept, or the intersection with any other line that is not parallel to $\vec p$. In fact there is a slight problem with using the y-intercept: if $\vec p$ is vertical, then the y-intercept is not well-defined. This can be solved by either
+        \begin{enumerate}
+            \item\label{itm:pointsonlinev2_sol1} Checking if $\vec p = (p_1, p_2)$ is vertical (i.e., $p_1 = 0$) and then using the x-intercept instead of the y-intercept.
+            \item\label{itm:pointsonlinev2_sol2} Or by selecting a different line that is never parallel to $\vec p$, for example the line orthogonal to $\vec p$.
+        \end{enumerate}
+
+        We will use approach~\ref{itm:pointsonlinev2_sol1} in the solution below, 
+        because it is conceptually simpler, 
+        But approach~\ref{itm:pointsonlinev2_sol2} is actually more robust 
+        and simpler to implement.
+        
+        Therefore, the solution proceeds by making a dictionary (hash map)
+        whose keys are y-intersects and whose values are integers counting the number of points
+        we've seen whose slope with $\vec x$ is equal to the key. We loop through all
+        points in \python{X} and compute the y-intersect between each point and $\vec p$.
+        We index into the dictionary with this y-intersect and increment the count
+        stored. 
+
+        The maximum value in the dictionary is the answer.
+
+        To compute the y-intersect of the line passing through a point $x = (x_1, x_2)$ and parallel to $\vec p = (p_1, p_2)$, we use the following:
+
+        note $x_\text{inter}$ is the point where the line intersects the y-axis, and $y_\text{inter}$ is the y-coordinate of this point (so $x_\text{inter} = (0, y_\text{inter})$).
+
+        \[
+            x_\text{inter} = x + t \vec p \quad \text{where }  t \text{ is some scalar}
+        \]
+        
+        \[\text{so, in first coordinate, } 0 = x_1 + t p_1\] 
+        \[\text{so, } t = - \frac{x_1}{p_1}\] 
+        \[\text{so, in second coordinate, } y_\text{inter} = x_2 + t p_2 = x_2 + \frac{x_1 p_2}{p_1}\]
+
+        \inputminted{python}{\thisdir/include-solution/max_points_on_line.py}
+    \end{soln}
+
+\end{prob}

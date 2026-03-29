@@ -1,0 +1,25 @@
+%% source: 2023-sp-midterm_01
+\begin{prob}
+    Consider the iterative implementation of binary search shown below:
+    \inputminted[lastline=17]{python}{\thisdir/code.py}
+
+    Which of the following loop invariants is true, assuming that
+    \python{arr} is sorted and non-empty, and \python{target} is \textbf{not} in the array? Select all that apply.
+
+    \begin{choices}[rectangle]
+        \correctchoice  After each iteration, \python{stop - start >= 0}.
+        \choice  After each iteration, \python{stop - start >= 1}.
+        \choice  After each iteration, \python{arr[start] <= target}.
+        \choice  After each iteration, \python{arr[start] <= max(target, arr[0])}.
+    \end{choices}
+
+    \begin{soln}
+        There was a small bug in the grading here, where originally the last option was
+        marked as True, when it is not always true. Try, for example, the input
+        \python{arr = [3, 4, 7]} and a target of \python{5}.
+
+        Since the last option was trickier than intended, both checking it and leaving it
+        unchecked were marked as correct. Note, though, that the correct answer is that it
+        is false.
+    \end{soln}
+\end{prob}

@@ -1,0 +1,159 @@
+\begin{prob}
+    In each of the problems below compute the average case time complexity (or
+    expected time) of the given code. State your answer using asymptotic
+    notation in the simplest terms possible. Show your work for this problem by stating what the different
+    cases are, the probability of each case, and how long each case takes. Also
+    show the calculation of the expected time.
+
+    \begin{subprobset}
+        \begin{subprob}
+            \begin{minted}[autogobble]{python}
+                def foo(n):
+                    # randomly choose a number between 0 and n-1 in constant time
+                    k = np.random.randint(n)
+
+                    if k < np.sqrt(n):
+                        for i in range(n**2):
+                            print(i)
+                    else:
+                        print('Never mind...')
+
+            \end{minted}
+
+            \begin{soln}
+                $\Theta(n\sqrt{n})$.
+
+                We can think of the two cases here as being 1) $k$ is randomly chosen
+                to be less than $\sqrt{n}$, and 2) $k$ is randomly chosen to be greater.
+                The probability of the first case is $\sqrt{n} / n = 1/\sqrt{n}$, and
+                the probability of the second case is $(n - \sqrt{n})/n = 1 - 1/\sqrt{n}$.
+
+                In the first case, quadratic time (that is, $\Theta(n^2)$ time)
+                is taken since we must loop over \python{range(n**2)}. In the
+                second case, constant time is taken since we print
+                \python{"Never mind..."} and exit.
+
+                Therefore, the average time taken is:
+
+                \begin{align*}
+                    \frac{1}{\sqrt{n}} \Theta(n^2) + \left(1 - \frac{1}{\sqrt{n}}\right) \Theta(1)
+                    =
+                        \Theta(n\sqrt{n}) + \Theta(1)
+                    =
+                        \Theta(n\sqrt{n})
+                \end{align*}
+
+            \end{soln}
+        \end{subprob}
+
+
+        \begin{subprob}
+            \begin{minted}[autogobble]{python}
+                def bogosearch(numbers, target):
+                    """search by randomly guessing. `numbers` is an array of n numbers"""
+                    n = len(numbers)
+
+                    while True:
+                        # randomly choose a number between 0 and n-1 in constant time
+                        guess = np.random.randint(n)
+                        if numbers[guess] == target:
+                            return guess
+            \end{minted}
+
+            In this part, you may assume that the numbers are distinct and that the
+            target is in the array.
+
+            Hint: if $0 < b < 1$, then $\sum_{p = 1}^\infty p \cdot b^{p-1} = \frac{1}{(1 - b)^2}$.
+
+            \begin{soln}
+                $\Theta(n)$.
+
+                Maybe the best way to divide this into cases is to consider Case 1 to
+                be when we guess the location of the target on the very first try;
+                Case 2 is when we guess the location of the target incorrectly on the
+                first try, but get it right on the second; Case 3 is when we get the
+                first two guesses wrong but get the third guess correct, and so on.
+                In general, Case $\alpha$ is when we made incorrect guesses on the first
+                $\alpha - 1$ iterations, but a correct guess on the $\alpha$th iteration,
+                therefore returning.
+
+                The probability of Case $\alpha$ is the probability of guessing wrong $\alpha - 1$
+                times followed by guessing correctly. Since these guesses are all statistically
+                independent, and since the probability of any one guess being wrong is
+                $(n - 1)/n$ and the probability of it being right is $1/n$, we find that
+                the probability of Case $\alpha$ is:
+                \[
+                    \underbrace{
+                        \left( \frac{n-1}{n} \right)
+                        \left( \frac{n-1}{n} \right)
+                        \cdots
+                        \left( \frac{n-1}{n} \right)
+                    }_{\alpha - 1 \text{ times}}
+                    \cdot \frac{1}{n}
+                    =
+                    \left(
+                        \frac{n-1}{n}
+                    \right)^{\alpha-1} \frac{1}{n}
+                    =
+                    \left(
+                        1 - \frac{1}{n}
+                    \right)^{\alpha-1} \frac{1}{n}
+                \]
+
+                The time taken on any iteration is constant; let's call it $c$. In case $\alpha$
+                we make $\alpha$ iterations, and so we take $c \alpha$ time in total.
+
+                There are actually infinitely many cases here, since it is possible that
+                we are consistently unlucky and never guess the right entry. Therefore,
+                our summation will actually be an infinite series.
+
+                Therefore the expected time over all possible cases is:
+                \begin{align*}
+                    \sum_{\alpha = 1}^\infty
+                        P(\text{case } \alpha)
+                        \cdot
+                        T(\text{case } \alpha)
+                        =
+                    \sum_{\alpha = 1}^\infty
+                    \left(
+                        1 - \frac{1}{n}
+                    \right)^{\alpha-1} \frac{1}{n} \cdot c \alpha
+                    &=
+                        \frac{c}{n}
+                        \sum_{\alpha = 1}^\infty
+                        \alpha
+                        \left(
+                            1 - \frac{1}{n}
+                        \right)^{\alpha-1}
+                        \\
+                    \intertext{We can now use the hint. Letting $b = 1 - 1/n$, we have:}
+                    &=
+                        \frac{c}{n}
+                        \sum_{\alpha = 1}^\infty
+                        \alpha
+                        b^{\alpha - 1}
+                        \\
+                    &=
+                        \frac{c}{n} \cdot \frac{1}{(1 - b)^2}
+                    \intertext{Now substituting back in for $b = 1 - 1/n$:}
+                    &=
+                    \frac{c}{n} \cdot \frac{1}{\left[1 - (1 - 1/n)\right]^2}
+                        \\
+                    &=
+                        \frac{c}{n} \cdot \frac{1}{1/n^2}
+                        \\
+                    &=
+                        \frac{c}{n} \cdot n^2
+                        \\
+                    &=
+                        cn
+                \end{align*}
+
+                So the average case time complexity is $\Theta(n)$.
+
+            \end{soln}
+
+
+        \end{subprob}
+    \end{subprobset}
+\end{prob}

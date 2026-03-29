@@ -1,0 +1,59 @@
+\begin{prob}
+
+    In lecture, we saw the following algorithm for computing a median:
+    \inputminted{python}{\thisdir/include/median.py}
+    We said that this algorithm has quadratic time complexity, which means that the 
+    time it takes to run grows like $n^2$, where $n$ is the size of the input list.
+    Let's see if this is indeed the case by timing the function on inputs of various
+    size.
+
+    \begin{subprobset}
+        \begin{subprob}
+            Write a function named \python{time_median} which takes in a single
+            argument, \python{n}. It should create a list of \python{n} numbers
+            and call \python{median} ten times on that list, timing each call.
+            Your function should return the average time it took for
+            \python{median} to run over all ten calls. Provide your code.
+
+            \emph{Hint}: 
+            We saw the \python{timeit} magic functions in lecture, but 
+            the \python{time} function in Python's \python{time} module is more useful
+            here. To time the execution of a function call, we can write:
+            \begin{minted}[autogobble]{python}
+                import time
+                start = time.time()
+                my_function_that_i_want_to_time()
+                end = time.time()
+                elapsed = end - start
+            \end{minted}
+
+            \begin{soln}
+                 \inputminted{python}{\thisdir/include-solution/time_median.py}
+
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            Using your function \python{time_median}, time \python{median} on inputs of
+            size 100, 400, 700, 1000, 1300, 1600, and 1900. Create a plot of these times,
+            where the horizontal axis measures the input size, and the vertical axis measures
+            the average time taken by \python{median} in seconds.
+
+            Include your code in your solution.
+            You may use any tool you like to make the plot, though we recommend using
+            \python{matplotlib}.
+
+            \begin{soln}
+                Here is some code that will compute the timings.
+
+                \inputminted{python}{\thisdir/include-solution/run_timings.py}
+
+                This will produce a figure like that below:
+
+                \includegraphics[scale=.6]{\thisdir/include-solution/timing.png}
+            \end{soln}
+
+        \end{subprob}
+    \end{subprobset}
+
+\end{prob}

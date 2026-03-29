@@ -1,0 +1,115 @@
+\begin{progprob}
+    One of the most used tools in the data scientist's toolkit is the
+    \emph{histogram}. We often use it to get a sense of the distribution of a
+    dataset. You'll remember them from DSC 10, where we used them quite a bit.
+    In this problem, you'll be asked to design and implement an efficient
+    algorithm that computes a histogram from sorted data.
+
+    \textbf{Computing a histogram.} We saw how to compute a density histogram in DSC 10,
+    but here's a quick reminder. Suppose you're given a list of $n$ points, along with
+    $k$ bins of the form $[a, b)$, where $a$ is the start of the bin and $b$ is the end (we
+    assume that $a$ is included in the bin, but $b$ is not). The density within a given
+    bin is calculated using the formula:
+    \[
+        \frac{\text{\# of points in the bin}}{(\text{total \# of points}) \times (\text{bin width})}
+    \]
+    For example, suppose we are given 8 data points: $(1, 2, 3, 6, 7, 9, 10, 11)$ and
+    3 bins: $[0, 4), [4, 8),$ and $[8, 12)$. Three of the eight points fall in the first bin,
+    whose width is 4. The density in the first bin is therefore $\frac{3}{8 \times 4} = 0.09375$.
+    On the other hand, only two points fall into the second bin, so the density there is
+    $\frac{2}{8 \times 4} = 0.0625$. Three points fall into the last bin, so the density there
+    is also $\frac{3}{8 \times 4} = 0.09375$.
+
+    We can visualize these densities using a plot like the one shown below:
+
+    \begin{center}
+        \includegraphics[width=.4\textwidth]{\thisdir/include/histogram.png}
+    \end{center}
+
+    \textbf{The problem.} In a file named \texttt{histogram.py}, write a function called \python{histogram(points, bins)}
+    which accepts two arguments:
+    \begin{itemize}
+        \item \python{points}: a \textbf{sorted} Python list of $n$ numbers, in order from smallest to largest
+        \item \python{bins}: a Python list of $k$ tuples, each of the form $(a, b)$, where $a$ and $b$ are the start
+            and end of a bin, respectively. You can assume that the bins are
+            also sorted from left to right, and the endpoint of one bin is the
+            start of the next. For example, the list \python{[(0, 4), (4, 8),
+            (8, 12)]} denotes bins of $[0, 4), [4, 8),$ and $[8, 12)$. Each bin
+            includes its start, but not its end.
+    \end{itemize}
+
+    The output of your function should be a Python list which contains the
+    histogram's density within each bin. So if \python{bins} has $k$ elements,
+    your function should return a list of $k$ numbers.
+
+    For example, here's what your code should do on a simple input:
+
+    \begin{minted}[autogobble]{python}
+        >>> points = [1, 2, 3, 6, 7, 9, 10, 11]
+        >>> bins = [(0, 4), (4, 8), (8, 12)]
+        >>> histogram(points, bins)
+        [0.09375, 0.0625, 0.09375]
+    \end{minted}
+
+    Your code will be tested not only for correctness, but also for efficiency.
+    To get full credit, your function should take $\Theta(n)$ time, where $n$
+    is the number of data points. It should take this time regardless of the
+    number of bins! Note that there is a simple, inefficient solution that will
+    take $\Theta(n \times k)$ time (for instance, if the number of bins is
+    $n/10$, it would take $\Theta(n^2)$ time!). Your code should be much faster
+    than that, and it should only need to loop through the data points
+    \emph{once}. \emph{Hint}: make good use of the fact that the data and the
+    bins are given to your function in \textbf{sorted} order.
+
+    For this problem, you may not use \python{numpy} or any other imports. You can
+    do this in pure Python! You may assume that the number of bins is between $1$
+    and $n$, and that each of the data points falls into one of the bins.
+
+    \textbf{About the autograder.} 
+    
+    This is the first ``Programming Problem'' of
+    the quarter. \textbf{You must submit your code to Gradescope through Github} in a 
+    separate assignment named ``Homework 03 - Programming Problem 01'' with 
+    the same due date as the written homework. \textbf{The guide for setting up Github 
+    and submitting your code through it is available on Campuswire.} 
+
+    Programming problems are mostly autograded, which means that your code will
+    need to pass several tests to receive full credit. Some of these tests are
+    \emph{public}, meaning that you can see the result before the deadline.
+    They usually check to make sure that your code has the correct filename and
+    works on the simplest of examples. The private tests check your code on
+    more complex examples, and usually will make sure that it has the correct
+    time complexity. You can submit your code as many times as you'd like, and
+    we suggest submitting it early and often! After uploading your code, be
+    sure to stick around and see if it passes the public tests. If it doesn't,
+    you might lose points.
+
+
+    \begin{soln}
+        First, let's look at the simplest solution. It will return the right
+        densities, but it is inefficient. It looks like this:
+
+        \inputminted{python}{\thisdir/include-solution/slow-histogram.py}
+
+        That solution has a nested loop which, for each bin, loops through the
+        data points, counting the number of points in the bin. This means that
+        we loop through the data once for every bin, or a total of $n \times k$
+        times. For example, if the number of bins is $n/10$, the time
+        complexity of this code is $\Theta(n^2)$. This is not efficient, and we
+        can do better!
+
+        The above solution does not take advantage of the fact that the data
+        and the bins are sorted. Here's a solution that does:
+
+        \inputminted{python}{\thisdir/include-solution/histogram.py}
+
+        This code also has a nested loop, but there's a key difference. For
+        each bin, we start iterating through the data points, but stop when we
+        see a data point past the end of the bin. The key observation is that,
+        for the next bin, we can start where we left off previously, with the
+        first data point that was past the end of the previous bin. This means
+        that we only loop through the data once, and the time complexity is
+        $\Theta(n)$, as required, no matter how many bins there are.
+    \end{soln}
+
+\end{progprob}

@@ -1,0 +1,72 @@
+\begin{prob}
+    For each problem below, state the largest theoretical lower bound that you can think
+    of and justify (that is, your bound should be ``tight'').
+    Provide justification for this lower bound. You do not need to find an algorithm
+    that satisfies this lower bound.
+
+    \emph{Example}: Given an array of size $n$ and a target $t$, determine the index of $t$ in the array.
+
+    \emph{Example Solution}: $\Omega(n)$, because in the worst case any
+    algorithm must look through all $n$ numbers to verify that the target is
+    not one of them, taking $\Omega(n)$ time.
+
+    \begin{subprobset}
+        \begin{subprob}
+            Given an array of $n$ numbers, find the second largest number.
+
+            \begin{soln}
+                $\Omega(n)$.
+
+                Any algorithm must look through all $n$ numbers to be sure it didn't miss
+                the second largest number, and so must take
+                $\Omega(n)$ time. Algorithm: loop through the numbers, keeping
+                track of the maximum and the next largest number seen.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            Given an array of $n$ numbers, check to see if there are any duplicates.
+
+            \begin{soln}
+                $\Omega(n)$
+
+                Again, we have to look through all of the numbers in the worst case;
+                if we don't, we can't be sure that it isn't a duplicate of a number we
+                have looked at.
+
+                It turns out that the actual, \emph{tight} theoretical lower bound for this
+                problem is $\Omega(n \log n)$, under some assumptions.\footnote{See:
+                \url{https://en.wikipedia.org/wiki/Element_distinctness_problem}}
+                But justifying that lower bound is not trivial, and this question asked
+                you to state the best TLB that you could justify.
+
+                If you said that the
+                TLB is $\Omega(n \log n)$ because you though of sorting the list and
+                checking for consecutive equal elements, this is good thinking -- but
+                in order to claim that the TLB is therefore $\Omega(n \log n)$, you'd
+                also need to justify the assumption that sorting (or something like it)
+                is \emph{necessary} of any optimal algorithm. That's not an easy claim
+                to justify!
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            Given an array of $n$ integers (with $n \geq 2$), check to see if there is
+            a pair of elements that add to be an even number.
+
+            \begin{soln}
+                $\Omega(1)$
+
+                This can be done in constant time by checking only the first 2 numbers.
+                If the first two are both even, or both odd, then the answer is ``yes'',
+                since the sum will then be even. If the first two numbers are of different
+                polarity -- one even and the other odd -- then the answer is ``no'' if
+                the size of the list is 2, otherwise it is ``yes'' since the third number
+                in the array must be either even or odd; pairing it with one of the first
+                two numbers with the same polarity gives an even sum.
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+
+\end{prob}

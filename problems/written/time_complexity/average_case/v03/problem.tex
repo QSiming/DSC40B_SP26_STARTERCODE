@@ -1,0 +1,174 @@
+\begin{prob}
+    In each of the problems below compute the expected time of the given code.
+    State your answer using asymptotic notation. Show your work for this
+    problem by stating what the different cases are, the probability of each
+    case, and how long each case takes. Also show the calculation of the
+    expected time.
+
+    \begin{subprobset}
+        \begin{subprob}
+            \begin{minted}[autogobble]{python}
+                def foo(n):
+                    # randomly choose a number between 0 and n-1 in constant time
+                    k = np.random.randint(n)
+
+                    if k > n/10:
+                        for i in range(n**2):
+                            print(i)
+                    else:
+                        for i in range(n):
+                            print(i)
+
+            \end{minted}
+
+            \begin{soln}
+                $\Theta(n^{2})$.
+
+                We can think of the two cases here as being 1) $k$ is randomly chosen
+                to be greater than $n/10$, and 2) $k$ is randomly chosen to be less than $n/10$.
+                The probability of the first case is $9/10$, and
+                the probability of the second case is $1/10$.
+
+                In the first case, quadratic time is taken since we must loop over \python{range(n**2)}.
+                In the second case, linear time is taken since we must loop over \python{range(n)}.
+
+                Therefore, the average time taken is:
+
+                \begin{align*}
+                    \frac{9}{10} \Theta(n^{2}) + \frac{1}{10} \Theta(n)\\
+                    &=
+                    \Theta(n^{2}) + \Theta(n)\\
+                    &=
+                    \Theta(n^{2})
+                \end{align*}
+
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \begin{minted}[autogobble]{python}
+                def bar(n):
+                    # randomly choose a number between 0 and n-1 in constant time
+                    k = np.random.randint(n)
+
+                    if k > 10: # <--- here is the difference!
+                        for i in range(n**2):
+                            print(i)
+                    else:
+                        for i in range(n):
+                            print(i)
+            \end{minted}
+
+            \textbf{Note:} this code is \emph{almost} the same as the code in
+            the previous part, with one small difference that has been
+            highlighted with a comment.
+
+
+            \begin{soln}
+                $\Theta(n)$.
+
+                Here we again randomly choose an integer $k$ from 0 to $n$-1,
+                but instead of checking if the integer is less than $n/10$, we
+                check if $k$ is greater than 10. If it is, we loop over
+                \python{range(n**2)}, and if not we loop over loop over
+                \python{range(n)}. The probability of the first case ($k$ being
+                greater than or equal to 10) is $(n-10)/n$, and the probability
+                of the second case ($k$ being less than 10) is $10/n$. So, the
+                average time taken is:
+
+                \begin{align*}
+                    \frac{n-10}{n} \Theta(n^{2}) + \frac{10}{n} \Theta(n)\\
+                    &=
+                    \frac{n^3 - 10n^2}{n} + \frac{10n}{n}\\
+                    &=
+                    n^2 - 10n + 10\\
+                    &=
+                    \Theta(n^2 + 1)\\
+                    &=
+                    \Theta(n^2)
+                \end{align*}
+
+            \end{soln}
+
+        \end{subprob}
+
+        \begin{subprob}
+            \begin{minted}[autogobble]{python}
+                def baz(n):
+                    # randomly choose a number between 0 and n-1 in constant time
+                    x = np.random.randint(n)
+
+                    for i in range(x):
+                        for j in range(i):
+                            print("Hello!")
+            \end{minted}
+
+            \textbf{Hint}: In class, we saw that the sum of the first $n$
+            integers is $\frac{n(n+1)}{2}$. It turns out that the sum of the
+            first $n$ integers squared (so, $1^2 + 2^2 + 3^2 + \ldots + n^2$)
+            is $\frac{n(n+1)(2n+1)}{6}$. You can (and should) use this fact,
+            but make sure to point it out when you do.
+
+
+            \begin{soln}
+                $\Theta(n^{2})$.
+
+                Here, \python{x} is a random integer from 0 to $n$-1. We can
+                think of each possible value of \python{x} as a different case.
+                That is, in Case 0, we get 0 for \python{x}, in Case 1, we get
+                1 for \python{x}, and so on up to Case $n-1$, where we get
+                $n-1$ for \python{x}.
+
+                Each case is equally likely, and there are $n$ of them, so the probability
+                of each case is $1/n$.
+
+                Next, we calculate the time taken in each case by counting the number
+                of executions of the inner loop body. Consider Case $k$ (in which \python{x}
+                turns out to be $k$). In this case, the nested loop becomes:
+
+                \inputminted{python}{\thisdir/include-solution/loop.py}
+
+                We have analyzed these sorts of dependent nested loops before
+                in lecture, and we know that the number of executions of the
+                inner loop body is equal to the sum $1 + 2 + 3 + \ldots + (k-1)$.
+                This is an arithmetic sum, and it has a formula:
+                $\frac{k(k-1)}{2}$. So, the number of executions in Case $k$ is
+                $k(k-1)/2$, and therefore the time is proportional to this.
+
+                Recalling that the expected time complexity has the formula:
+
+                \begin{align*}
+                    T_\text{expected}(n)
+                    &=
+                        \sum_{cases}
+                        P(\text{case } k) \cdot T(\text{case } k)
+                        \\
+                \intertext{We fill in the probabilities and times:}
+                    &= \sum_{k = 0}^{n-1} \frac{1}{n} \cdot \frac{k(k-1)}{2} \\
+                    &= \frac{1}{2n} \sum_{k = 0}^{n-1} k(k-1) \\
+                    &= \frac{1}{2n} \sum_{k = 0}^{n-1} k^2 - k \\
+                    &= \frac{1}{2n} \left( \sum_{k = 0}^{n-1} k^2 - \sum_{k = 0}^{n-1} k \right) \\
+                    \intertext{We recognize the second sum as an arithmetic sum, and we recognize the first sum from
+                    the hint. Therefore:}
+                    &= \frac{1}{2n} \left( \frac{n(n-1)(2n-1)}{6} - \frac{n(n-1)}{2} \right) \\
+                    &= \frac{1}{2n} \left( \Theta(n^3) - \Theta(n^2) \right) \\
+                    &= \Theta(n^2)
+                \end{align*}
+
+                The hardest part of this problem might have been figuring out $T(\text{case } k)$; that is,
+                in counting the number of exeuptions of the inner loop body in Case $k$. If you got stuck here,
+                or wanted to check your guess, remember that you can try it out in code:
+
+                \inputminted{python}{\thisdir/include-solution/loop-count.py}
+
+                This would print \python{36}, which matches the prediction of our
+                formula when $k = 9$, since $9(9-1)/2 = 36$.
+
+            \end{soln}
+
+        \end{subprob}
+
+
+
+    \end{subprobset}
+\end{prob}

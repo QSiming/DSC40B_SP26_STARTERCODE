@@ -1,0 +1,23 @@
+%% tags: [time complexity]
+%% source: 2023-fa-redemption_midterm_01
+\begin{prob}
+    Suppose \mintinline{python}{bar_1}, \mintinline{python}{bar_2} and \mintinline{python}{bar_3} are three functions.
+    Suppose \mintinline{python}{bar_1}'s time complexity is $\Theta(n)$, \mintinline{python}{bar_2}'s
+    time complexity is $\Theta(n^2)$, and \mintinline{python}{bar_3}'s
+    time complexity is $\Theta(n^3)$.
+
+    Suppose \mintinline{python}{foo} is defined as below:
+
+    \inputminted{python}{code.py}
+
+    What is the asymptotic time complexity of \mintinline{python}{foo}?
+
+    \inlineresponsebox{$\Theta(n^2)$}
+
+    \begin{soln}
+        Asymptotic time complexity concerns the time taken when $n$ is large.
+        Therefore, it doesn't matter what happens when $n < 1000$.
+        When $n \geq 1000$, the time taken is $\Theta(n^2)$, since that is the
+        time taken by \mintinline{python}{bar_2}.
+    \end{soln}
+\end{prob}

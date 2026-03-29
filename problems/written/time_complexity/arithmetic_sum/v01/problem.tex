@@ -1,0 +1,35 @@
+\begin{prob}
+	Consider the code below where heights is an array of n elements:
+	\begin{minted}[autogobble]{python}
+		for i in range(n):
+			for j in range(2*i):
+				height = heights[i] + heights[j]
+    	\end{minted}
+	What is the time complexity of the code?
+    \begin{soln}
+    
+    	We can see that outer iteration runs n times, for inner iteration: \\ 
+	On outer iter $1$, inner body runs $0$ times \\
+	On outer iter $2$, inner body runs $2$ times \\
+	On outer iter $3$, inner body runs $4$ times \\
+	Hence, \\
+	On outer iter $\alpha$, inner body runs $(2\alpha - 2)$ times 
+        \[ 
+        \sum_{\alpha = 1}^{n} f(\alpha) = \sum_{\alpha = 1}^{n} 2*\alpha - 2 
+        \]
+        \[ 
+        \sum_{\alpha = 1}^{n} 2*\alpha - 2  = 0 + 2 + 4 + ... + (2n - 4) + (2n - 2) 
+        \]
+        
+        This is an arithmetic series and we know the formula for sum of an arithmetic series is:
+    	\[
+        		Sum = \frac{n}{2} * (a_1 + a_n)
+    	\]
+    	Where n is the number of terms, $a_1$ is the first term in the series and $a_n$ is the last term.
+    	Therefore sum of the series:
+    	\[
+        		Sum = \frac{n}{2} * (0 + 2n-2) = n(n-1) = n^2 - n 
+    	\]
+    	Therefore the time complexity can be given as $\theta(n^2)$.   
+    \end{soln}
+\end{prob}

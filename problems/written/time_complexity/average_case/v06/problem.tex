@@ -1,0 +1,133 @@
+\begin{prob}
+    In each of the parts below, compute the \emph{expected running time} of the
+    given code. Also state the \emph{worst-case} running time. Use asymptotic
+    notation.
+    
+    For full credit, for each part:
+    (1) clearly state the cases you consider,
+    (2) give the probability of each case,
+    (3) give the time taken in each case, and
+    (4) compute the expected time as a probability-weighted sum.
+    
+    \textbf{Reminder.} In Python, \python{np.random.randint(n)} picks a random
+    integer uniformly from $\{0,1,\ldots,n-1\}$.
+    
+    \begin{subprobset}
+    
+    \begin{subprob}
+        \begin{minted}[autogobble]{python}
+            def alpha(n):
+                # pick a random integer from 0 to n-1
+                r = np.random.randint(n)
+                if r < n/5:
+                    for i in range(n**3):
+                        print(i)
+                else:
+                    for i in range(n):
+                        print(i)
+        \end{minted}
+    \end{subprob}
+    
+    \begin{subprob}
+        \begin{minted}[autogobble]{python}
+            def beta(n):
+                # pick a random integer from 0 to n-1
+                r = np.random.randint(n)
+                if r < 20:
+                    for i in range(n**2):
+                        print(i)
+                else:
+                    for i in range(n):
+                        print(i)
+        \end{minted}
+    \end{subprob}
+    
+    \begin{subprob}
+        \begin{minted}[autogobble]{python}
+            def gamma(n):
+                # pick a random integer from 0 to n-1
+                m = np.random.randint(n)
+                total = 0
+                for i in range(m):
+                    for j in range(i):
+                        total += 1
+        \end{minted}
+    \end{subprob}
+    
+    \begin{subprob}
+        \begin{minted}[autogobble]{python}
+            def random_search(arr, target):
+                n = len(arr)
+                while True:
+                    idx = np.random.randint(n)
+                    if arr[idx] == target:
+                        return idx
+        \end{minted}
+        Assume all elements in \python{arr} are distinct and \python{target} is in the array.
+    \end{subprob}
+    
+    \end{subprobset}
+    
+    \begin{soln}
+    \begin{itemize}
+        \item \textbf{(a)}  
+        There are two cases.  
+        If $r < n/5$ (probability $1/5$), the loop runs $n^3$ times, so the time is
+        $\Theta(n^3)$.  
+        Otherwise (probability $4/5$), the loop runs $n$ times, so the time is
+        $\Theta(n)$.  
+    
+        The expected time is
+        \[
+        \mathbb{E}[T] = \frac{1}{5}\Theta(n^3) + \frac{4}{5}\Theta(n) = \Theta(n^3).
+        \]
+        The worst-case time complexity is $\Theta(n^3)$.
+    
+        \item \textbf{(b)}  
+        If $r < 20$ (probability $20/n$), the running time is $\Theta(n^2)$.  
+        Otherwise (probability $1 - 20/n$), the running time is $\Theta(n)$.  
+    
+        The expected time is
+        \[
+        \mathbb{E}[T]
+        = \frac{20}{n}\Theta(n^2) + \left(1-\frac{20}{n}\right)\Theta(n)
+        = \Theta(n).
+        \]
+        The worst-case time complexity is $\Theta(n^2)$.
+    
+        \item \textbf{(c)}  
+        For a fixed value $m = k$, the inner loop executes
+        $1 + 2 + \cdots + (k-1) = \Theta(k^2)$ times.
+        Since $m$ is chosen uniformly from $\{0,\ldots,n-1\}$, each case has
+        probability $1/n$.
+    
+        The expected time is
+        \[
+        \mathbb{E}[T]
+        = \sum_{k=0}^{n-1} \frac{1}{n}\Theta(k^2)
+        = \frac{1}{n}\Theta(n^3)
+        = \Theta(n^2).
+        \]
+        The worst-case time complexity is $\Theta(n^2)$.
+    
+        \item \textbf{(d)}  
+        On each iteration, the probability of success is $1/n$ and the probability
+        of failure is $1 - 1/n$.
+        Let Case $\alpha$ be the event that the algorithm succeeds on the
+        $\alpha$-th iteration.
+        Then
+        \[
+        \Pr[\text{Case }\alpha] = (1 - 1/n)^{\alpha-1}\cdot \frac{1}{n},
+        \]
+        and the time taken in Case $\alpha$ is $\Theta(\alpha)$.
+    
+        The expected running time is therefore $\Theta(n)$.
+        The worst-case running time is unbounded.
+    \end{itemize}
+    
+    \textbf{Key takeaway:} Expected running time is computed by identifying all
+    possible cases, determining their probabilities, and summing the running time
+    of each case weighted by its probability.
+    \end{soln}
+    
+    \end{prob}

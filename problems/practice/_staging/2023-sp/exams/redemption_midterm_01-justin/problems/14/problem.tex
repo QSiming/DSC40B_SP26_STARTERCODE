@@ -1,0 +1,23 @@
+%% source: 2023-sp-redemption_midterm_01
+\begin{prob}
+    Suppose \python{bar} and \python{baz} are two functions.
+    Suppose \python{bar}'s time complexity is $\Theta(n^2)$, while \python{baz}'s
+    time complexity is $\Theta(n)$.
+
+    Suppose \python{foo} is defined as below:
+
+    \begin{minted}[autogobble]{python}
+        def foo(n):
+            # will be True if n is even, False otherwise
+            is_even = (n % 2) == 0
+            if is_even:
+                bar(n)
+            else:
+                baz(n)
+    \end{minted}
+
+    Let $T(n)$ be the time taken by \python{foo} on an input of sized $n$.
+    True or False: $T(n) = \Theta(n^2)$.
+
+    \tF{}
+\end{prob}

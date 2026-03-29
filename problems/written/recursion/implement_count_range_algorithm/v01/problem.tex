@@ -1,0 +1,39 @@
+\begin{progprob}
+    You are performing a massive study of Twitter data and have recorded over 1
+    billion tweets. In your analysis, you frequently need to count the number
+    of tweets posted after time $a$ but before time $b$. A linear
+    time algorithm is not fast enough for your purposes.
+
+    In a file named \python{logcount.py}, write a function named
+    \python{logcount(arr, a, b)} which takes in a \emph{sorted} array \python{arr} and
+    returns the number of elements of the array which are in the \emph{closed} interval
+    \python{[a, b]}. You may assume that the elements of the array are numbers, but you
+    should not assume that the elements are distinct (there may be duplicates).
+    If the array is empty, you should return zero. If the interval $[a, b]$ is empty (as in the case
+    when $a > b$, you should also return 0.
+    To receive credit, your algorithm must have a worst case time complexity of $\Theta(\log n)$,
+    where $n$ is the size of the array.
+
+    Example: if \python{arr = [2, 3, 5, 5, 6, 9, 12]}, \python{a = 3.7}, and \python{b = 6.1},
+    your function should return \python{3} since there are three elements within the closed
+    interval $[3.7, 6.1]$; namely: 5, 5, 6.
+
+    \textbf{Note}: This is our first \emph{programming problem} of the quarter. Programming
+    problems will appear separate from the ``main'' homework on Gradescope and
+    are (mostly) autograded. Upon submitting your code, make sure that the autograder passes
+    \emph{all} of the tests -- it is checking to make sure that your file is named correctly,
+    that the function runs, etc. However, passing all of these tests \textbf{does not} guarantee
+    that you will receive full credit! After the homework due date, we will upload a more
+    sophisticated autograder that will thoroughly check your code. A human grader will also
+    quickly check your code to make sure that it adheres to any constraints imposed in
+    the problem statement. 
+    The only module your code may import is the \python{math} module.
+
+    \begin{soln}
+        We can use the general version of binary search we derived in discussion to find
+        the first element $\geq a$ and the first element $>b$. The difference between
+        the two indices is the length of the subarray that falls in $[a, b]$:
+
+        \inputminted{python}{\thisdir/include-solution/logcount.py}
+    \end{soln}
+\end{progprob}

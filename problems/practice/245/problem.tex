@@ -1,0 +1,26 @@
+%% tags: [aggregate analysis]
+%% source: problems
+\begin{prob}
+    Suppose a graph $G = (V, E)$ is stored using an adjacency list representation in
+    the variable \mintinline{python}{adj_list}.
+    What is the time complexity of the below code?
+
+    \begin{minted}[autogobble]{python}
+        for u, lst in enumerate(adj_list):
+            for v in lst:
+                print(u, v, "is an edge")
+    \end{minted}
+
+    \begin{choices}
+        \choice $\Theta(V)$
+        \correctchoice $\Theta(V + E)$
+        \choice $\Theta(V^2)$
+        \choice $\Theta(E^2)$
+        \choice $\Theta(V^2 + E^2)$
+    \end{choices}
+
+    \begin{soln}
+        2nd option: $\Theta(V + E)$
+    \end{soln}
+
+\end{prob}

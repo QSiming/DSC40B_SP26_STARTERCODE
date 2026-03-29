@@ -1,0 +1,32 @@
+\begin{prob}
+    Compute the best and worst case time complexity for the following code snippets:
+
+    \begin{subprobset}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_a.py}
+        \end{subprob}
+
+        \begin{soln} 
+            \\
+            Best case time complexity is $\Theta(1)$ when \texttt{arr1[0] + arr2[0] == 0}
+            \\
+            Worst case time complexity if $\Theta(n^2)$ when no two elements in the array sum to 0.
+
+        \end{soln}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_b.py}
+        \end{subprob}
+
+        \begin{soln}
+        
+            Best case time complexity is $\Theta(n)$ when all elements in the array are already sorted in increasing order.
+            \\
+            Worst case time complexity if $\Theta(n^2)$ when all elements in the array are sorted in decreasing order.
+
+        \end{soln}
+
+    \end{subprobset}
+
+\end{prob}

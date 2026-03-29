@@ -1,0 +1,5 @@
+tested:
+  - algorithms-binary_search
+  - time_complexity-average_case
+  - summation-geometric
+  - recursion-trace_recursive_calls

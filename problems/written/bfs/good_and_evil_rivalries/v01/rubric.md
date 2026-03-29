@@ -1,0 +1,7 @@
+This problem is autograded and requires no manual grading. However, it *does*
+require manual *spot checking*:
+
+Look at the submissions which received zero points (or close to zero points)
+and determine if the autograder is failing. Also ask yourself: should the
+student receive more points than the autograder is giving? If so, we may want
+to change the autograder.

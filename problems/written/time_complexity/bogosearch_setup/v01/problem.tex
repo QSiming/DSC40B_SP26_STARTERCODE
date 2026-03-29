@@ -1,0 +1,59 @@
+\begin{prob}
+    Consider the algorithm below.
+
+    \begin{minted}[autogobble]{python}
+        def bogosearch(numbers, target):
+            """search by randomly guessing. `numbers` is an array of n numbers"""
+            n = len(numbers)
+
+            while True:
+                # randomly choose a number between 0 and n-1 in constant time
+                guess = np.random.randint(n)
+                if numbers[guess] == target:
+                    return guess
+    \end{minted}
+
+    We will set up the analysis of the expected time complexity of this algorithm.
+
+    \begin{subprobset}
+        \begin{subprob}
+            What are the cases? How many are there?
+
+            \vspace{3em}
+
+            \begin{soln}
+                Case $\alpha$ occurs when the target is found on iteration $\alpha$.
+                In principle, the algorithm can run forever, although this is very
+                unlikely (it happens with probability zero). As such, there are
+                infinitely-many cases.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            What is the probability of case $\alpha$?
+
+            \vspace{3em}
+
+            \begin{soln}
+                $P(\alpha)$ is the probability of guessing wrong $\alpha - 1$
+                times and guessing right on the $\alpha$th time:
+                \[
+                    (1 - 1/n)^{\alpha - 1} \cdot (1/n)
+                \]
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            What is the running time in case $\alpha$?
+
+            \vspace{3em}
+
+            \begin{soln}
+                We perform $\alpha$ iterations in case $\alpha$, each taking
+                constant time, $c$. The total work in case $\alpha$ is therefore
+                $c \alpha$.
+            \end{soln}
+        \end{subprob}
+    \end{subprobset}
+
+\end{prob}

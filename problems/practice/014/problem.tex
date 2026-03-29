@@ -1,0 +1,21 @@
+%% source: 2022-fa-redemption_midterm_01
+%% tags: [asymptotic notation]
+\begin{prob}
+
+    Suppose $f(n) = \Omega(n^3)$ and $g(n) = \Omega(n)$.
+
+    True or False: it is necessarily the case that $f/g = \Omega(n^2)$.
+
+    \tF{}
+
+    \begin{soln}
+        False. Take $f(n) = n^3$ and $g(n) = n^3$. We can see from definition that 
+        $f(n) = \Omega(n^3)$ and $g(n) = \Omega(n)$. However, 
+        \[ \frac{f}{g}(n) = 1 \neq \Omega(n^2). \]
+
+        The key takeaway for this question is, since $g$ is on the denominator, we can 
+        make it grow arbitrarily fast, so that $f/g$ do not meet the requirements that 
+        we want.
+    \end{soln}
+
+\end{prob}

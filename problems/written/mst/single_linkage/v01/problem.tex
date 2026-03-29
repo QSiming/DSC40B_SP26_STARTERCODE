@@ -1,0 +1,25 @@
+\begin{prob}
+The picture below shows a set of points in 2-dimensional space. A grid is
+provided so that you can compute the distance between points; each grid cell is
+1 unit wide and 1 unit tall. You may assume that each data point is placed on a
+grid intersection.
+
+\begin{center}
+    \includegraphics{\thisdir/include/points.pdf}
+\end{center}
+
+Suppose a weighted distance graph G is constructed from this data set (recall
+that a distance graph is a complete graph whose nodes represent points in
+space, and whose edges are weighted by the distance between its endpoints).
+Then suppose that a minimum spanning tree is computed for G. What will be the
+weight of the largest edge in this minimum spanning tree?
+
+\begin{soln}
+    The weight of the longest edge will be 5. Kruskal's algorithm will proceed by
+    first connecting all of the nodes (points) in the left and right clusters independently.
+    Next, it will find the shortest edge between a node in the left cluster and a node in
+    the right -- this will be the edge between the two ``middle'' points. The length of 
+    this edge is 5.
+\end{soln}
+
+\end{prob}

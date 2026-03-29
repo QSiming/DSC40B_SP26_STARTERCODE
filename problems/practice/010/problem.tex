@@ -1,0 +1,14 @@
+%% source: 2022-fa-redemption_midterm_01
+%% tags: [expected time]
+\begin{prob}
+    What is the \textbf{expected} time complexity of the function below?
+
+    \inputminted{python}{./code.py}
+
+    \begin{soln}
+        $\Theta(n)$. The for loop is only executed if $x$ is less than 100, therefore we can write the expected time as 
+        (ignoring constants $c$):
+        \[ f(n) = \frac{1}{n} \bigg( \sum_{i = 0}^{99} n^2 + \sum_{i = 100}^{n - 1} 1 \bigg) = \frac{1}{n} \cdot (\Theta(n^2) + \Theta(n)) = \Theta(n). \]
+    \end{soln}
+
+\end{prob}

@@ -1,0 +1,49 @@
+\begin{soln}
+    As you may have concluded in part (c), it is possible to minimize
+    $L$ by computing $L(x)$ for every data point and returning the minimum.
+    That is, it is sufficient to restrict the search space to the data.
+    If the data are not sorted, it takes time $\Theta(n)$ to compute $L(\theta)$,
+    and we must do this for each of the $n$ data points, taking $\Theta(n^2)$ time.
+
+    But we can compute $L(\theta)$ efficiently if the data are sorted.
+    Suppose $x = \python{data[0]}$ is the first data point. To compute $L(x)$,
+    we must count the number of points $\leq x$ which are red and the
+    number of points $> x$ which are blue. We can do so without looping
+    through the data at all: we simply need to know $x$'s color.
+    If $x$ is red, then there is only one red point $\leq x$; namely,
+    $x$ itself. We can conclude so precisely because $x$ is the first
+    data point, and the data are sorted. Similarly, if $x$ is red,
+    there are $n/2$ blue points $> x$, since exactly half of the data are
+    blue, and all of the blue points are bigger than $x$. Similar logic
+    works if the first data point is blue.
+
+    As we loop through the data points in order, we are effectively
+    moving $\theta$ from left to right, from data point to data point.
+    On any given iteration, if the point we find is red, then there
+    is now one more red point $\leq \theta$, and we increment \python{red_leq_theta}.
+    If the point is blue, then there is now one fewer blue point $> \theta$,
+    and so we decrement \python{blue_gt_theta}.
+
+    Note too that the loop invariant is really useful for implementing
+    this function. For initialization, it says that ``After the 0th iteration (before the loop begins),
+    \python{blue_gt_theta} is the number of blue points which are greater
+    than \python{data[0]}''. Since \python{data} is sorted, \python{data[0]}
+    is the smallest data point, and \python{blue_gt_theta} should be initialized
+    to be the number of blue points which are larger than the smallest data point.
+    There are $n/2$ blue points in total. So the number $> \python{data[0]}$ depends
+    on the color of the smallest data point: if it is red, then all $n/2$ blue points
+    are bigger than \python{data[0]}, if it is blue, then all but one are.
+
+    The invariant also tells us what has to happen to \python{blue_gt_theta}
+    within the body of the \python{for}-loop. It says that, after the
+    first iteration, \python{blue_gt_theta} is the number of blue
+    points which are $> \python{data[1]}$. There are two cases:
+    either \python{data[1]} is blue, or it is red. If it is blue, then this
+    point was previously counted as bigger than \python{data[0]} and contributes
+    one to \python{blue_gt_theta}; it is now $\leq \python{data[1]}$,
+    and so we decrement \python{blue_gt_theta} to compensate. If the
+    point is red, \python{blue_gt_theta} does not change.
+
+    \inputminted{python}{\solutiondir/minimize_ell_theta.py}
+
+\end{soln}

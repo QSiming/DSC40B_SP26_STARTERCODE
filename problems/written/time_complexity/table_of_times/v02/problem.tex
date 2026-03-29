@@ -1,0 +1,57 @@
+\begin{prob}
+    % Write the problem here.
+    Suppose algorithm A takes $n$ milliseconds to run on a problem of size $n$,
+    while algorithm B takes $n^2$ milliseconds and algorithm C takes $n^3$ milliseconds.
+    What is the largest problem size each algorithm can solve in 1 second,
+    10 seconds, and 1 minute? That is, fill in the following table:
+
+    \begin{center}
+    \begin{tabular}{rccc}
+        \toprule
+        & 1 sec. & 10 sec. & 1 min\\ \midrule
+        A & ? & ? & ?\\
+        B & ? & ? & ?\\
+        C & ? & ? & ?\\\bottomrule
+    \end{tabular}
+    \end{center}
+
+
+    \begin{soln}
+        First, we convert the times into milliseconds. One second is 1,000 milliseconds;
+        ten seconds is 10,000 milliseconds, and one minute is 60,000 milliseconds.
+
+        Algorithm A can solve a problem of size $n$ in $n$ milliseconds. Hence
+        It can solve a problem of size $1,000$ in $1,000$ milliseconds;
+        a problem of size $10,000$ in $10,000$ milliseconds, and a problem
+        of size $60,000$ in $60,000$ milliseconds.
+
+        Algorithm B can solve a problem of size $n$ in $n^2$ milliseconds.
+        Therefore, it can solve a problem of size $\sqrt{1,000}$ in 1,000
+        milliseconds. But $\sqrt{1,000}$ isn't an integer, and problem
+        sizes have to be integers. Hence we take the largest integer
+        smaller than $\sqrt{1,000}$ (also known as the \emph{floor}), which
+        turns out to be 31. The algorithm can solve a problem of size
+        $\sqrt{10,000} = 100$ in 10,000 milliseconds, and a problem of size
+        $\lfloor \sqrt{60,000} \rfloor = 244$ in 60,000 milliseconds.
+
+        Algorithm C can solve a problem of size $n$ in $n^3$ milliseconds.
+        Therefore, it can solve a problem of size $\sqrt[3]{1,000} = 10$ in
+        1,000 milliseconds; a problem of size $\lfloor\sqrt[3]{10,000}\rfloor = 21$
+        in 10,000 milliseconds; and a problem of size
+        $\lfloor \sqrt[3]{60,000} \rfloor = 39 $ in $60,000$ milliseconds.
+
+        Therefore the filled-in table is:
+
+        \begin{center}
+        \begin{tabular}{rccc}
+            \toprule
+            & 1 sec. & 10 sec. & 1 min\\ \midrule
+            A & 1,000 & 10,000 & 60,000\\
+            B & 31 & 100 & 244\\
+            C & 10 & 21 & 39\\\bottomrule
+        \end{tabular}
+        \end{center}
+
+    \end{soln}
+
+\end{prob}

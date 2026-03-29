@@ -1,0 +1,96 @@
+\begin{prob}
+    Determine the time complexity of the following piece of code, showing your reasoning
+    and your work.
+
+    \inputminted{python}{\thisdir/include/code.py}
+
+    \textbf{Hint}: you might need to think back to calculus to remember the formula for
+    the sum of a geometric progression... or you can check wikipedia.%
+    \footnote{\url{https://en.wikipedia.org/wiki/Geometric_progression}}
+
+    \begin{soln}
+        $\Theta(n)$.
+
+        How many times does the \python{print} statement execute? That will tell us the time complexity.
+        On the first iteration
+        of the outer loop, \python{i = 2} and this line runs twice. On the second iteration
+        of the outer loop, \python{i = 4} and this line runs four times. On the third
+        iteration, it runs 8 times. In general, on the $k$th iteration of the outer loop,
+        the line runs $2^k$ times.
+
+        The outer loop will run \emph{roughly} $\log_2 n$ times, since $i$ is doubling on
+        each iteration. We'll see in a moment why it's OK to have a rough
+        estimate instead of being exact here.
+
+        The total number of executions of the \python{print} is therefore:
+        \[
+            \underbrace{2}_{\text{\footnotesize 1st outer iter.}}
+            +
+            \underbrace{4}_{\text{\footnotesize 2nd outer iter.}}
+            +
+            \underbrace{8}_{\text{\footnotesize 3rd outer iter.}}
+            +
+            \ldots
+            +
+            \underbrace{2^k}_{\text{\footnotesize $k$th outer iter.}}
+            +
+            \ldots
+            +
+            \underbrace{2^{\log_2 n}}_{\text{\footnotesize $\log_2 n$th outer iter.}}
+        \]
+
+        Or, written using summation notation:
+        \[
+            \sum_{k=1}^{\log_2 n} 2^k
+        \]
+
+        This is the sum of a \emph{geometric progression}. Wikipedia tells us that the formula
+        for the sum of $1 + 2 + 4 + 8 + \ldots + 2^K$ is:
+        \[
+            \sum_{k=0}^{K} 2^k = \frac{1 - 2^{K+1}}{1 - 2} = 2^{K+1} - 1
+        \]
+        Notice that this sum starts from $k = 0$, while ours starts with $k = 1$. 
+        In other words, our sum is the same except it is missing the first term corresponding
+        to $k = 0$.
+        So to 
+        ``correct'' this, we subtract the $k = 0$ term (which is $2^0 = 1$)
+        from the larger sum :
+        \[
+            \sum_{k=1}^{K} 2^k = 
+            \left(\sum_{k=0}^{K} 2^k\right) - 2^0 = 
+            \left(2^{K+1} - 1\right) - 1=
+            2^{K+1} - 2
+        \]
+        Plugging in $K = \log_2 n$:
+        \begin{align*}
+            \sum_{k=1}^{\log_2 n} 2^k 
+            &= 2^{\log_2 n +1} - 2
+            \intertext{Using the fact that $a^{b+c} = a^b \cdot a^c$:}
+            &=
+                2^{\log_2 n} \cdot 2 - 2\\
+            &=
+                2n - 2\\
+            &=
+                \Theta(n)
+        \end{align*}
+
+        Now, remember that we said that we could afford to be a little imprecise when calculating
+        the number of times that the outer loop runs. Let's see why. If $n$ isn't a power
+        of $2$, $\log_2 n$ will not be an integer. For instance, if $n = 17$, $\log_2 n = 4.08$.
+        Of course, the loop can't iterate 4.08 times -- you can check that it will actually iterate
+        5 times. In general, the loop will run exactly $\lceil \log_2 n \rceil$ times, where
+        $\lceil \cdot \rceil$ is the \emph{ceiling} operation; it rounds a real number up
+        to the next integer.
+
+        In other words, $\log_2 n$ could actually be as much as one less than the actual number
+        of iterations. Perhaps to be careful we should overestimate the number of iterations
+        to be $\log_2 n + 1$. What if we were to use $\log_2 n + 1$ instead? We'd end up with:
+        \[
+            \sum_{k=1}^{\log_2 n + 1} 2^k = 2^{\log_2 n + 2} - 2 = 4\cdot 2^{\log_2{n}} - 2 = \Theta(n) = 4n-2
+        \]
+        So the time complexity doesn't change. This is why using $\Theta$ notation allows us
+        to be ``sloppy'' at times without being incorrect. It saves us work, as long as
+        we know how to use it correctly!
+    \end{soln}
+
+\end{prob}

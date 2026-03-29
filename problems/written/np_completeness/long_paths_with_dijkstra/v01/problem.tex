@@ -1,0 +1,31 @@
+\begin{prob}
+    We have seen that Dijkstra's algorithm can be used to find shortest paths in
+    weighted graphs with positive edge weights. It works by keeping a min-priority
+    queue, and at every step visits the node with the next smallest priority and updates
+    the estimated shortest paths to its neighbors.
+
+    Suppose that Dijkstra's algorithm is modified with the goal of computing the \textbf{longest}
+    simple paths from the source to every other node. To do so, the min-priority queue
+    is replaced with a max-priority queue, and the \python{update} procedure is changed so
+    that it updates a node's estimated distance only when a \emph{longer} path is found.
+
+    Does this algorithm work? That is, is it guaranteed to find the correct
+    longest paths in general? You do not need to prove your answer, but you
+    should give a short justification of why you believe the modification will work
+    or not. You may assume that the graph has positive edge weights.
+
+    Hint: use ideas from the last lecture.
+
+    \begin{soln}
+        It will not work.
+
+        The problem of determining whether a graph has a simple path longer than some
+        parameter $k$ is NP-Complete, and the problem of finding the longest path
+        is harder (it is NP-Hard). No one knows a polynomial time solution for this problem.
+        The proposed modification of Dijkstra's algorithm would run in polynomial time,
+        and therefore, if it worked, would prove that this NP-Complete problem can be solved 
+        in polynomial time. This would be a constructive proof of P = NP. Therefore, it's
+        highly unlikely that it works.
+
+    \end{soln}
+\end{prob}

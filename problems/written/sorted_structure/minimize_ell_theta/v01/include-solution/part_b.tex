@@ -1,0 +1,11 @@
+\begin{soln}
+    We can write an algorithm that takes time $\Theta(n)$. To compute
+    $L(\theta)$, we loop through each of the data points, keeping track of the
+    loss incurred. If the data point $x$ is red, but $\leq \theta$, we
+    increment the loss by one. If $x$ is blue, but bigger than $\theta$, we
+    increment the loss by one. Each check takes constant time and there are
+    $\Theta(n)$ points, so the function takes $\Theta(n)$ time in total.
+
+    \inputminted{python}{\solutiondir/compute_ell.py}
+
+\end{soln}

@@ -1,0 +1,131 @@
+\documentclass[twoside,12pt]{dscproblemset}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{comment}
+\usepackage{nicefrac}
+\usepackage{needspace}
+\usepackage{tikz}
+\usepackage{forest}
+\usepackage{pgfplots}
+\usepackage{booktabs}
+\usepackage[outputdir=build]{minted}
+\usetikzlibrary{quotes,angles,positioning,arrows.meta}
+\usetikzlibrary{calc}
+
+% configuration
+% ------------------------------------------------------------------------------
+
+% page headers only on odd pages
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[RO]{PID or Name: \rule{3in}{.5pt}}
+\renewcommand{\headrulewidth}{0pt}
+
+% commands
+% --------------------------------------------------------------------------------------
+
+\newcommand{\python}[1]{\mintinline{python}{#1}}
+
+\newcommand{\newpageinexam}{
+    \ifshowsoln
+    \else
+        \newpage
+    \fi
+}
+
+% --------------------------------------------------------------------------------------
+
+
+\begin{document}
+
+\examfrontpage{
+    % course
+    DSC 40B
+}{
+    % exam name
+    Redemption Midterm 02
+}{
+    % exam date
+    December 15, 2023
+}{
+    % instructions
+    \textbf{Instructions:}
+    \begin{itemize}
+        \item Your exam version should be different from those to your left/right.
+        \item Each problem is worth one point unless stated otherwise.
+        \item Write your solutions to the following problems in the spaces provided.
+        \item No calculators are permitted, but some pages of notes are.
+        \item Write your name or PID at the top of each sheet in the space provided.
+        \item Unless otherwise stated, you should assume that a node's neighbors are produced in ascending order
+            of their label.
+        \item If it is not stated, you may not assume that a graph is directed or undirected, connected or
+            disconnected, etc.
+    \end{itemize}
+    \vspace{1em}
+}
+
+\begin{probset}
+
+% - Hashing: 1
+% - Graph theory: 5
+%     - Number of nodes/edges: 2
+%     - Connected components: 1
+%     - Paths, reachability: 2
+% - Graph representations: 2
+% - BFS: 5
+%     - Run a BFS (shortest paths): 1
+%     - Property of the queue: 2
+%     - Amortized time of modification, or time complexity of BFS on a special graph: 1-2
+%     - Property of shortest paths: (1?)
+% - DFS: 5
+%     - Run a DFS (to find start and finish times): 1
+%     - Property of start and finish times: 2
+%     - Amortized time of modification, or time complexity of DFS on a special graph: 1
+%     - Topological sorting: 1
+% - Bellman-Ford: 1
+%     - Run it: 1
+%     - Loop invariant: 1
+% - Dijkstra: 1
+%     - Run it:
+
+        \inputproblem{01}
+        \inputproblem{02}
+        \inputproblem{03}
+        \inputproblem{04}
+        \newpageinexam
+        \inputproblem{05}
+        \inputproblem{06}
+        \inputproblem{07}
+        \inputproblem{08}
+        \inputproblem{09}
+        \inputproblem{10}
+        \inputproblem{11}
+        \inputproblem{12}
+        \newpageinexam
+        \inputproblem{13}
+        \inputproblem{14}
+        \inputproblem{15}
+        \inputproblem{16}
+        \inputproblem{17}
+        \inputproblem{18}
+        \inputproblem{19}
+        \inputproblem{20}
+
+\end{probset}
+
+
+\vfill
+\begin{center}
+    \textbf{Before turning in your exam, please check that your name is on every page.}
+\end{center}
+
+
+\ifshowsoln
+\else
+    % \scratchpage{}
+\fi
+
+\end{document}

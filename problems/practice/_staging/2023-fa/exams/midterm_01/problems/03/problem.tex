@@ -1,0 +1,15 @@
+\begin{prob}
+    \timecomplexityinstructions
+
+    \inputminted[lastline=4]{python}{\thisdir/code.py}
+
+    \inlineresponsebox{$\Theta(n^3)$}
+
+    \begin{soln}
+        If you count the number of times the inner loop body executes, you'll get something
+        like $n + 2n + 3n + \ldots + n\times n$. Factoring out the $n$ and using the
+        formula for the sum of the first $n$ integers, we get
+        $n (1 + 2 + 3 + \ldots + n) = n \Theta(n^2) = \Theta(n^3)$.
+    \end{soln}
+
+\end{prob}

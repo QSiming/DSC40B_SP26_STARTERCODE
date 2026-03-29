@@ -1,0 +1,111 @@
+\begin{prob}
+    Write each of the following functions in $\Theta$-notation in simplest terms.
+    You do not need to show your work or provide justification.
+
+    Hint: your answer should have the form $\Theta(n^\alpha)$, $\Theta(n^\alpha
+    \gamma^{\delta n})$, $\Theta((\log_\mu(n))^\beta)$, $\Theta(\gamma^{\delta
+    n})$, or $\Theta(1)$, where $\alpha, \beta, \gamma, \delta, \mu$ are
+    constants that depend on the problem. While you \emph{can} find the answer
+    using more formal means (such as limits), you should be able to find the
+    answers rather quickly using informal reasoning. You can always use the
+    formal approach to check your answer, if you wish.
+
+    \begin{subprobset}
+
+        \begin{subprob}
+            $\displaystyle f(n) = \sqrt{\frac{n^6 + n^5 \log n - 1000n}{n^3 - n^2}}$
+
+            \begin{soln}
+                $f(n) = \Theta(n^{3/2})$
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            $f(n) = (n + 1)(n-1) \times 2^{\log_2 (3^n) }$
+
+            \begin{soln}
+                $f(n) = \Theta(n^2 \cdot 3^n)$
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            $f(n) = 2^{1000} + 10 + \log_{10} 1000$
+
+            \begin{soln}
+                $f(n) = \Theta(1)$.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            $f(n) = \log_2(3^{(n^2 + 2n)} - 5n^3 + \log_2 n)$
+
+            \begin{soln}
+                $f(n) = \Theta(n^2)$.
+
+                $3^{(n^2 + 2n)}$ grows a lot faster than the other terms inside of the logarithm,
+                so we can ignore them. Therefore we ask: what is $\log_2(3^{(n^2 + 2n)})$ simplified
+                in $\Theta$-notation?
+
+                You might remember that when you take the log of an exponential, the exponent
+                comes down in front of the log. To be precise,
+                if you look up a table of logarithm properties, you'll find
+                the identity $\log_a b^x = x \log_a b$.  Therefore $\log_2(3^{(n^2 + 2n)}) = (n^2 + 2n) \log_2 3 = \Theta(n^2)$.
+
+                In general, $\log_a b^{g(n)} = \Theta(g(n))$, as long as $a$ and $b$ are constants independent of $n$
+                and greater than one.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            $f(n) = 2^n + 2^{10n} $
+
+            \begin{soln}
+                $f(n) = \Theta(2^{10n})$
+
+                Informally,
+                $2^{10n}$ grows a lot faster than $2^{n}$, so this is dominated by $2^{10n}$.
+                Although we often ignore constants when working with asymptotic notation,
+                we have to be careful -- we can't \emph{always} ignore them!
+                Exponents are one place where constants \emph{do} matter. If you're ever
+                unsure, go back to the definition of $\Theta$-notation and try to prove
+                that the function is $\Theta$ of what your intuition tells you, as this
+                will let you know whether you can indeed ignore constants.
+
+                If you want to see this more formally, the easiest way might be to use
+                limits. We'll show that $2^{10n}$ is much larger than $2^n$ asymptotically
+                by taking the limit
+                \[
+                    \lim_{n \to \infty} \frac{2^{10n}}{2^n}
+                \]
+                and showing that it is $\infty$.
+
+                \begin{align*}
+                    \lim_{n \to \infty}
+                        \frac{2^{10n}}{2^n}
+                    &=
+                    \lim_{n \to \infty}
+                        2^{(10 - 1)n}
+                        \\
+                    &=
+                    \lim_{n \to \infty}
+                        2^{9n}
+                        \\
+                    &= \infty
+                \end{align*}
+
+                Therefore, $2^{10n}$ is \emph{not} $\Theta(2^n)$.
+            \end{soln}
+        \end{subprob}
+
+
+        \begin{subprob}
+            $f(n) = \log_2(n^2 + 3n + 5) \times \log_2(3n^3)$
+
+            \begin{soln}
+                $\Theta((\log_2 n)^2)$. The base doesn't actually matter, though, so
+                we typically write $\Theta((\log n)^2)$.
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+\end{prob}

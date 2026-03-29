@@ -1,0 +1,16 @@
+\begin{prob}
+    Provide the asymptotic time complexity of the operation below using multivariate $\Theta$ notation.
+    \\
+    Given two d-dimensional vectors $v=[v_1,v_2,...,v_d]$ and $u=[u_1,u_2,...,u_d]$, their sum is computed as $v+u=[v_1+u_1, v_2+u_2,...,v_d+u_d]$. Given n vectors over $R^d$, check if any two of them sum to the zero vector using the brute force method.
+
+    \begin{soln} 
+        Computing the sum of two d dimensional vectors takes $\theta(d)$ time. In the brute force method, we compute the sum of every vector with every other vector.
+        \\
+        In the best case, we find two vectors which sum to the zero vector in the very first iteration. Therefore, the best case time complexity would be $\theta(d)$.
+        \\
+        In the worst case, we do not find a pair which sum to the zero vector. There are ${n \choose 2}$ pairs. We know that  $\binom{n}{2}=\theta(n^2)$. Therefore, computing the sum of $\binom{n}{2}$ pairs takes $\theta(n^2d)$ time.
+        \\
+        The average time complexity is $\theta(n^2d)$.
+    \end{soln}
+
+\end{prob}

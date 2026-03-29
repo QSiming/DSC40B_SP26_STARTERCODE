@@ -1,0 +1,40 @@
+\begin{prob}
+    Consider the code below:
+
+    \begin{minted}[autogobble]{python}
+        def foo(n):
+            i = 1
+            while i**2 < n:
+                i += 1
+            return i
+    \end{minted}
+
+    \begin{subprobset}
+        \begin{subprob}
+            What does \python{foo(n)} compute, roughly speaking?
+
+            \begin{soln}
+                It computes, approximately, $n^{1/2}$. Of course, \python{foo}
+                always returns an integer, so the result of the function is usually
+                not exactly correct.
+
+                More precisely, \python{foo} returns the smallest integer greater
+                than or equal to the square root $n^{1/2}$. For example, $(10)^{1/2}$ is between 3 and 4;
+                \python{foo(10)} returns 4.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            What is the asymptotic time complexity of \python{foo}?
+
+            You do not need to show your work for this problem, but providing
+            an explanation might help earn partial credit in case your answer
+            is incorrect.
+
+            \begin{soln}
+                $\Theta(n^{1/2})$
+            \end{soln}
+        \end{subprob}
+    \end{subprobset}
+
+\end{prob}

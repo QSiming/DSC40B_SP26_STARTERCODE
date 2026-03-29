@@ -1,0 +1,28 @@
+\begin{prob}
+    Recall that the Bellman-Ford algorithm (with early stopping) will terminate early
+    if, after updating every edge, no predecessors have changed. Suppose it is
+    known that the greatest shortest path distance in a graph $G = (V, E)$ has
+    $\Theta(\sqrt{V})$ edges. What is the worst case time complexity of
+    Bellman-Ford when run on this graph? State your answer using $\Theta$
+    notation.
+
+    \begin{soln}
+        The loop invariant for Bellman-Ford says that after updating all edges $\alpha$
+        times, all nodes whose shortest path distance is $\leq \alpha$ has the correct
+        shortest path distance. Since the longest shortest path is $\Theta(\sqrt{V})$,
+        we'll find all shortest paths after $\Theta(\sqrt{V})$ (outer) iterations. Every
+        iteration involves $\Theta(E)$ work because it updates every edge, so the total work
+        of the loop is $\Theta(E \sqrt{V})$.
+
+        We also spend $\Theta(V)$ time in the set up to initialize the estimated distance
+        for each node in the graph. Therefore the total time is $\Theta(V + \sqrt V E)$.
+
+        While $\Theta(V + \sqrt V E)$ gets full credit, we can technically
+        simplify this even further. This is because we know that $E$ is at
+        $\Omega(\sqrt{V})$, based on the fact that the longest shortest path
+        has $\Theta(\sqrt{V})$ edges. Therefore, $E \sqrt{V}$ is $\Omega(V)$,
+        so the $\sqrt{V} E$ term is at least as large as the $V$ term,
+        asymptotically, and the time complexity can be simplified to
+        $\Theta(\sqrt{V} E)$.
+    \end{soln}
+\end{prob}

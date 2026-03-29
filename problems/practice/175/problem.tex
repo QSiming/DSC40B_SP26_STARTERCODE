@@ -1,0 +1,53 @@
+%% tags: []
+%% source: 2023-fa-midterm_01
+\begin{prob}
+
+    Consider the following code, which takes in a list of integers and moves
+    all of the odd numbers to the front and all of the even numbers to the end,
+    in-place.
+
+    Remember that the \mintinline{python}{%} operator computes the remainder of division.
+    For example \mintinline{python}{5 % 2 == 1} and \mintinline{python}{4 % 2 == 0}. This can be
+    used to check if a number is even; if \mintinline{python}{x % 2 == 0}, then
+    \mintinline{python}{x} is even.
+
+    \inputminted[lastline=18]{python}{code.py}
+
+    \begin{subprobset}
+
+        \begin{subprob}
+            Which of the following are valid loop invariants for the \mintinline{python}{while}-loop? Select all that apply.
+
+            \begin{choices}
+                \choice  After the $\alpha$th iteration, the first $\alpha$ elements of \mintinline{python}{numbers} are odd.
+                \choice  After the $\alpha$th iteration, the last $\alpha$ elements of \mintinline{python}{numbers} are even.
+                \correctchoice After each iteration, the elements in \mintinline{python}{numbers[:odd_barrier]} are odd.
+                \choice After each iteration, the elements in \mintinline{python}{numbers[odd_barrier+1:]} are even.
+                \choice After each iteration, the elements in \mintinline{python}{numbers[:even_barrier]} are odd.
+                \correctchoice After each iteration, the elements in \mintinline{python}{numbers[even_barrier+1:]} are even.
+                \choice After the $\alpha$th iteration, \mintinline{python}{even_barrier - odd_barrier = } $\alpha$.
+                \correctchoice After the $\alpha$th iteration, \mintinline{python}{even_barrier - odd_barrier = n - 1 - } $\alpha$.
+            \end{choices}
+
+            \begin{soln}
+                3rd option: After each iteration, the elements in \mintinline{python}{numbers[:odd_barrier]} are odd.
+
+                6th option: After each iteration, the elements in \mintinline{python}{numbers[even_barrier+1:]} are even.
+
+                8th option: After the $\alpha$th iteration, \mintinline{python}{even_barrier - odd_barrier = n - 1 - } $\alpha$.
+
+            \end{soln}
+
+        \end{subprob}
+
+        \begin{subprob}
+            How many iterations will the \mintinline{python}{while}-loop in
+            \mintinline{python}{separate_odd_from_even} make if \mintinline{python}{numbers} has length
+            $100$? Your answer should be a number.
+
+            \inlineresponsebox{$99$}
+        \end{subprob}
+
+    \end{subprobset}
+
+\end{prob}

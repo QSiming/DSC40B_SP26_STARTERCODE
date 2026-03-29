@@ -1,0 +1,88 @@
+\begin{prob}
+    In discussion, we learned how to express the asymptotic time complexity of
+    algorithms which depend on \emph{multiple} sizes. This problem will give more practice
+    doing this.
+
+    State the asymptotic time complexity of each of the operations below using
+    multivariate $\Theta$ notation. Your answer should include every size variable used in
+    the problem statement, such as number of points, dimensionality, etc. You
+    do not need to show your work.
+
+    \emph{Example}: compute the distance between a point in $\mathbb R^d$ and $n$ other
+    points in $\mathbb R^d$.
+    
+    \emph{Example Solution}: $\Theta(nd)$.
+
+
+    \begin{subprobset}
+        \begin{subprob}
+            Given a set of $n$ points in $\mathbb R^d$, compute the distance between
+            each pair of points.
+
+            \begin{soln}
+                $\Theta(n^2 d)$.
+
+                There are $\Theta(n^2)$ pairs, and computing the distance between a
+                single pair of points takes $\Theta(d)$ time.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            Given a set of $b$ blue points and a set of $r$ red points in $\mathbb R^d$,
+            find the smallest distance between a blue point and a red point using the
+            brute force approach.
+
+            \begin{soln}
+                $\Theta(brd)$.
+
+                With a nested loop, we examine each pair where one point is red and the
+                other is blue; there are $br$ such pairs. We calculate the distance for
+                each pair in $\Theta(d)$ time.
+            \end{soln}
+        \end{subprob}
+
+
+        \begin{subprob}
+            Given a set of $n$ points in $\mathbb R^d$, 10\% of them red and
+            90\% of them blue, compute the smallest distances between a blue point and a
+            red point.
+
+            \begin{soln}
+                $\Theta(n^2 d)$.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            Given a set $\mathcal D$ of $n$ data points in $\mathbb R^d$ and a
+            new point $\vec x$ in $\mathbb R^d$, find the point in $\mathcal D$
+            which is $k$th closest to $\vec x$ using the \python{kth_smallest}
+            function below:
+
+            \begin{minted}[autogobble]{python}
+                def kth_smallest(numbers, k):
+                    """Given an array of numbers, find index of kth smallest."""
+                    numbers = np.copy(numbers)
+                    for _ in range(k):
+                        smallest_index = None
+                        smallest_value = float('inf')
+                        for i, x in enumerate(numbers):
+                            if x < smallest_value:
+                                smallest_index = i
+                                smallest_value = x
+                        numbers[smallest_index] = float('inf')
+                    return smallest_index, smallest_value
+            \end{minted}
+
+            \begin{soln}
+                $\Theta(n d + nk)$.
+
+                For each point in the data set $\mathcal D$, we calculate its distance
+                to $\vec x$ in time $\Theta(d)$. Doing this for all $n$ points takes
+                $\Theta(nd)$ time. Finding the $k$th smallest takes $\Theta(nk)$ time.
+                These two steps together take $\Theta(nd + nk)$ time.
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+
+\end{prob}

@@ -1,0 +1,142 @@
+\begin{prob}
+    Determine the worst case time complexity of each of the recursive algorithms below.
+    In each case, state the recurrence relation describing the runtime. Solve the recurrence
+    relation, either by unrolling it or showing that it is the same as a recurrence we have
+    encountered in lecture.
+
+    \begin{subprobset}
+        \begin{subprob}
+            \begin{minted}[autogobble]{python}
+                import math
+                def summation(numbers):
+                    """Given a list, returns the sum of the numbers in the list."""
+                    n = len(numbers)
+                    if n == 0:
+                        return 0
+                    if n == 1:
+                        return numbers[0]
+                    middle = math.floor(n / 2)
+                    return summation(numbers[:middle]) + summation(numbers[middle:])
+            \end{minted}
+
+            \emph{Hint:} remember that slicing causes a copy to happen!
+
+            \begin{soln}
+                Note that the slicing in \python{numbers[:middle]} takes linear time
+                in the length of the array, so the recurrence relation is:
+                \[
+                    T(n) = \Theta(n) + 2T(n/2)
+                \]
+                This is the same recurrence relation as for mergesort, and the solution
+                is $\Theta(n \log n)$.
+            \end{soln}
+        \end{subprob}
+
+
+        \begin{subprob}
+            \begin{minted}[autogobble]{python}
+                import math
+                def summation_2(numbers, start, stop):
+                    """Computes the sum of numbers[start:stop]"""
+                    if stop <= start:
+                        return 0
+                    if stop - start == 1:
+                        return numbers[start]
+                    middle = math.floor((start + stop) / 2)
+                    left_sum = summation_2(numbers, start, middle)
+                    right_sum = summation_2(numbers, middle, stop)
+                    return left_sum + right_sum
+            \end{minted}
+
+            Hint: recall the formula for a geometric sum: $\sum_{p = 0}^N b^p = \frac{1 - b^{N+1}}{1-b}$
+
+            \begin{soln}
+                No slicing is being done, so a constant amount of time is required outside
+                of the recursive calls. Therefore the recurrence relation is:
+                \[
+                    T(n) = 2T(n/2) + \Theta(1)
+                \]
+
+                We have not seen this recurrence before, so we must solve it by unrolling:
+                \begin{align*}
+                    T(n)
+                    &=
+                        2T(n/2) + 1
+                        \\
+                    &=
+                        2\left[
+                            2T(n/4) + 1
+                        \right]
+                        +1
+                        \\
+                    &=
+                        4 T(n/4) + 2 + 1
+                        \\
+                    &=
+                        4 \left[
+                            2 T(n/8) + 1
+                        \right]
+                        + 2 + 1
+                        \\
+                    &=
+                        8 T(n/8) + 4 + 2 + 1
+                        \\
+                \end{align*}
+                At this point, a pattern has emerged, and we can guess that on unroll
+                $k$ we'll have:
+                \[
+                    T(n) = 2^k \cdot T(n/2^k) + 1 + 2 + 4 + \ldots + 2^{k-1}
+                \]
+                We will reach $T(1)$ when $k = \log_2 n$. Making this substitution, we have:
+                \begin{align*}
+                    T(n) &= 2^{\log_2 n} \cdot T(1) + 1 + 2 + 4 + \ldots + 2^{(\log_2 n) - 1}\\
+                         &= n + \left(1 + 2 + 4 + \ldots + 2^{(\log_2 n) - 1}\right)
+                 \intertext{The summation is a geometric sum, and, using the hint with $b = 2$, we have:}
+                         &= n + \frac{1 - 2^{\log_2 n}}{1 - 2}
+                            \\
+                         &= n + \frac{1 - n}{1 - 2}
+                            \\
+                         &=
+                            \Theta(n)
+                \end{align*}
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            In this subproblem, you may assume that \python{arr} is sorted.
+            \begin{minted}[autogobble]{python}
+                import math
+                def ternary_search(arr, t, start, stop):
+                    """Return the index of t in arr[start:stop]"""
+                    if stop - start <= 0:
+                        return None
+                    n = stop - start
+                    left_ix = math.floor(start + (stop - start) / 3)
+                    right_ix = math.floor(start + 2 * (stop - start) / 3)
+                    if arr[left_ix] == t:
+                        return left_ix
+                    if arr[right_ix] == t:
+                        return right_ix
+                    if t < arr[left_ix]:
+                        return ternary_search(arr, t, start, left_ix)
+                    elif t > arr[right_ix]:
+                        return ternary_search(arr, t, right_ix + 1, stop)
+                    else:
+                        return ternary_search(arr, t, left_ix + 1, right_ix)
+            \end{minted}
+
+            \begin{soln}
+                This is like binary search, but the recursive calls are on arrays of
+                size $n/3$. Hence the recurrence is:
+                \[
+                    T(n) = T(n/3) + \Theta(1)
+                \]
+                The solution will be the same as the solution for binary search, except
+                all instances of $\log_2 n$ will be replaced by $\log_3 n$, so the overall
+                time complexity is the same: $\Theta(\log n)$.
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+
+\end{prob}

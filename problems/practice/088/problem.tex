@@ -1,0 +1,20 @@
+%% source: 2023-sp-redemption_midterm_01
+%% tags: [expected time]
+\begin{prob}
+    What is the \textbf{expected} time complexity of the function below?
+
+    You may assume that \mintinline{python}{math.sqrt} takes $\Theta(1)$
+    time.
+
+    \inputminted{python}{./code.py}
+
+    \begin{soln}
+        $\Theta(n^2)$. The expected time complexity for this function is 
+        \[ f(n) = \frac{1}{n} \bigg( \sum_{i = 1}^{\lfloor \sqrt{n} \rfloor} n + \sum_{i = \lceil \sqrt{n} \rceil}^{\lfloor n/2 \rfloor} 1 
+        + \sum_{i = \lceil n/2 \rceil}^{n - 1} n^2 \bigg)
+        = \frac{1}{n} (\Theta(n \sqrt{n}) + \Theta(n) + \Theta(n^3))
+        = \Theta(n^2).
+        \]
+    \end{soln}
+
+\end{prob}

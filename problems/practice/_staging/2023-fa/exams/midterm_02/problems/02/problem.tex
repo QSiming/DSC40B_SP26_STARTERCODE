@@ -1,0 +1,25 @@
+\Needspace{4in}
+\begin{prob}
+
+In the problem below, suppose \python{arr} is an array of $n$ integers. What is
+the expected time complexity of the code below? Write your answer using
+asymptotic notation as a function of $n$.
+
+Remember: \python{set} is implemented using a hash table. You may assume that the hash
+table is large enough to store all of th numbers without needing to resize.
+
+\begin{minted}[autogobble]{python}
+def find_duplicates(arr):
+    seen = set()
+    duplicates = set()
+    for num in arr:
+        if num in seen:
+            duplicates.add(num)
+        else:
+            seen.add(num)
+    return duplicates
+\end{minted}
+
+\inlineresponsebox[.75in]{$\Theta(n)$}
+
+\end{prob}

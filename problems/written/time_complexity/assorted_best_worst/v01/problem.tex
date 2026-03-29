@@ -1,0 +1,88 @@
+\begin{prob}
+    In each of the problems below state the best case and worst case time
+    complexities of the given piece of code using asymptotic notation. Note that
+    some algorithms may have the same best case and worst case time complexities. If
+    the best and worst case complexities \emph{are} different, identify which
+    inputs result in the best case and worst case. You do not otherwise need to show your work for
+    this problem.
+
+    \emph{Example Algorithm:} \python{linear_search} as given in lecture. 
+
+    \emph{Example Solution:}
+    Best case: $\Theta(1)$, when the target is the first element of the array.
+    Worst case: $\Theta(n)$, when the target is not in the array.
+
+    \begin{subprobset}
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_a.py} 
+
+            \begin{soln}
+                Best case: $\Theta(1)$, when \python{data[0,0] == 42}.
+
+                Worst case: $\Theta(n^2)$, when \python{42} is not in the array.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_b.py}
+            
+
+            \begin{soln}
+                Best case: 
+                    $\Theta(n)$.
+                    This occurs when the input list is sorted in descending order.
+
+                Worst case: 
+                    $\Theta(n^2)$. This occurs when the input list is sorted in ascending order.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_c.py} 
+            
+
+            \begin{soln}
+                Best case: $\Theta(n)$, when the first element of the array is a median.
+
+                Worst case: $\Theta(n^2)$, when the first $n-1$ elements are not medians, and the last element of the array is the median.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_d.py} 
+            
+
+            \begin{soln}
+                The best case is $\Theta(n)$, while the worst case is $\Theta(n^2)$.
+
+                In the worst case, the mode is at the very end of the list, as in 
+                \python{[5, 1, 2, 7, 9, 9]}. The outer loop iterates $n$ times, and the
+                inner loop does $\Theta(n)$ work per iteration for a total of $\Theta(n^2)$.
+
+                In the best case, the mode is the first element of the list, as in, for instance
+                $\python{[1, 5, 8, 2, 1, 1, 1]}$. The mode will be discovered on the very
+                first iteration of the outer loop, but the inner loop will still take $\Theta(n)$
+                time, for a total of $\Theta(n)$.
+            \end{soln}
+        \end{subprob}
+
+
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_e.py} 
+            
+
+            \begin{soln}
+                Best case: $\Theta(n)$. This occurs when the median is the first element of the array,
+                as then \python{median} takes $\Theta(n)$ and \python{linear_search} takes $\Theta(1)$,
+                for a total of $\Theta(n)$.
+
+                Worst case: $\Theta(n^2)$. This occurs when the median is the last element of the
+                array. In this situation, \python{median} takes $\Theta(n^2)$ time and \python{linear_search}
+                takes $\Theta(n)$ time, for a total of $\Theta(n^2)$ time.
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+
+
+\end{prob}

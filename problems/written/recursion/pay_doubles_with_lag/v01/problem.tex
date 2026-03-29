@@ -1,0 +1,76 @@
+\begin{prob}
+    % Write the problem here.
+    You are starting a new job, but your employer doesn't have much money to 
+    pay you right now. Instead, they offer you two different payment plans:
+
+    \textsc{Plan A}: On the first and second days, you'll be paid \$1. Every day
+    thereafter, your pay will be \textbf{triple} the amount that it was two days previous.
+    So your pay on day three is \$3, your pay on day 4 is \$3, your pay on day 5 is \$9, and so on.
+
+    \textsc{Plan B}: On the first day, you'll be paid \$1, and your pay will double
+    every day thereafter. On the second day you'll be paid \$2, on the third you'll
+    be paid \$4, and so on.
+
+    Which payment plan should you select if your goal is to make as much money as
+    possible, asymptotically?
+
+    \begin{soln}
+        % This is the solution.
+        For plan $A$, the recurrence relation is:
+        \[
+            S_A(n) = \begin{cases}
+                3 \cdot S_A(n-2),& n \geq 3\\
+                1,& n =1,2
+            \end{cases}
+        \]
+
+        Unrolling the recurrence several times, we find:
+        \begin{align*}
+            S_A(n) 
+        &= 
+        3 \cdot S_A(n-2)
+        \\
+        &= 
+        9 \cdot S_A(n-4)
+        \\
+        &= 
+        27 \cdot S_A(n-6)
+        \end{align*}
+        In general, it looks like $S_A(n) = 3^k \cdot S_A(n - 2k)$. 
+
+        On what step does the unrolling reach the base case? There are two bases cases,
+        $S(1)$ and $S(2)$. Which base case is reached depends on whether $n$ is even or odd
+        (since the argument to $S_A$ is being decreased by two at every step). It won't
+        matter which base case we use in the end, but we can be careful and solve for both.
+
+        If $n$ is even, then the $S_A(2)$ base case is reached. Solving for the number
+        of steps needed:
+        \[
+            n - 2k = 2 \implies k = \frac{n-2}{2}
+        \]
+        If $n$ is odd, then the $S_A(1)$ base case is reached. Solving for the number
+        of steps needed:
+        \[
+            n - 2k = 1 \implies k = \frac{n-1}{2}
+        \]
+
+        Plugging this value into the general solution, we find that:
+        \[
+            S_A(n) = 
+            \begin{cases}
+                3^{(n+2)/2},& n \text{ is even}\\
+                3^{(n+1)/2},& n \text{ is odd}
+            \end{cases}
+        \]
+        Asymptotically, $S_A(n) = \Theta(3^{n/2})$, since, for instance,
+        $3^{(n+2)/2} = 3^{n/2} \cdot 3^{1/2} = \Theta(3^{n/2})$.
+
+        We saw in lecture that the second payment plan leads to a payment of $\Theta(2^n)$
+        on day $n$.
+
+        Now we compare $\Theta(3^{n/2})$ to $\Theta(2^n)$. Note that $3^{n/2} =
+        \left(3^{1/2}\right)^n$, and $3^{1/2} < 2$. Therefore $2^n$ is
+        significantly larger than $3^{n/2}$ when $n$ is large, and we should
+        prefer payment plan B.
+    \end{soln}
+\end{prob}

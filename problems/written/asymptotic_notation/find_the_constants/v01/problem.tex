@@ -1,0 +1,151 @@
+\begin{prob}
+    For each of the following functions, express its rate of growth using
+    $\Theta$-notation, and prove your answer by finding constants which satisfy
+    the definition of $\Theta$-notation. Make sure to show your work by writing
+    out the chain of inequalities to prove each bound, like we did in lecture.
+    Note: please do \emph{not} use limits to prove your answer (though you can
+    use them to check your work).
+
+    \begin{subprobset}
+        \begin{subprob}
+            $f(n) = 5n^2 - 10n + 4$
+
+            \begin{soln}
+                $f(n) = \Theta(n^2)$.
+
+                We start with an upper bound:
+                \begin{align*}
+                    f(n)
+                    &= 5n^2 - 10n + 4 \\
+                    &\leq
+                        5n^2 + 4
+                        \\
+                    &\leq
+                        5n^2 + 4n^2 \qquad (n \geq 1)
+                        \\
+                    &= 9n^2
+                \end{align*}
+
+                Then for a lower bound:
+
+                \begin{align*}
+                    f(n) &= 5n^2 - 10n + 4\\
+                         &\geq
+                            5n^2 - 10n
+                            \\
+                        \intertext{Our problem now is the $-10n$. Remember that
+                            we can do anything that makes the quantity
+                            \emph{smaller} when trying to find a lower bound,
+                            so we can't simply drop the $-10n$ since that would
+                            actually make the quantity bigger. Instead, we recognize intuitively
+                            that $n^2$ will eventually be larger than $-10n$, so we can
+                            ``break off'' a piece of the $5n^2$ and use it to ``balance'' the
+                            $-10n$.}
+                        &=
+                            4n^2 + n^2 - 10n
+                            \\
+                        &=
+                            4n^2 + (n^2 - 10n)
+                            \\
+                        \intertext{
+                            Again, our intuition is that $n^2 - 10n$ will eventually be
+                            positive when $n$ is large enough, and so we'll be able to drop it to get a lower
+                            bound. When is this? We solve $n^2 - 10n \geq 0$ for $n$,
+                            finding that $n^2 \geq 10n \implies n \geq 10$. So when $n \geq 10$,
+                            the stuff in parens is positive and can be dropped:
+                        }
+                        &\geq
+                            4n^2 \qquad (n \geq 10)
+                \end{align*}
+
+                Therefore, $4n^2 \leq f(n) \leq 9n^2$ provided that $n \geq 10$.
+            \end{soln}
+
+        \end{subprob}
+
+        \begin{subprob}
+            $
+            \displaystyle
+            f(n) =
+            \frac{n^2 + 2n - 5}{n - 10}
+            $
+
+            \begin{soln}
+                $f(n) = \Theta(n)$.
+
+                We begin with an upper bound.
+                \begin{align*}
+                    f(n)
+                    &=
+                        \frac{n^2 + 2n - 5}{n - 10}
+                        \\
+                    &\leq
+                        \frac{n^2 + 2n}{n - 10}
+                        \\
+                    &=
+                        \frac{n(n + 2)}{n - 10}
+                        \\
+                        \intertext{Now, $(n+2)/(n-10) \leq 2$ for all $n \geq 22$, hence:}
+                    &\leq
+                        2 n, \qquad (n \geq 22)
+                        \\
+                \end{align*}
+                Now for a lower bound:
+                \begin{align*}
+                    f(n)
+                    &=
+                        \frac{n^2 + 2n - 5}{n - 10}
+                        \\
+                    &\geq
+                        \frac{n^2 - 5}{n - 10}
+                        \\
+                    \intertext{To get a lower bound, we make this
+                    quantity smaller. We can do so by making the
+                    denominator bigger by dropping the $-10$:}
+                    &\geq
+                        \frac{n^2 - 5}{n}
+                        \\
+                    &\geq
+                    \frac{\frac{1}{2}n^2  + \frac{1}{2}n^2 - 5}{n}
+                        \\
+                        \intertext{Now, $\frac{1}{2}n^2 -5 \geq 0$ for all $n \geq 4$. Hence:}
+                    &\geq
+                \frac{\frac{1}{2}n^2  + 0}{n}, \qquad (n \geq 4)
+                        \\
+                    &= n/2
+                \end{align*}
+                So in total, $\frac{n}{2} \leq f(n) \leq 2n$ for all $n \geq 22$.
+            \end{soln}
+            
+        \end{subprob}
+
+        \begin{subprob}
+            $
+            \displaystyle
+            f(n) = 
+            \begin{cases}
+                n^2, & n \text{ is odd},\\
+                3n^2, & n \text{ is even}
+            \end{cases}
+            $
+
+            \begin{soln}
+                $f(n) = \Theta(n^2)$.
+                
+                Our goal is to find a function that upper bounds $f$ both when $n$ is even and when it is odd, and a separate
+                function that lower bounds $f$ both when $n$ is even and when it is odd.
+
+                In this case, $f(n) \leq 3n^2$ for all $n \geq 1$, whether $n$ is even or odd.
+                Likewise, $f(n) \geq n^2$ for all $n \geq 1$, even or odd. Hence:
+                $n^2 \leq f(n) \leq 3n^2$ for all $n \geq 1$.
+                
+                You might be tempted to say that the first part, $n^2$, is $\Theta(n^2)$, and 
+                the second part, $3n^2$, is also $\Theta(n^2)$, so the whole function is $\Theta(n^2)$.
+                This \emph{is} a valid argument, but we haven't proven that it's true -- though you can
+                prove it is valid using the techniques that
+                we learned in lecture, but it's a little too ``high level'' for this problem. Here, we
+                want to go all the way back to the definition.
+            \end{soln}
+        \end{subprob}
+    \end{subprobset}
+\end{prob}

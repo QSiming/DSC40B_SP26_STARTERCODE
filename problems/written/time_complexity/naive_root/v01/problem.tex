@@ -1,0 +1,36 @@
+\begin{prob}
+    Consider the code below:
+
+    \begin{minted}[autogobble]{python}
+        def foo(n):
+            i = 1
+            while i * i < n:
+                i += 1
+            return i
+    \end{minted}
+
+    \begin{subprobset}
+        \begin{subprob}
+            What does \python{foo(n)} compute, roughly speaking?
+
+            \begin{soln}
+                It computes, approximately, $\sqrt{n}$. Of course, \python{foo}
+                always returns an integer, so the result of the function is usually
+                not exactly correct.
+
+                More precisely, \python{foo} returns the largest integer greater
+                than or equal to $\sqrt n$. For example, $\sqrt 5$ is between 2 and 3;
+                \python{foo(5)} returns 3.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            What is the asymptotic time complexity of \python{foo}?
+
+            \begin{soln}
+                $\Theta(\sqrt n)$
+            \end{soln}
+        \end{subprob}
+    \end{subprobset}
+
+\end{prob}

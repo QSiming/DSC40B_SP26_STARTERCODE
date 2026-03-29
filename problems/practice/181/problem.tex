@@ -1,0 +1,45 @@
+%% tags: [theoretical lower bounds, best and worst case]
+%% source: 2023-fa-midterm_01
+\begin{prob}[(3 points)]
+
+    Consider the following problem: given two \textbf{sorted} lists, \mintinline{python}{A}
+    and \mintinline{python}{B}, each containing $n$ numbers, determine if the two lists
+    share an element in common. That is, determine if there is a number $x$
+    which appears in both lists.
+
+    \begin{subprobset}
+
+        \begin{subprob}
+            What is a \textbf{tight} theoretical lower bound for this problem?
+            Again, you may assume that the lists are both sorted.
+            State your answer in asymptotic notation as a function of $n$.
+
+            \inlineresponsebox[.75in]{$\Theta(n)$}
+        \end{subprob}
+
+        \begin{subprob}(2 points)
+            Briefly (in 50 words or less) describe an algorithm for solving
+            this problem \textbf{and state its worst case time complexity}. To
+            earn full credit, you should give the optimal algorithm, but
+            partial credit will be awarded for sub-optimal solutions. You may
+            write pseudocode if you like, but an explanation in words is also
+            sufficient. Make sure that you only state one algorithm!
+
+            \begin{soln}{2in}
+                Here's an approach that takes $\Theta(n)$; it's similar to what we did in lecture
+                for the movie problem.
+
+                Start with \mintinline{python}{i = j = 0}. If \mintinline{python}{A[i] == A[j]}, return \mintinline{python}{True}, since
+                you've found an element in common. If \mintinline{python}{A[i] > A[j]}, increment \mintinline{python}{j}, otherwise
+                increment \mintinline{python}{i}. Takes $\Theta(n)$ time.
+
+                The brute force approach also earns credit: Loop over all pairs, checking if 
+                \mintinline{python}{A[i] == B[j]} for each pair. This takes $\Theta(n^2)$ time.
+
+            \end{soln}
+
+        \end{subprob}
+
+    \end{subprobset}
+
+\end{prob}

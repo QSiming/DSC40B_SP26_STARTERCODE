@@ -1,0 +1,92 @@
+\begin{prob}
+    % Write the problem here.
+
+    Suppose $T_1(n), \ldots, T_6(n)$ are functions
+    describing the runtime of six algorithms. Furthermore, suppose we
+    have the following bounds on each function:
+    \begin{align*}
+        T_1(n) &= \Theta(n^4)\\
+        T_2(n) &= O(n^2 \log(n)) \text{ and } T_2(n) = \Omega(n)\\
+        T_3(n) &= \Omega(n^3)\\
+        T_4(n) &= O(n^6) \text{ and } T_4 = \Omega(n^2)\\
+        T_5(n) &= \Theta(n)\\
+        T_6(n) &= O(n^2) \text{ and } T_6(n) = \Omega(\log(n))\\
+        T_7(n) &= \Theta(\log(n))
+    \end{align*}
+
+    What are the best bounds that can be placed on the following functions?
+    
+    For this problem, you do not need to show work.
+
+    Hint: watch the supplemental lecture at \url{https://youtu.be/tmR-bIN2qw4}.
+
+    \textbf{Example}: $T_1(n) + T_2(n)$.
+
+    \textbf{Solution}: $T_1(n) + T_2(n)$ is $\Theta(n^4)$.
+
+    % the below function looks for a file in the "solution" directory named "solution"
+    % and includes it (if the solution document is being compiled)
+    % \inputsolution{solution}
+
+    \begin{subprobset}
+
+        \begin{subprob}
+            $T_1(n) + T_2(n) + T_5(n)$
+
+            \begin{soln}
+                $\Theta(n^4)$
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            $T_4(n) + T_6(n)$
+
+            \begin{soln}
+                $O(n^6)$ and $\Omega(n^2)$
+
+                Because $T_4(n) = \Omega(n^2)$, the sum has to take at least $n^2$ time.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            $T_7(n) + T_3(n)$
+
+            \begin{soln}
+                $\Omega(n^3)$
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            $T_1(n)$ \text{\cdot } $T_7(n)$  /  $T_5(n)$
+
+            \begin{soln}
+                $\Theta(n^3 \log(n))$
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            $T_1(n) + T_4(n)$
+
+            \begin{soln}
+                $O(n^6)$ and $\Omega(n^4)$.
+
+                Think of $T_1(n)$ as $O(n^4)$ and $\Omega(n^4)$. In other words,
+                there's a lower-bound of $n^4$. So the sum of the two functions can't
+                take less than $n^4$ time, and $n^4$ is a lower bound.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            $T_2(n) + T_6(n)$
+
+            \begin{soln}
+                $O(n^2 \log(n))$ and $\Omega(n)$
+
+            \end{soln}
+
+        \end{subprob}
+
+    \end{subprobset}
+
+\end{prob}
+

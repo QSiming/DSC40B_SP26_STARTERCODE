@@ -1,0 +1,21 @@
+\begin{prob}
+
+    Describe a strategy that, given a sorted array with $n$ elements,
+    constructs a balanced binary search tree in $\Theta(n)$ time. 
+
+    This is not a programming problem, so there is no autograder. But you should
+    provide pseudocode in your written answer -- that is, code that doesn't
+    necessarily run on a computer, but which makes your strategy precise.
+
+    Hint: what's the best element to use as the root?
+
+    \begin{soln}
+        The general strategy is to pick the median as the root, then recurse --
+        the root of the left subtree should be a median of the bottom half of
+        elements, and the root of the right subtree should be a median of the
+        upper half of elements. The code below implements this idea:
+
+        \inputminted{python}{\thisdir/include-solution/soln.py}
+    \end{soln}
+
+\end{prob}

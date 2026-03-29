@@ -1,0 +1,53 @@
+\Needspace{7.5in}
+\begin{prob}
+    A \emph{rotated sorted array} is an array that is the result of taking a sorted array
+    and moving a contiguous section from the front of the array to the back of the array.
+    For example, the array \python{[5, 6, 7, 1, 2, 3, 4]} is a rotated sorted array: it
+    is the result of taking the sorted array \python{[1, 2, 3, 4, 5, 6, 7]} and moving
+    the first 4 elements, \python{[1, 2, 3, 4]}, to the back of the array. Sorted
+    arrays are also rotated sorted arrays, technically speaking, since you can
+    think of a sorted array as the result of taking the sorted array and moving
+    the first 0 elements to the back.
+
+    The function below attempts to find the value of the minimum element in a
+    rotated sorted array. It is given the array \python{arr} and the indices
+    \python{start} and \python{stop} which indicate the range of the array that
+    should be searched. One line in the function has been left blank.
+
+
+    \begin{minted}[autogobble]{python}
+        import math
+        def find_minimum_in_rotated_sorted(arr, start, stop):
+            """
+            Searches arr[start:stop] for the smallest element.
+            Assumes arr is a rotated sorted array.
+            """
+            if stop < start:
+                return arr[0]
+
+            if stop == start:
+                return arr[start]
+
+            mid = (start + stop) // 2
+
+            if ________________:
+                return arr[mid + 1]
+
+            if arr[start] < arr[mid]:
+                return find_minimum_in_rotated_sorted(arr, mid, stop)
+            else:
+                return find_minimum_in_rotated_sorted(arr, start, mid - 1)
+    \end{minted}
+
+    What should be filled in the blank line to make this function work correctly?
+
+    \begin{choices}
+        \choice \python{arr[middle] > arr[stop-1]}
+        \choice \python{arr[middle] < arr[stop-1]}
+        \choice \python{arr[middle] > arr[start]}
+        \choice \python{arr[middle] < arr[start]}
+        \correctchoice \python{arr[middle] > arr[middle+1]}
+        \choice \python{arr[middle] < arr[middle+1]}
+    \end{choices}
+
+\end{prob}

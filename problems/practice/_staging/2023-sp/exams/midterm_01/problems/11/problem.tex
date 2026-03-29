@@ -1,0 +1,18 @@
+%% source: 2023-sp-midterm_01
+\begin{prob}
+    State (but do not solve) the recurrence describing the runtime of the following function.
+
+    \inputminted{python}{\thisdir/code.py}
+
+    \vspace{1em}
+
+    $
+        T(n) = \begin{cases}
+            \Theta(1), & n = 1\\
+            \text{
+                \inlineresponsebox[2in]{$T(n/2) + \Theta(n^2)$}%
+            }, & n > 1
+        \end{cases}
+    $
+
+\end{prob}

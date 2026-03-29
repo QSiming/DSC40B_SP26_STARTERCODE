@@ -1,0 +1,44 @@
+%% source: 2023-sp-midterm_02
+%% tags: [breadth first search, aggregate analysis]
+\begin{prob}
+    Consider the code below, which is a modification of the code for
+    \mintinline{python}{bfs} given in lecture:
+
+    \inputminted{python}{./code.py}
+
+    Notice the two new lines; these lines print all node statuses any time that
+    an undiscovered node has been found.
+
+    What is the time complexity of this modified \mintinline{python}{modified_full_bfs}?
+    State your answer in asymptotic notation in terms of the number of nodes,
+    $|V|$, and the number of edges, $|E|$. You may assume that the graph is
+    represented using an adjacency list, and that it is connected.
+
+    \begin{soln}
+        $\Theta(V^2)$.
+
+        First, the newly-added code (the \mintinline{python}{for z in graph.nodes} loop),
+        takes $\Theta(V)$ time each time the loop is encountered. The crux is: how many
+        times is that loop encountered?
+
+        This loop is encountered every time we add a node to the queue (except
+        for the root node, which we add to the queue right at the beginning of
+        BFS). Since this is a connected graph, each node will get added to the
+        pending queue exactly once, meaning that this new code is encountered
+        \emph{exactly} $V-1$ times (the $-1$ is subtracting the root node; the
+        loop isn't encountered when we change it to pending).
+
+        Since the new code takes $\Theta(V)$ time each time it's encountered,
+        and since it's encountered $\Theta(V)$ times, the total time complexity of
+        the loop is $\Theta(V^2)$.
+
+        You might wonder why the time complexity isn't $\Theta(VE)$, since the
+        new code is within the loop that ``explores'' each edge in the graph,
+        and we know that it makes a total of $2|E|$ iterations when the graph
+        is undirected. This is true, but recognize that the new code only
+        executes when the \mintinline{python}{if}-statement before it is \mintinline{python}{True}, and
+        this will happen on only a \emph{subset} of the $2|E|$ iterations. In
+        fact, it will happen exactly $|V|-1$ times, as we argued above.
+    \end{soln}
+
+\end{prob}

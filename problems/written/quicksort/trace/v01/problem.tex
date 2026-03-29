@@ -1,0 +1,35 @@
+\begin{prob}
+    Consider this version of quicksort given below. It is essentially the same
+    as that given in lecture, except that 1) it always uses the last element of the
+    array as the pivot, and 2) it has a \python{print} statement inserted at
+    a crucial place.
+
+    \inputminted{python}{\thisdir/include/quicksort.py}
+
+    Suppose \python{arr} is an array of length $n$ with entries
+    \python{[1, 2, 3, ..., n]}, where $n$ is some large integer.  If
+    \python{quicksort(arr, 0, n)} is run, exactly how many times
+    will
+    \python{"hello"} be printed to the screen? Your answer should be an expression
+    involving $n$, and should not involve $\sum$ or $\ldots$. Show your work.
+
+    \begin{soln}
+        Suppose we make a call to \python{quicksort} on a sorted array of size $k$.
+        The pivot is set to the last (and largest) element in the array, therefore
+        the condition of the \python{if}-statement in \python{partition} always
+        evaluates to true, printing \python{"hello"} $k - 1$ times. 
+
+        When the array is sorted, the root call to \python{quicksort} spawns
+        two recursive calls; one on an array of size $n - 1$ and the other on
+        an array of size zero. The first recursive call spawns two calls; one
+        on an array of size $n - 2$ and the other on an array of size zero. And
+        so forth. Only the recursive calls to arrays of size $> 1$ result in a call
+        to \python{partition}. Therefore \python{partition} is called on arrays
+        of size $n-1$, $n-2$, $n-3$, $\ldots$, $3$, $2$, and the total number
+        of printed \python{"hello"}s is:
+        \[
+            (n-2) + (n-3) + \ldots + 3 + 2 + 1 = \frac{(n-1)n}{2}.
+        \]
+    \end{soln}
+
+\end{prob}

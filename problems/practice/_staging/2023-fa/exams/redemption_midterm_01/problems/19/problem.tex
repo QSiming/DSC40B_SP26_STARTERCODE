@@ -1,0 +1,31 @@
+\Needspace{3.5in}
+\begin{prob}
+
+    Consider the following function which attempts to compute the maximum of a list of
+    numbers.
+
+    \begin{minted}[autogobble]{python}
+        import math
+        def maximum(numbers):
+            n = len(numbers)
+            if n == 0:
+                return 0
+            middle = math.floor(n / 2)
+            return (
+                maximum(numbers[:middle])
+                +
+                maximum(numbers[middle:])
+            )
+    \end{minted}
+
+    Is this code guaranteed to work for all non-empty lists?
+
+    You should adopt the convention that the maximum of an empty list is $-\infty$.
+
+    \begin{choices}
+        \choice Yes: it will return the maximum number in the list.
+        \correctchoice No: it may recurse infinitely.
+        \choice No: it may raise an exception.
+        \choice No: it will run without error, but it might return the wrong answer.
+    \end{choices}
+\end{prob}

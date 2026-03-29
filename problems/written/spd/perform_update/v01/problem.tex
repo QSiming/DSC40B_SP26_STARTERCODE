@@ -1,0 +1,29 @@
+\begin{prob}
+	What is the result of updating the edge (u,v) when the est[u], est[v] and weight(u,v) are given as follows?
+	
+    \begin{figure}[h!]
+        \caption{Bellman Ford update subroutine}
+        \inputminted{python}{\thisdir/include/update.py}
+    \end{figure}
+
+	\begin{subprobset}
+	    \begin{subprob}
+		est[u] = 7, est[v] = 11, weight(u,v) = 3
+		\begin{responsebox}{1in}
+		    est[v] is updated to 10
+		\end{responsebox}	
+	    \end{subprob}
+	    \begin{subprob}
+		est[u] = 15, est[v] = 12, weight(u,v) = -3
+		\begin{responsebox}{1in}
+		    est[v] is not updated
+		\end{responsebox}	
+	    \end{subprob}
+	    \begin{subprob}
+		est[u] = 12, est[v] = 14, weight(u,v) = 3
+		\begin{responsebox}{1in}
+		    est[v] is not updated
+		\end{responsebox}	
+	    \end{subprob}
+	\end{subprobset}
+\end{prob}

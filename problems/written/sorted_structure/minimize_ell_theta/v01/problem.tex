@@ -1,0 +1,193 @@
+\begin{progprob}
+    % Write the problem here.
+    % No submission.
+    % \iffalse
+    Let \python{data} be a list of $n$ unique real numbers. Furthermore,
+    suppose that each number in \python{data} is assigned a color -- it is
+    either \python{'red'} or \python{'blue'}. Let \python{colors} be a list
+    of $n$ strings, such that \python{colors[i]} gives the color of
+    \python{data[i]}. In all parts of this problem, you may assume for simplicity
+    that there is at least one data point of each color.
+    
+    \begin{subprobset}
+
+        \begin{subprob}
+            To begin, suppose that \textbf{all of the blue points are less than all of the red points}.
+            In a file named \python{min_ell_theta.py}, write an efficient function called
+            \python{learn_theta(data, colors)} which takes in two arguments -- the lists \python{data}
+            and \python{colors} as described above -- and returns a single number $\theta$
+            such that all of the blue points are $\leq
+            \theta$ and all of the red points are $> \theta$, as is depicted in
+            the picture below. You may \emph{not} assume that \python{data} is
+            sorted. The time complexity of your algorithm should be optimal.
+
+            \begin{center}
+            \begin{tikzpicture}
+                \draw[<->] (-1,0) -- (10,0);
+                \foreach \x in {0, 1, 1.5, 2, 3} {
+                    \node (pt) at (\x, 0) {$\times$};
+                    \node[below=.3 of pt] {B} edge[->] (pt);
+                }
+                \foreach \x in {5, 5.5, 7, 7.25, 9} {
+                    \node (pt) at (\x, 0) {$\times$};
+                    \node[above=.3 of pt] {R} edge[->] (pt);
+                }
+
+                \coordinate (theta) at (4.5, 0);
+                \node[below left] at (theta) {$\theta$};
+                \draw[dashed, thick] ([yshift=2.5em]theta) edge ([yshift=-2.5em]theta);
+
+            \end{tikzpicture}
+            \end{center}        
+
+            
+            \begin{soln}
+                We can set $\theta$ to be any number between the biggest blue
+                point and the smallest red point. In fact, we can set $\theta$
+                to be \emph{exactly} the largest blue point, as then all blue
+                points are $\leq \theta$ as desired.
+
+                We can do this in linear time by looping through all of the
+                data points, keeping track of the largest blue point seen
+                so far:
+
+                \inputminted{python}{\thisdir/include-solution/pp01a-enum.py}
+
+                A more ``pythonic'' approach is to ditch the \python{range}
+                and use \python{zip}. \python{zip} takes two (or more) lists
+                and returns pairs by ``zipping'' the lists together, elementwise:
+
+                \inputminted{python}{\thisdir/include-solution/pp01a.py}
+
+                Of course, we could always use a comprehension. The below
+                filters out the red points and returns the max of the blues:
+
+                \inputminted{python}{\thisdir/include-solution/pp01a-max.py}
+
+                You could make the above into a one-liner, but I like the
+                fact that the intermediate result is stored in \python{blue_points};
+                it makes the code more readable, in my opinion. Avoid trying to show
+                off by writing one-liners. A lot of people can cram code into
+                one line, but it takes thought and care to write clean, readable code.
+
+                All of these solutions are essentially the same, and run in
+                linear time.
+            \end{soln}
+
+        \end{subprob}
+    \end{subprobset}
+
+        Now suppose that a small number of the red points are less
+        than some blue points -- that is, there is some overlap, as shown
+        below. Assume for simplicity that the largest data point is red.
+
+        \begin{center}
+        \begin{tikzpicture}
+            \draw[<->] (-1,0) -- (10,0);
+            \foreach \x in {0, 1, 1.5, 2, 7} {
+                \node (pt) at (\x, 0) {$\times$};
+                \node[below=.3 of pt] {B} edge[->] (pt);
+            }
+            \foreach \x in {3, 5.5, 7.25, 9} {
+                \node (pt) at (\x, 0) {$\times$};
+                \node[above=.3 of pt] {R} edge[->] (pt);
+            }
+
+            \coordinate (theta) at (4.5, 0);
+            \node[below left] at (theta) {$\theta$};
+            \draw[dashed, thick] ([yshift=2.5em]theta) edge ([yshift=-2.5em]theta);
+
+        \end{tikzpicture}
+        \end{center}        
+
+        We wish to find a real number $\theta$ which ``best'' separates the
+        blue points and red points. Clearly the points cannot be separated
+        perfectly. Instead, we define a loss function $L(\theta)$ which
+        counts the number of points which are on the wrong side of
+        $\theta$.  More precisely:
+        \[
+            L(\theta) = (\# \text{ of red points }\leq \theta) + (\# \text{ of blue points } > \theta)
+        \]
+        The loss of the $\theta$ shown above is 2, since one red point is to the
+        left of $\theta$ and one blue point is to the right.
+        Our goal is to design an algorithm for finding a minimizer of
+        $L(\theta)$. This is a simple instance of the machine learning task
+        of \emph{classification}.
+
+    \begin{subprobset}
+
+        \begin{subprob}
+            Also in \python{min_ell_theta.py}, write a function named
+            \python{compute_ell(data, colors, theta)} which takes in lists
+            \python{data} and \python{colors} as described above, as well
+            as a floating-point number, \python{theta}. It should return
+            the loss at \python{theta} as a floating-point number.  Your
+            algorithm should have the best possible time complexity.
+
+            \begin{soln}
+                We can write an algorithm that takes time $\Theta(n)$. To compute
+                $L(\theta)$, we loop through each of the data points, keeping track of the
+                loss incurred. If the data point $x$ is red, but $\leq \theta$, we
+                increment the loss by one. If $x$ is blue, but bigger than $\theta$, we
+                increment the loss by one. Each check takes constant time and there are
+                $\Theta(n)$ points, so the function takes $\Theta(n)$ time in total.
+
+                \inputminted{python}{\thisdir/include-solution/compute_ell.py}
+
+            \end{soln}
+            
+        \end{subprob}
+
+        \begin{subprob}
+            Also in \python{min_ell_theta.py}, write a function named \python{minimize_ell(data, colors)}
+            which takes in \python{data} and \python{colors} and returns a floating-point
+            number which minimizes the loss $L$ for that particular data set.
+            Your algorithm should have quadratic time complexity. You may
+            assume for simplicity that the smallest data point is
+            blue\footnote{Otherwise it is possible (given a special data set) for the
+                loss to be minimized at some $\theta$ to the left of all of the
+            data.}.
+
+            \begin{soln}
+                Note that we can reduce the search space to a finite set ,
+                since it suffices to only check the $\theta$ which coincide
+                with a data point.  That is, we loop over each of the data
+                points $x$ and compute $L(x)$, returning the minimizer.
+                Since computing $L(x)$ takes linear time, and there are
+                $\Theta(n)$ data points, this approach takes $\Theta(n^2)$
+                time in total.
+
+                \inputminted{python}{\thisdir/include-solution/minimize_ell.py}
+            \end{soln}
+            
+        \end{subprob}
+
+
+        \begin{subprob}
+            Now assume that \python{data} is sorted (and \python{colors[i]}
+            is the color of \python{data[i]}). In the file called
+            \python{min_ell_theta.py}, write a function
+            \python{minimize_ell_sorted(data, colors)} which returns a minimizer $\theta$
+            in linear time. Your code should satisfy the loop invariant: ``After the
+            $\alpha$th iteration, \python{blue_gt_theta} is the number of blue points
+            which are greater than \python{data[}$\alpha - 1$\python{]}.''
+
+            For simplicity, suppose that exactly $n/2$ of the data points are
+            \python{'red'}, and $n/2$ are \python{'blue'}.
+
+            \begin{soln}
+                We can use the knowledge that exactly half the data points are
+                red and the other half are blue to track the amount of red elements 
+                and blue elements on both sides of $\theta$ on each iteration. Using
+                the count of red elements before $\theta$ and blue elements after $\theta$
+                we can calculate loss in constant time. This approach takes $\Theta(n)$ 
+                time in total.
+                
+                \inputminted{python}{\thisdir/include-solution/minimize_ell_theta.py}
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+    % \fi
+
+\end{progprob}

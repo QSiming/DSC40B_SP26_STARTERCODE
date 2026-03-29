@@ -1,0 +1,62 @@
+\begin{prob}
+    Determine the worst case time complexity of each of the recursive algorithms below.
+    In each case, state the recurrence relation describing the runtime. Solve the recurrence
+    relation, either by unrolling it or showing that it is the same as a recurrence we have
+    encountered in lecture.
+
+    \begin{subprobset}
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_a.py}
+
+            \begin{soln}
+                Note that the slicing in \python{numbers[:middle]} takes linear time
+                in the length of the array, so the recurrence relation is:
+                \[
+                    T(n) = \Theta(n) + 2T(n/2)
+                \]
+                This is the same recurrence relation as for mergesort, and the solution
+                is $\Theta(n \log n)$.
+            \end{soln}
+        \end{subprob}
+
+
+        \begin{subprob}
+
+            \inputminted{python}{\thisdir/include/part_b.py}
+
+            \begin{soln}
+                No slicing is being done, so a constant amount of time is required outside
+                of the recursive calls. Therefore the recurrence relation is:
+                \[
+                    T(n) = 3T(n/3) + \Theta(1)
+                \]
+
+                We have not seen this recurrence before, so we must solve it by unrolling.
+                It isn't so different from $T(n) = 2 T(n/2) + 1$, which you may have seen
+                in lecture or in discussion. Both have $\Theta(n)$ as their answer.
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            In this problem, remember that \python{//} performs \emph{flooring division},
+            so the result is always an integer. For example, \python{1//2} is zero.
+            \python{random.randint(a,b)} returns a random integer in $[a,b)$ in constant time.
+
+            \inputminted{python}{\thisdir/include/part_c.py}
+
+            \begin{soln}
+                The work outside of the recursive calls takes linear time. There
+                are three recursive calls, each on problems of size (roughly) $n/3$.
+                Therefore the recurrence is:
+                \[
+                    T(n) = 3T(n/3) + \Theta(n)
+                \]
+                We can solve this recurrence by unrolling it. We'll find that the solution is
+                $\Theta(n \log n)$. Note the similarity between this recurrence and that
+                for mergesort, and that both have the same solution.
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+
+\end{prob}

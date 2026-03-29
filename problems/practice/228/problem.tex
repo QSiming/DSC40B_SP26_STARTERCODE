@@ -1,0 +1,39 @@
+%% tags: [breadth first search]
+%% source: 2023-fa-midterm_02
+\begin{prob}
+
+    Consider the following modification of BFS, with an added print statement:
+
+    \begin{minted}[autogobble]{python}
+
+        from collections import deque
+
+        def modified_bfs(graph, source):
+            """Start a BFS at `source`."""
+            status = {node: 'undiscovered' for node in graph.nodes}
+            status[source] = 'pending'
+            pending = deque([source])
+
+            while pending:
+                u = pending.popleft()
+                for v in graph.neighbors(u):
+                    if v == 9:
+                        print("Here!") # <-- this is the added print statement
+                    if status[v] == 'undiscovered':
+                        status[v] = 'pending'
+                        pending.append(v)
+
+                status[u] = 'visited'
+
+    \end{minted}
+
+    Consider running this algorithm on the following graph, starting at node $1$:
+
+    \includegraphics[width=.1\textwidth]{graph.png}
+
+    How many times will \mintinline{python}{"Here!"} be printed?
+
+    \inlineresponsebox[.75in]{2}
+
+
+\end{prob}

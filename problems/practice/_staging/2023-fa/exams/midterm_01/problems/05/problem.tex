@@ -1,0 +1,46 @@
+\begin{prob}[(2 points)]
+    The code below takes in two lists, each containing $n$ integers, and
+    determines if the any number in the second list appears at least $n/2$
+    times in the first list.
+
+    \inputminted[lastline=12]{python}{\thisdir/code.py}
+
+
+    \newcommand{\bestcase}{
+        What is the \textbf{best case} time complexity of this code as a function of $n$?
+        State your answer using asymptotic notation.
+
+        \inlineresponsebox{$\Theta(n)$}
+    }
+
+    \newcommand{\worstcase}{
+        What is the \textbf{worst case} time complexity of this code as a function of $n$?
+        State your answer using asymptotic notation.
+
+        \inlineresponsebox{$\Theta(n^2)$}
+    }
+
+    \onlyversion{A}{
+        \bestcase
+
+        \worstcase
+    }
+
+    \onlyversion{B}{
+        \worstcase
+
+        \bestcase
+    }
+
+    \begin{soln}
+        The best case is when the first element of the second list appears at least $n/2$ times
+        in the first list. In this case, the code will return \texttt{True} after iterating $n/2$ times
+        through the inner loop, taking $\Theta(n)$ time total.
+
+        In the worst case, there is no element in the second list that appears
+        $n/2$ times in the first. We make all $n$ iterations of the outer loop,
+        and during each of the outer iterations, make $n$ iterations of the
+        inner loop, for a total of $\Theta(n^2)$ time.
+    \end{soln}
+
+\end{prob}

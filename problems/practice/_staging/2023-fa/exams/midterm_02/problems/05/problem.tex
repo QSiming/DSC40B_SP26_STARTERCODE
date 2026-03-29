@@ -1,0 +1,24 @@
+\Needspace{2in}
+\begin{prob}
+
+    Let $G = (V,E)$ be an undirected graph with:
+    \begin{align*}
+        V &= \{a, b, c, d, e, f, g, h\} \\
+        E &= \{ (b, g), (a,e), (e, f), (c, b), (h, b), (d,b), (g,d), (a,f)\}
+    \end{align*}
+
+    True or False: $\{b, d, g\}$ is a connected component of this graph.
+
+    \tF{}
+
+    \begin{soln}
+        The connected components of this graph are $\{a, e, f\}$ and $\{b, c, d, g, h\}$.
+
+        Remember: a connected component has to contain \emph{all} nodes reachable
+        from any node in the component.
+        While $b$, $d$, and $g$ are all reachable from one another (and are
+        ``connected''), they do not form a connected component because there
+        are more nodes reachable from this group: namely, $h$ and $c$.
+    \end{soln}
+
+\end{prob}

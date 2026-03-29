@@ -1,0 +1,53 @@
+\begin{prob}
+    Roughly how long will it take for a linear time algorithm to run? What
+    about a quadratic time algorithm? Or worse, a cubic? In this problem,
+    we'll estimate these times.
+
+    % Write the problem here.
+    Suppose algorithm A takes $n$ microseconds to run on a problem of size $n$,
+    while algorithm B takes $n^2$ microseconds and algorithm C takes $n^3$
+    microseconds (recall that a microsecond is one millionth of a second).
+    How long will each algorithm take to run when the input is of size one
+    thousand, ten thousand, one hundred thousand, and one million? That is,
+    fill in the following table:
+
+    \begin{center}
+    \begin{tabular}{rcccc}
+        \toprule
+        & $n = 1{,}000$ & $n = 10{,}000$ & $n = 100{,}000$ & $n = 1{,}000{,}000$ \\ \midrule
+        A (Linear) & 0.00 s & 0.01 s & 0.10 s & 1 s \\
+        B (Quadratic) & ? & ? & ? & ? \\
+        C (Cubic) & ? & ? & ? & ? \\\bottomrule
+    \end{tabular}
+    \end{center}
+
+    The answers for Algorithm A are already provided; you can use them to check your strategy.
+
+    Express each time in either seconds, minutes, hours, days, or years. Use
+    the largest unit that you can without getting an answer less than one. For
+    example, instead of ``365 days'', say ``1 year''; but use ``364 days''
+    instead of ``0.997 years''. Round to two decimal places (it's OK for an
+    answer to round to 0.00).
+
+    Hint: you can calculate your answers by hand, or you can write some code to compute them.
+    If you write code, provide it with your solution -- if you solve by hand, show your calculations.
+
+    \begin{soln}
+
+        \begin{center}
+        \begin{tabular}{rrrrr}
+            \toprule
+            & $n = 1{,}000$ & $n = 10{,}000$ & $n = 100{,}000$ & $n = 1{,}000{,}000$ \\ \midrule
+            A & 0.00 s & 0.01 s & 0.10 s & 1 s \\
+            B & 1 s & 1.67 m & 2.78 h & 11.57 d \\
+            C & 16.67 m & 11.57 d & 31.71 y & 31{,}709.79 y \\\bottomrule
+        \end{tabular}
+        \end{center}
+
+        This was computed by the following code:
+
+        \inputminted{python}{\thisdir/include-solution/code.py}
+
+    \end{soln}
+
+\end{prob}

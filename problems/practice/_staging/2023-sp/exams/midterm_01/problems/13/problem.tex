@@ -1,0 +1,20 @@
+%% source: 2023-sp-midterm_01
+\begin{prob}
+    Suppose \python{bar} and \python{baz} are two functions.
+    Suppose \python{bar}'s time complexity is $\Theta(n^3)$, while \python{baz}'s
+    time complexity is $\Theta(n^2)$.
+
+    Suppose \python{foo} is defined as below:
+
+    \begin{minted}[autogobble]{python}
+        def foo(n):
+            if n < 1_000:
+                bar(n)
+            else:
+                baz(n)
+    \end{minted}
+
+    What is the asymptotic time complexity of \python{foo}?
+
+    \inlineresponsebox{$\Theta(n^2)$}
+\end{prob}

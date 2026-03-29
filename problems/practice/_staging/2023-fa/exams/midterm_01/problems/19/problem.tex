@@ -1,0 +1,66 @@
+\begin{prob}[(3 points)]
+
+    Consider the following code, which takes in a list of integers and moves
+    all of the odd numbers to the front and all of the even numbers to the end,
+    in-place.
+
+    Remember that the \verb!%! operator computes the remainder of division.
+    For example \verb!5 % 2 == 1! and \verb!4 % 2 == 0!. This can be
+    used to check if a number is even; if \verb!x % 2 == 0!, then
+    \python{x} is even.
+
+    \inputminted[lastline=18]{python}{\thisdir/code.py}
+
+    \begin{subprobset}
+
+        \begin{subprob}(2 points)
+            Which of the following are valid loop invariants for the \python{while}-loop? Select all that apply.
+
+            \newcommand{\choicea}{\choice  After the $\alpha$th iteration, the first $\alpha$ elements of \texttt{numbers} are odd.}
+            \newcommand{\choiceb}{\choice  After the $\alpha$th iteration, the last $\alpha$ elements of \texttt{numbers} are even.}
+            \newcommand{\choicec}{\correctchoice After each iteration, the elements in \python{numbers[:odd_barrier]} are odd.}
+            \newcommand{\choiced}{\choice After each iteration, the elements in \python{numbers[odd_barrier+1:]} are even.}
+            \newcommand{\choicee}{\choice After each iteration, the elements in \python{numbers[:even_barrier]} are odd.}
+            \newcommand{\choicef}{\correctchoice After each iteration, the elements in \python{numbers[even_barrier+1:]} are even.}
+            \newcommand{\choiceg}{\choice After the $\alpha$th iteration, \python{even_barrier - odd_barrier = } $\alpha$.}
+            \newcommand{\choiceh}{\correctchoice After the $\alpha$th iteration, \python{even_barrier - odd_barrier = n - 1 - } $\alpha$.}
+
+            \onlyversion{A}{
+                \begin{choices}[rectangle]
+                    \choicea
+                    \choiceb
+                    \choicec
+                    \choiced
+                    \choicee
+                    \choicef
+                    \choiceg
+                    \choiceh
+                \end{choices}
+            }
+
+            \onlyversion{B}{
+                \begin{choices}[rectangle]
+                    \choiceb
+                    \choicea
+                    \choiced
+                    \choicec
+                    \choicef
+                    \choicee
+                    \choiceh
+                    \choiceg
+                \end{choices}
+            }
+
+        \end{subprob}
+
+        \begin{subprob}
+            How many iterations will the \python{while}-loop in
+            \python{separate_odd_from_even} make if \python{numbers} has length
+            $100$? Your answer should be a number.
+
+            \inlineresponsebox{$99$}
+        \end{subprob}
+
+    \end{subprobset}
+
+\end{prob}

@@ -1,0 +1,41 @@
+\Needspace{3in}
+\begin{prob}
+    % draw a binary tree with the forest package
+
+    Suppose a breadth-first search is performed on the following tree, starting
+    at the root node $s$:
+
+    \begin{center}
+    \begin{forest}
+        for tree={circle, draw, minimum size=2em, inner sep=3pt, s sep=20pt}
+        [s
+            [
+                [
+                    []
+                    []
+                ]
+                [
+                    []
+                    []
+                ]
+            ]
+            [
+                [
+                    []
+                    []
+                ]
+                [
+                    []
+                    []
+                ]
+            ]
+        ]
+    \end{forest}
+    \end{center}
+
+    What is the most number of nodes that can be in the queue at any one time?
+
+    \inlineresponsebox[.75in]{8}
+
+
+\end{prob}

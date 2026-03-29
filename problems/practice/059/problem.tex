@@ -1,0 +1,14 @@
+%% source: 2023-sp-midterm_01
+%% tags: [expected time]
+\begin{prob}
+    What is the \textbf{expected} time complexity of the following function?
+    State your answer using asymptotic notation.
+
+    \inputminted{python}{./code.py}
+
+    \begin{soln}
+        $\Theta(n^2)$. The expected time complexity for this function is 
+        \[ \frac{1}{n} \bigg( \sum_{i = 0}^{7} n^3 + \sum_{i = 8}^{n - 1} n \bigg) = \frac{1}{n} (\Theta(n^3) + \Theta(n^2)) = \Theta(n^2). \]
+    \end{soln}
+
+\end{prob}

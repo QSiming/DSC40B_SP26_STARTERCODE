@@ -1,0 +1,58 @@
+\begin{prob}
+
+    In this problem you will be asked to list the edges in the minimum spanning tree
+    of the graph below in the order that they are added by either Prim's algorithm or
+    Kruskal's algorithm.
+
+    In order to simplify grading, please write an edge with the \emph{smaller} node first.
+    For example: $(u_3, u_7)$ instead of $(u_7, u_3)$. Also, when writing an edge, make sure
+    to write the edge as a pair of nodes, not the weight of the edge. Thanks!
+
+    \begin{center}
+        \includegraphics[scale=.6]{\thisdir/include/mst-graph.pdf}
+    \end{center}
+
+    \begin{subprobset}
+        \begin{subprob}
+            Suppose Prim's algorithm is run on the above graph, using node $u_1$ as
+            the starting node. List the edges of the resulting minimum spanning tree
+            computed in the order that they are added by the algorithm.
+
+            \begin{soln}
+
+                \begin{tabular}{c}
+                    $(u_1, u_2)$\\
+                    $(u_2, u_6)$\\
+                    $(u_5, u_6)$\\
+                    $(u_5, u_7)$\\
+                    $(u_7, u_8)$\\
+                    $(u_4, u_7)$\\
+                    $(u_6, u_9)$\\
+                    $(u_2, u_3)$\\
+                \end{tabular}
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            Suppose Kruskal's algorithm is run on the graph above. List the edges of the
+            resulting minimum spanning tree in the order that they are added by the algorithm.
+
+            \begin{soln}
+
+                \begin{tabular}{c}
+                    $(u_7, u_8)$\\
+                    $(u_5, u_7)$\\
+                    $(u_4, u_7)$\\
+                    $(u_5, u_6)$\\
+                    $(u_2, u_6)$\\
+                    $(u_6, u_9)$\\
+                    $(u_1, u_2)$\\
+                    $(u_2, u_3)$\\
+                \end{tabular}
+            \end{soln}
+
+        \end{subprob}
+
+    \end{subprobset}
+
+\end{prob}

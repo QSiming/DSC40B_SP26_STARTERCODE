@@ -1,0 +1,17 @@
+\begin{prob}
+    \timecomplexityinstructions
+
+    \inputminted{python}{\thisdir/code.py}
+
+    \inlineresponsebox{$\Theta(n^2)$}
+
+    \begin{soln}
+        The second loop looks complicated to analyze, but we can effectively
+        ignore it. This is because the most \python{i} can ever be is $\sqrt
+        n$, and so an upper bound for the number of iterations made by the
+        second loop is $O(\sqrt n \log n)$. Since the first loop takes
+        $\Theta(n^2)$, it will dominate the time complexity, and we do not need
+        to worry about the time taken by the second loop.
+    \end{soln}
+
+\end{prob}

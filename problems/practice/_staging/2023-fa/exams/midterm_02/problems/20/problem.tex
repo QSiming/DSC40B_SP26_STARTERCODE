@@ -1,0 +1,35 @@
+\Needspace{6.5in}
+
+\begin{prob}
+
+    A modification of the \texttt{dfs} function from lecture is shown below.
+    It is the same as the original \texttt{dfs} function, except that it has
+    an added \texttt{print} statement.
+
+    \begin{minted}[autogobble]{python}
+        def dfs(graph, u, status=None):
+            """Start a DFS at `u`."""
+            # initialize status if it was not passed
+            if status is None:
+                status = {node: 'undiscovered' for node in graph.nodes}
+
+            status[u] = 'pending'
+            for v in graph.neighbors(u):
+                print("Hello!")
+                if status[v] == 'undiscovered':
+                    dfs(graph, v, status)
+            status[u] = 'visited'
+    \end{minted}
+
+    Consider running this algorithm on the following graph, starting at node $a$:
+
+    \begin{center} 
+        \graphb{}
+    \end{center}
+
+    How many times will \python{"Hello!"} be printed? Note that this is not a full DFS, and
+    that not all nodes are reachable from $a$.
+
+    \inlineresponsebox[.75in]{10}
+
+\end{prob}

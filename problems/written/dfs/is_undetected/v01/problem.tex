@@ -1,0 +1,16 @@
+ \begin{prob}
+     Given an undirected graph G=(V,E), give an algorithm to find if the graph is disconnected.
+     \begin{soln}
+         A connected graph is a graph with one connected component, this means the only CC must have $|V|$ nodes.
+
+         Note that running BFS or DFS on a node in an undirected graph will visit all nodes in the connected component containing that node.
+
+        Thus, we can run BFS or DFS on a node in G (since G is undirected, any node will do). If the size of the set of visited nodes does not equal $|V|$, then the graph is disconnected.
+
+     \end{soln}
+ \end{prob}
+
+%  \begin{figure}[h!]
+%     \caption{"Full" DFS}
+%     \inputminted{python}{\thisdir/include/full_dfs.py}
+% \end{figure}

@@ -1,0 +1,93 @@
+\begin{prob}
+    Determine the worst case time complexity of each of the recursive algorithms below.
+    In each case, state the recurrence relation describing the runtime. Solve the recurrence
+    relation, either by unrolling it or showing that it is the same as a recurrence we have
+    encountered in lecture.
+
+    \begin{subprobset}
+        \begin{subprob}
+            \inputminted{python}{\thisdir/include/part_a.py}
+
+            \begin{soln}
+                Note that the slicing in \python{numbers[:mid_left]} (and so on) takes linear time
+                in the length of the array, so the recurrence relation is:
+                \[
+                    T(n) = \begin{cases} 
+                        \Theta(n) + 3 T(n/3) & n > 1 \\
+                        \Theta(1) & n \leq 1
+                     \end{cases}
+                \]
+                This is the same as the  recurrence relation as for 3-way mergesort, and the solution
+                is $\Theta(n \log n)$.
+            \end{soln}
+        \end{subprob}
+
+
+        \begin{subprob}
+
+            \inputminted{python}{\thisdir/include/part_b.py}
+
+            \begin{soln}
+                No slicing is being done, so a constant amount of time is required outside
+                of the recursive calls. Therefore the recurrence relation is:
+                \[
+                    T(n) = \begin{cases} 
+                        \Theta(1) & \text{stop} \leq \text{start or stop} - \text{start} = 1 \\
+                        2T(n/2) + \Theta(1) & \text{otherwise}
+                     \end{cases}
+                \]
+
+                We have not seen this recurrence before, so we must solve it by unrolling. 
+                For simplicity, assume $T(n)= 2T(n/2) + 1$. 
+                If we perform unrolling $k$ times, we will get the following: 
+                \[ T(n) = 2^k T(n/2^k) + 1 + 2 + 4 + \cdots + 2^{k-1}.
+                \] 
+                This unrolling stops when we have $n / 2^k = 1$, meaning $2^k = n$ and $k = \log_2 n$. 
+                Furthermore, note that $1 + 2 + 4 + 8 + \cdots + 2^{k-1} = 2^k - 1$ (geometric sum). 
+                We thus have 
+                \[ T(n) = n T(1) + 2^k  - 1 = n \cdot \Theta(1) + n - 1 = \Theta(n). \] 
+                It will have $\Theta(n)$ as its solution.
+
+                Notice that this recurrence is similar to the recurrence for
+                binary search, which was $T(n/2) + \Theta(1)$, and whose solution was
+                $\Theta(\log n)$. The difference between the two is the factor
+                of 2 on the $T(n/2)$; binary search does not have this because it only
+                makes one recursive call. This difference has a big effect: it reduces
+                the time complexity from $\Theta(n)$ all the way down to $\Theta(\log n)$.
+
+            \end{soln}
+        \end{subprob}
+
+        \begin{subprob}
+            In this problem, remember that \python{//} performs \emph{flooring division},
+            so the result is always an integer. For example, \python{1//2} is zero.
+            \python{random.randint(a,b)} returns a random integer in $[a,b)$ in constant time. 
+            Assume \python{isEven()} takes in an integer and returns whether it is even
+            in constant time. Note that you are asked to determine the {\bf worst-case} time complexity of the following algorithm. 
+
+            \inputminted{python}{\thisdir/include/part_c.py}
+
+            \begin{soln}
+                The work outside of the recursive calls takes linear time. (Note that while there are random numbers generated, the time complexity for outside the recursive calls are deterministic.) 
+                Depending on whether $x$ is even or not, the algorithm will make {\bf one} recursive call on problem of size $n/2$. Therefore the recurrence is: 
+                \[
+                T(n) = \begin{cases} 
+                    T(n/2) + \Theta(n) & n > 0 \\
+                    \Theta(1) & n = 0
+                 \end{cases}
+                \]
+                We can solve this by unrolling it. In particular, for simplicity, assume $T(n) = T(n/2) + cn$. 
+                Applying unrolling $k$ times, we have have the following: 
+                \[ T(n) = T(\frac{n}{2^{k}}) + c \frac{n}{2^{k-1}} + c\frac{n}{2^{k-2}} + \cdots + c\frac{n}{2} + cn . \]
+                The unrolling stops when we have $n / 2^k = 1$, meaning that $2^k = n$ and $k=\log_2 n$. Furthermore,  
+                \[ n + n/2 + \cdots n/ 2^{k-1} = n (1 + 1/2 + 1/4 + \cdots + 1/2^{k-1}) = n \cdot \Theta(1) = \Theta(n).\]
+                It then follows that for $k = \log_2 n$, we have that 
+                \[T(n) = T(\frac{n}{2^{k}}) + c \frac{n}{2^{k-1}} + c\frac{n}{2^{k-2}} + \cdots + c\frac{n}{2} + cn = \Theta(1) + \Theta(n) = \Theta(n).\]
+                Therefore $T(n) = \Theta(n)$. 
+              
+            \end{soln}
+        \end{subprob}
+
+    \end{subprobset}
+
+\end{prob}
