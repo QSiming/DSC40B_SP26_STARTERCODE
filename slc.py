@@ -1,4 +1,5 @@
 import dsc40graph
+from dsf import DisjointSetForest
 
 def slc(graph, d, k):
     '''
