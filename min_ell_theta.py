@@ -1,3 +1,5 @@
+from dsf import DisjointSetForest
+
 def learn_theta(data, colors):
     '''
     Finds theta that is larger than all blue and less than all red.
